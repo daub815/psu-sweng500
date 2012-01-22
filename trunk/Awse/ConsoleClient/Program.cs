@@ -37,6 +37,8 @@
                     }
                 },
                 AWSAccessKeyId = Properties.Settings.Default.AwseAccessKey,
+                
+                // Need an Associate's Tag for Any Web Request
                 AssociateTag = string.Empty
             };
 
