@@ -38,10 +38,11 @@
                 },
                 AWSAccessKeyId = Properties.Settings.Default.AwseAccessKey,
                 
-                // Need an Associate's Tag for Any Web Request
+                //// TODO need an Associate's Tag for Any Web Request
                 AssociateTag = string.Empty
             };
 
+            // This will fail until we fix the task above
             var response = client.ItemSearch(search);
             foreach (var item in response.Items)
             {
