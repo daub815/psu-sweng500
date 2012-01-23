@@ -20,8 +20,11 @@
         /// <param name="args">Arguments from command line</param>
         protected static void Main(string[] args)
         {
+            //// TODO: Clean up after ourselves
             var client = new AWSECommerceServicePortTypeClient(Properties.Settings.Default.EndpointConfigName);
+            client.ChannelFactory.Endpoint.Behaviors.Add(new AmazonSigningEndpointBehavior(Properties.Settings.Default.AwseAccessKey, Properties.Settings.Default.AwseSecretKey));
 
+            // Create an item search for Books with the title of Software Engineering in it
             var search = new ItemSearch
             {
                 Request = new ItemSearchRequest[] 
@@ -36,20 +39,29 @@
                         }
                     }
                 },
+
+                // Required
                 AWSAccessKeyId = Properties.Settings.Default.AwseAccessKey,
-                
-                //// TODO need an Associate's Tag for Any Web Request
-                AssociateTag = string.Empty
+
+                // Required
+                AssociateTag = Properties.Settings.Default.AssociateTag
             };
 
-            // This will fail until we fix the task above
-            var response = client.ItemSearch(search);
-            foreach (var item in response.Items)
+            try
             {
-                foreach (var i in item.Item)
+                var response = client.ItemSearch(search);
+                foreach (var item in response.Items)
                 {
-                    Console.WriteLine(i.ItemAttributes.Title);
+                    foreach (var i in item.Item)
+                    {
+                        Console.WriteLine(i.ItemAttributes.Title);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                //// TODO: Need Better Error Handling
+                Console.WriteLine(e);
             }
 
             // Wait for a key press
