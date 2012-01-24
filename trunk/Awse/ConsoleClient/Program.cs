@@ -43,8 +43,8 @@
                 // Required
                 AWSAccessKeyId = Properties.Settings.Default.AwseAccessKey,
 
-                // Required
-                AssociateTag = Properties.Settings.Default.AssociateTag
+                // Required to be valid or string.Empty
+                AssociateTag = string.Empty
             };
 
             try

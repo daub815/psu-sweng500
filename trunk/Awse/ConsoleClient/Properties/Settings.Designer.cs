@@ -49,14 +49,5 @@ namespace Sweng500.Awse.ConsoleClient.Properties {
                 return ((string)(this["EndpointConfigName"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("persbooklibr-20")]
-        public string AssociateTag {
-            get {
-                return ((string)(this["AssociateTag"]));
-            }
-        }
     }
 }
