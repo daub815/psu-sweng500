@@ -38,7 +38,7 @@
             var locator = new CommonServiceLocator.NinjectAdapter.NinjectServiceLocator(kernel);
 
             // Set the delegate that retrieves the service locator
-            ServiceLocator.SetLocatorProvider(() => locator);
+            Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => locator);
         }
 
         /// <summary>
@@ -49,6 +49,17 @@
             get
             {
                 return StaticInstance;
+            }
+        }
+
+        /// <summary>
+        /// Gets the service locator
+        /// </summary>
+        public IServiceLocator ServiceLocator
+        {
+            get
+            {
+                return Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
             }
         }
     }

@@ -17,13 +17,15 @@
         /// Updates the provided book
         /// </summary>
         /// <param name="book">The updated book</param>
-        void Update(Book book);
+        /// <returns>The updated book with an of the generated items from the service</returns>
+        Book Update(Book book);
 
         /// <summary>
         /// Adds the provided book
         /// </summary>
         /// <param name="book">The book to add</param>
-        void Add(Book book);
+        /// <returns>The added book with any of the generated items from the service</returns>
+        Book Add(Book book);
 
         /// <summary>
         /// Deletes the provided book
