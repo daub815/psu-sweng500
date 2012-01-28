@@ -35,10 +35,10 @@
   <ItemGroup>
     <Reference Include="AWSSDK, Version=1.4.0.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>External\AWS\AWSSDK.dll</HintPath>
+      <HintPath>$(SolutionDir)External\AWS\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>External\log4net\log4net.dll</HintPath>
+      <HintPath>$(SolutionDir)External\log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
