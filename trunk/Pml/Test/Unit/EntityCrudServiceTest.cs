@@ -24,10 +24,11 @@
         }
 
         /// <summary>
-        /// Cleans the database after each test
+        /// Cleans the database
         /// </summary>
-        [TestCleanup]
-        public void CleanDatabase()
+        /// <param name="testContext">Unused by this method</param>
+        [ClassInitialize]
+        public static void CleanDatabase(TestContext testContext = null)
         {
             MasterEntities context = null;
 
@@ -53,6 +54,15 @@
                     context.Dispose();
                 }
             }
+        }
+
+        /// <summary>
+        /// Cleans the database after each test
+        /// </summary>
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            CleanDatabase();
         }
 
         /// <summary>
@@ -113,12 +123,23 @@
         [TestMethod]
         public void GetBooksTest()
         {
-            EntityCrudService target = new EntityCrudService(); // TODO: Initialize to an appropriate value
-            IEnumerable<Book> expected = null; // TODO: Initialize to an appropriate value
-            IEnumerable<Book> actual;
-            actual = target.GetBooks();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            var service = new EntityCrudService();
+
+            // Add the list of books to get
+            var expected = new List<Book>();
+            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            {
+                var bookAdded = service.Add(book);
+                expected.Add(bookAdded);
+            }
+
+            // They should match
+            var actual = service.GetBooks();
+            Assert.IsTrue(actual.Intersect(expected).Count() == expected.Count);
+            
+            // They should not match
+            expected.Add(new Book());
+            Assert.IsFalse(actual.Intersect(expected).Count() == expected.Count);
         }
 
         /// <summary>

@@ -22,7 +22,35 @@
         /// <returns>The list of books</returns>
         public IEnumerable<Book> GetBooks()
         {
-            throw new NotImplementedException();
+            IList<Book> rtn = new List<Book>();
+            MasterEntities context = null;
+
+            try
+            {
+                // The connection string is expected to be in the App.config
+                context = new MasterEntities();
+
+                // Detach all the books, so we can return them
+                foreach (var book in context.Books)
+                {
+                    context.Detach(book);
+                    rtn.Add(book);
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error("Unable to get the books", e);
+                throw;
+            }
+            finally
+            {
+                if (null != context)
+                {
+                    context.Dispose();
+                }
+            }
+
+            return rtn;
         }
 
         /// <summary>

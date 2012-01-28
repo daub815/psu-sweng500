@@ -26,22 +26,5 @@
                 Author = "John Smith"
             };
         }
-
-        /// <summary>
-        /// Gets a list of books that have an id starting at zero until the number of books minus one
-        /// </summary>
-        /// <returns>The list of created books with identifiers</returns>
-        public static IEnumerable<Book> GetCreatedBooks()
-        {
-            var books = CreateNewBooks();
-
-            int startingNum = 0;
-            foreach (var book in books)
-            {
-                book.Id = startingNum++;
-            }
-
-            return books;
-        }
     }
 }
