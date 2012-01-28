@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Awse", "Awse\Sweng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Awse.ConsoleClient", "Awse\ConsoleClient\Sweng500.Awse.ConsoleClient.csproj", "{DF354442-EEE2-4EF1-A17A-194E74905F14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Pml.DataAccessLayer", "Pml\DataAccessLayer\Sweng500.Pml.DataAccessLayer.csproj", "{152C7244-CE8C-4F1E-B248-795C738FEB90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Awse", "Awse", "{A2E16AED-38B0-472D-AA7D-5A06857EAED1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pml", "Pml", "{52B0BB7A-AEC8-49F8-8538-E1592135F114}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,8 +41,23 @@ Global
 		{DF354442-EEE2-4EF1-A17A-194E74905F14}.Release|Mixed Platforms.Build.0 = Release|x86
 		{DF354442-EEE2-4EF1-A17A-194E74905F14}.Release|x86.ActiveCfg = Release|x86
 		{DF354442-EEE2-4EF1-A17A-194E74905F14}.Release|x86.Build.0 = Release|x86
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{152C7244-CE8C-4F1E-B248-795C738FEB90}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF354442-EEE2-4EF1-A17A-194E74905F14} = {A2E16AED-38B0-472D-AA7D-5A06857EAED1}
+		{0DBC29C6-4B85-4787-8CFD-067458708C53} = {A2E16AED-38B0-472D-AA7D-5A06857EAED1}
+		{152C7244-CE8C-4F1E-B248-795C738FEB90} = {52B0BB7A-AEC8-49F8-8538-E1592135F114}
 	EndGlobalSection
 EndGlobal
