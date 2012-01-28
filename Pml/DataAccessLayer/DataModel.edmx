@@ -14,7 +14,7 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" />
-          <Property Name="Authoer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Author" Type="nvarchar" MaxLength="100" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -29,7 +29,7 @@
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" />
           <Property Type="String" Name="Title" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Authoer" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Author" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -40,7 +40,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="MasterModel.Book">
               <MappingFragment StoreEntitySet="Books">
-                <ScalarProperty Name="Authoer" ColumnName="Authoer" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -62,11 +62,12 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="DataModel" >
+      <Diagram Name="DataModel" ZoomLevel="75" >
         <EntityTypeShape EntityType="MasterModel.Book" Width="1.5" PointX="0.75" PointY="0.75" Height="1.59568359375" />
       </Diagram>
     </Diagrams>
