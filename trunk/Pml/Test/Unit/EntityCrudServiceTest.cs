@@ -173,10 +173,46 @@
         [TestMethod]
         public void UpdateTest()
         {
-            EntityCrudService target = new EntityCrudService(); // TODO: Initialize to an appropriate value
-            Book book = null; // TODO: Initialize to an appropriate value
-            target.Update(book);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            var service = new EntityCrudService();
+
+            // Add the list of books to get
+            var expectedList = new List<Book>();
+            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            {
+                var bookAdded = service.Add(book);
+                Assert.IsNotNull(bookAdded);
+
+                expectedList.Add(bookAdded);
+            }
+
+            // Update each of the books
+            var actualList = new List<Book>();
+            foreach (var book in expectedList)
+            {
+                // Update the author
+                book.Author = Guid.NewGuid().ToString();
+                var updatedAuthor = service.Update(book);
+                Assert.IsNotNull(updatedAuthor);
+                Assert.IsTrue(book.Equals(updatedAuthor));
+
+                // Update Title
+                updatedAuthor.Title = Guid.NewGuid().ToString();
+                var updatedTitle = service.Update(updatedAuthor);
+                Assert.IsNotNull(updatedAuthor);
+                Assert.IsTrue(book.Equals(updatedAuthor));
+
+                actualList.Add(updatedAuthor);
+            }
+
+            // Verify the changes are stored
+            var updatedList = service.GetBooks();
+            var zippedList = updatedList.Zip(actualList, (u, a) => new { FromService = u, TestUpdate = a });
+            foreach (var entry in zippedList)
+            {
+                Assert.IsTrue(entry.FromService.Equals(entry.TestUpdate));
+                Assert.IsTrue(entry.FromService.Author == entry.TestUpdate.Author);
+                Assert.IsTrue(entry.FromService.Title == entry.TestUpdate.Title);
+            }
         }
     }
 }
