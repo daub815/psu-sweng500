@@ -111,10 +111,33 @@
         [TestMethod]
         public void DeleteTest()
         {
-            EntityCrudService target = new EntityCrudService(); // TODO: Initialize to an appropriate value
-            Book book = null; // TODO: Initialize to an appropriate value
-            target.Delete(book);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            var service = new EntityCrudService();
+
+            // Add the list of books to get
+            var expected = new List<Book>();
+            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            {
+                var bookAdded = service.Add(book);
+                Assert.IsNotNull(bookAdded);
+
+                expected.Add(bookAdded);
+            }
+
+            // Delete the books
+            for (int i = expected.Count - 1; i >= 0; --i)
+            {
+                // Get the book
+                var bookToDelete = expected[i];
+
+                // Remove the book
+                expected.RemoveAt(i);
+                service.Delete(bookToDelete);
+
+                // Check if the book is there
+                var booksAfterDelete = service.GetBooks();
+                Assert.IsTrue(booksAfterDelete.Count() == expected.Count);
+                Assert.IsFalse(booksAfterDelete.Contains(bookToDelete));
+            }
         }
 
         /// <summary>
@@ -130,6 +153,8 @@
             foreach (var book in Mock.BookObjectMother.CreateNewBooks())
             {
                 var bookAdded = service.Add(book);
+                Assert.IsNotNull(bookAdded);
+
                 expected.Add(bookAdded);
             }
 
