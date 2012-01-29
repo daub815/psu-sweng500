@@ -119,7 +119,43 @@
         /// <param name="book">The book to delete</param>
         public void Delete(Book book)
         {
-            throw new NotImplementedException();
+            if (null == book)
+            {
+                log.Warn("The provided book was null.");
+                throw new ArgumentNullException("Book cannot be null");
+            }
+
+            MasterEntities context = null;
+
+            try
+            {
+                // The connection string is expected to be in the App.config
+                context = new MasterEntities();
+
+                // Attach the book to the object grap
+                if (System.Data.EntityState.Detached == book.EntityState)
+                {
+                    context.Books.Attach(book);
+                }
+
+                // Delete the book
+                context.Books.DeleteObject(book);
+
+                // Save the changes
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                log.Error("Unable to delete the provided book", e);
+                throw;
+            }
+            finally
+            {
+                if (null != context)
+                {
+                    context.Dispose();
+                }
+            }
         }
 
         #endregion ICrudService
