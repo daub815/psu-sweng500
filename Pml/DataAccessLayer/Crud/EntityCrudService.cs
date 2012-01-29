@@ -60,7 +60,46 @@
         /// <returns>The updated book with an of the generated items from the service</returns>
         public Book Update(Book book)
         {
-            throw new NotImplementedException();
+            if (null == book)
+            {
+                log.Warn("The provided book was null.");
+                throw new ArgumentNullException("Book cannot be null");
+            }
+
+            MasterEntities context = null;
+
+            try
+            {
+                // The connection string is expected to be in the App.config
+                context = new MasterEntities();
+
+                // Attach the book to the object grap
+                if (System.Data.EntityState.Detached == book.EntityState)
+                {
+                    context.Books.Attach(book);
+                    context.ObjectStateManager.ChangeObjectState(book, System.Data.EntityState.Modified);
+                }
+
+                // Save the changes
+                context.SaveChanges();
+
+                // Detach before returning
+                context.Detach(book);
+            }
+            catch (Exception e)
+            {
+                log.Error("Unable to update the provided book", e);
+                throw;
+            }
+            finally
+            {
+                if (null != context)
+                {
+                    context.Dispose();
+                }
+            }
+
+            return book;
         }
 
         /// <summary>
