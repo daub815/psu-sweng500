@@ -48,6 +48,21 @@ namespace Sweng500.Pml.Client
             var service = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
             // Get a list of books
             var books = service.GetBooks();
+            foreach (var aBook in books)
+            {
+                ListViewItem item = new ListViewItem(aBook.Id.ToString());
+                item.SubItems.AddRange(new string[] { aBook.Author, aBook.Title, aBook.DateAdded.ToShortDateString() });
+                listInv.Items.Add(item);
+            }
+           
+            int size = books.Count();
         }
+
+        private void listInv_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+ 
     }
 }
