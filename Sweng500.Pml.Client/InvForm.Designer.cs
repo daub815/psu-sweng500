@@ -36,6 +36,11 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchBooksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchDvdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listInv = new System.Windows.Forms.ListView();
+            this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Author = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Date = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +87,7 @@
             // displayInvToolStripMenuItem
             // 
             this.displayInvToolStripMenuItem.Name = "displayInvToolStripMenuItem";
-            this.displayInvToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.displayInvToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.displayInvToolStripMenuItem.Text = "Display";
             this.displayInvToolStripMenuItem.Click += new System.EventHandler(this.displayInvToolStripMenuItem_Click);
             // 
@@ -107,11 +112,30 @@
             this.searchDvdToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.searchDvdToolStripMenuItem.Text = "Dvd";
             // 
+            // listInv
+            // 
+            this.listInv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Id,
+            this.Author,
+            this.Title,
+            this.Date});
+            this.listInv.Location = new System.Drawing.Point(12, 51);
+            this.listInv.Name = "listInv";
+            this.listInv.Size = new System.Drawing.Size(431, 165);
+            this.listInv.TabIndex = 3;
+            this.listInv.UseCompatibleStateImageBehavior = false;
+            this.listInv.SelectedIndexChanged += new System.EventHandler(this.listInv_SelectedIndexChanged);
+            // 
+            // Author
+            // 
+            this.Author.Width = 100;
+            // 
             // InvForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 325);
+            this.Controls.Add(this.listInv);
             this.Controls.Add(this.dispInv);
             this.Controls.Add(this.closeInv);
             this.Controls.Add(this.menuStrip1);
@@ -136,6 +160,11 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchBooksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchDvdToolStripMenuItem;
+        private System.Windows.Forms.ListView listInv;
+        private System.Windows.Forms.ColumnHeader Id;
+        private System.Windows.Forms.ColumnHeader Author;
+        private System.Windows.Forms.ColumnHeader Title;
+        private System.Windows.Forms.ColumnHeader Date;
     }
 }
 
