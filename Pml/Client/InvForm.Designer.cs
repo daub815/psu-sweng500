@@ -119,16 +119,32 @@
             this.Author,
             this.Title,
             this.Date});
+            this.listInv.FullRowSelect = true;
+            this.listInv.GridLines = true;
             this.listInv.Location = new System.Drawing.Point(12, 51);
             this.listInv.Name = "listInv";
             this.listInv.Size = new System.Drawing.Size(431, 165);
             this.listInv.TabIndex = 3;
             this.listInv.UseCompatibleStateImageBehavior = false;
+            this.listInv.View = System.Windows.Forms.View.Details;
             this.listInv.SelectedIndexChanged += new System.EventHandler(this.listInv_SelectedIndexChanged);
+            // 
+            // Id
+            // 
+            this.Id.Text = "Id";
             // 
             // Author
             // 
+            this.Author.Text = "Author";
             this.Author.Width = 100;
+            // 
+            // Title
+            // 
+            this.Title.Text = "Title";
+            // 
+            // Date
+            // 
+            this.Date.Text = "Date";
             // 
             // InvForm
             // 
