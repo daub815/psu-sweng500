@@ -72,7 +72,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="..\Pml\DataAccessLayer\App.Config">
+    <None Include="..\DataAccessLayer\App.Config">
       <Link>App.Config</Link>
     </None>
     <None Include="Properties\Settings.settings">
@@ -86,7 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pml\DataAccessLayer\Sweng500.Pml.DataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\Sweng500.Pml.DataAccessLayer.csproj">
       <Project>{152C7244-CE8C-4F1E-B248-795C738FEB90}</Project>
       <Name>Sweng500.Pml.DataAccessLayer</Name>
     </ProjectReference>
