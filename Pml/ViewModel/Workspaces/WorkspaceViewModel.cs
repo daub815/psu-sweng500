@@ -38,7 +38,7 @@
                     this.mName = value;
 
                     // Raise the event and let others know of the new and old values
-                    this.RaisePropertyChanged(NamePropertyName, oldValue, this.mName, true);
+                    this.RaisePropertyChanged(NamePropertyName);
                 }
             }
         }

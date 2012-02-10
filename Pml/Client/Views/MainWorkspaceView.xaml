@@ -26,7 +26,6 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        
         <ListBox Grid.Column="1" 
                  ItemsSource="{Binding TheCollection}"
                  Margin="5"/>

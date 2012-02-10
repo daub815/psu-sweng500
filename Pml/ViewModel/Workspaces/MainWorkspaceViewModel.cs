@@ -56,7 +56,7 @@
             {
                 var oldValue = this.mTempEditor;
                 this.mTempEditor = value;
-                this.RaisePropertyChanged(TempEditorPropertyName, oldValue, value, true);
+                this.RaisePropertyChanged(TempEditorPropertyName);
             }
         }
     }
