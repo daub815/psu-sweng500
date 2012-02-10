@@ -11,9 +11,28 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Name}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         
+        <DataGrid ItemsSource="{Binding TheCollection}" 
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Value"
+                                    Binding="{Binding Path=.}" />
+                <DataGridTextColumn Header="Length"
+                                    Binding="{Binding Path=Length}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        
+        <ListBox Grid.Column="1" 
+                 ItemsSource="{Binding TheCollection}"
+                 Margin="5"/>
+
         <ContentControl Grid.Row="1"
+                        Grid.ColumnSpan="2"
                         Content="{Binding TempEditor}" />
     </Grid>
 </UserControl>

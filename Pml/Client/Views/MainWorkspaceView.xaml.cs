@@ -10,8 +10,10 @@
         /// <summary>
         /// Initializes a new instance of the MainWorkspaceView class
         /// </summary>
+        /// <remarks>Never make this protected or remove it</remarks>
         public MainWorkspaceView()
         {
+            // Never call anything before this or remove it
             this.InitializeComponent();
         }
     }
