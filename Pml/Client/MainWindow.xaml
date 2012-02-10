@@ -1,8 +1,21 @@
-﻿<Window x:Class="Client.MainWindow"
+﻿<Window x:Class="Sweng500.Pml.Client.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        xmlns:wrksp="clr-namespace:Sweng500.Pml.ViewModel.Workspaces;assembly=Sweng500.Pml.ViewModel"
+        xmlns:view="clr-namespace:Sweng500.Pml.Client.Views"
+        Title="{Binding Name, Mode=OneWay}" 
+        Height="350" 
+        Width="525"
+        x:Name="mWindow">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type wrksp:MainWorkspaceViewModel}">
+            <view:MainWorkspaceView />
+        </DataTemplate>
         
-    </Grid>
+        <DataTemplate DataType="{x:Type wrksp:EditWorkspaceViewModel}">
+            <view:EditWorkspaceView />
+        </DataTemplate>
+    </Window.Resources>
+    
+    <ContentControl Content="{Binding ElementName=mWindow, Path=DataContext, Mode=OneWay}" />
 </Window>
