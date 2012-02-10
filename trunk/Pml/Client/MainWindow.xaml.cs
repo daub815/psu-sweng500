@@ -11,8 +11,10 @@
         /// <summary>
         /// Initializes a new instance of the MainWindow class
         /// </summary>
+        /// <remarks>Never make this protected or remove it</remarks>
         public MainWindow()
         {
+            // Never call anything before this or remove it
             this.InitializeComponent();
         }
     }

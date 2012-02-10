@@ -1,5 +1,8 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
+    using System;
+    using System.Collections.ObjectModel;
+
     /// <summary>
     /// Contains the main workspace that controls all the children workspaces
     /// </summary>
@@ -21,6 +24,22 @@
         public MainWorkspaceViewModel()
         {
             this.Name = "Personal Media Library";
+
+            // Create the collection
+            this.TheCollection = new ObservableCollection<string>();
+
+            this.TheCollection.Add(Guid.NewGuid().ToString());
+            this.TheCollection.Add(Guid.NewGuid().ToString());
+        }
+
+        /// <summary>
+        /// Gets or sets the collection
+        /// </summary>
+        /// <remarks>No need to raise this property changed event because we don't do a swap of values.  We modify this one.</remarks>
+        public ObservableCollection<string> TheCollection
+        {
+            get;
+            set;
         }
 
         /// <summary>
