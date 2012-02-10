@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sweng500.Awse.ConsoleClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AwseAccessKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AKIAJVMAE3QCDGSJGUVQ</Value>
+    </Setting>
+    <Setting Name="AwseSecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">KxQQJLCU5SSTU4VnXOuRRp6srGqZUylOmMXpVB/e</Value>
+    </Setting>
+    <Setting Name="EndpointConfigName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AWSECommerceServicePort</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
