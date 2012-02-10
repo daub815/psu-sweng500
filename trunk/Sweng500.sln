@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Pml.Database", "Pm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Pml.Client", "Pml\Client\Sweng500.Pml.Client.csproj", "{357D7394-D8B6-40B5-BF61-B6CDBE844DAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Pml.ViewModel", "Pml\ViewModel\Sweng500.Pml.ViewModel.csproj", "{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,16 @@ Global
 		{357D7394-D8B6-40B5-BF61-B6CDBE844DAF}.Release|Mixed Platforms.Build.0 = Release|x86
 		{357D7394-D8B6-40B5-BF61-B6CDBE844DAF}.Release|x86.ActiveCfg = Release|x86
 		{357D7394-D8B6-40B5-BF61-B6CDBE844DAF}.Release|x86.Build.0 = Release|x86
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +110,6 @@ Global
 		{1E8C4EB7-9FB3-4405-B309-D99C4C41CE0F} = {52B0BB7A-AEC8-49F8-8538-E1592135F114}
 		{89A980AC-04A7-403A-93FF-C490577A7423} = {52B0BB7A-AEC8-49F8-8538-E1592135F114}
 		{357D7394-D8B6-40B5-BF61-B6CDBE844DAF} = {52B0BB7A-AEC8-49F8-8538-E1592135F114}
+		{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2} = {52B0BB7A-AEC8-49F8-8538-E1592135F114}
 	EndGlobalSection
 EndGlobal
