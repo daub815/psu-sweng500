@@ -66,6 +66,8 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="TMedia.cs" />
+    <Compile Include="TVideo.cs" />
     <Compile Include="Workspaces\EditWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\MainWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\WorkspaceViewModel.cs" />
