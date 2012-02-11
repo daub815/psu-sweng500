@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" 
-             d:DesignWidth="300">
+             d:DesignHeight="400" 
+             d:DesignWidth="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -19,19 +19,21 @@
         <DataGrid ItemsSource="{Binding TheCollection}" 
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Value"
-                                    Binding="{Binding Path=.}" />
-                <DataGridTextColumn Header="Length"
-                                    Binding="{Binding Path=Length}" />
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding Path=Title}" />
+                <DataGridTextColumn Header="Publisher"
+                                    Binding="{Binding Path=Publisher}" />
+                <DataGridTextColumn Header="Description"
+                                    Binding="{Binding Path=MediaDescription}" />
             </DataGrid.Columns>
         </DataGrid>
         
         <ListBox Grid.Column="1" 
                  ItemsSource="{Binding TheCollection}"
-                 Margin="5"/>
+                 Margin="15"/>
 
         <ContentControl Grid.Row="1"
                         Grid.ColumnSpan="2"
-                        Content="{Binding TempEditor}" />
+                        Content="{Binding TempEditor}" Margin="81,37,-81,-37" />
     </Grid>
 </UserControl>
