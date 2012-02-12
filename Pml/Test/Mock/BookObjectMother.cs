@@ -16,14 +16,10 @@
         {
             yield return new Book()
             {
-                Title = "A Book Title",
-                Author = "Kevin Daub"
             };
 
             yield return new Book()
             {
-                Title = "A Book About Nothing",
-                Author = "John Smith"
             };
         }
     }
