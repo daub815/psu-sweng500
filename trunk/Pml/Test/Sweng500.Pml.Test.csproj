@@ -63,7 +63,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mock\BookObjectMother.cs" />
+    <Compile Include="Mock\BookObjectMother.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\EntityCrudServiceTest.cs" />
   </ItemGroup>

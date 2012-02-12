@@ -48,9 +48,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
-		<HintPath>$(SolutionDir)External\SqlServerCompact\System.Data.SqlServerCe.dll</HintPath>
-	</Reference>
+      <HintPath>$(SolutionDir)External\SqlServerCompact\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,6 +91,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CreateMaster.sql" />
     <Content Include="Master.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

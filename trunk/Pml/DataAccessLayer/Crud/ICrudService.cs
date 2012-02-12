@@ -8,29 +8,29 @@
     public interface ICrudService
     {
         /// <summary>
-        /// Gets the list of books in the inventory
+        /// Gets the list of media items in the inventory
         /// </summary>
-        /// <returns>The list of books</returns>
-        IEnumerable<Book> GetBooks();
+        /// <returns>The list of media items</returns>
+        IEnumerable<Media> GetMediaItems();
 
         /// <summary>
         /// Updates the provided book
         /// </summary>
-        /// <param name="book">The updated book</param>
-        /// <returns>The updated book with an of the generated items from the service</returns>
-        Book Update(Book book);
+        /// <param name="media">The updated media</param>
+        /// <returns>The updated media with an of the generated items from the service</returns>
+        Media Update(Media media);
 
         /// <summary>
-        /// Adds the provided book
+        /// Adds the provided media
         /// </summary>
-        /// <param name="book">The book to add</param>
-        /// <returns>The added book with any of the generated items from the service</returns>
-        Book Add(Book book);
+        /// <param name="media">The book to add</param>
+        /// <returns>The added media with any of the generated items from the service</returns>
+        Media Add(Media media);
 
         /// <summary>
-        /// Deletes the provided book
+        /// Deletes the provided media
         /// </summary>
-        /// <param name="book">The book to delete</param>
-        void Delete(Book book);
+        /// <param name="media">The media to delete</param>
+        void Delete(Media media);
     }
 }
