@@ -17,6 +17,7 @@
         </Grid.ColumnDefinitions>
         
         <DataGrid ItemsSource="{Binding TheCollection}" 
+                  SelectionMode="Single" SelectionUnit="FullRow"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title"
@@ -25,6 +26,8 @@
                                     Binding="{Binding Path=Publisher}" />
                 <DataGridTextColumn Header="Description"
                                     Binding="{Binding Path=MediaDescription}" />
+                <DataGridTextColumn Header="Dir"
+                                    Binding="{Binding Path=DirectorName}" />
             </DataGrid.Columns>
         </DataGrid>
         
@@ -34,6 +37,6 @@
 
         <ContentControl Grid.Row="1"
                         Grid.ColumnSpan="2"
-                        Content="{Binding TempEditor}" Margin="81,37,-81,-37" />
+                        Content="{Binding TempEditor}" Margin="0,29,0,-29" />
     </Grid>
 </UserControl>
