@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CreateMaster.sql" />
+    <Content Include="DeleteMaster.sql" />
     <Content Include="Master.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
