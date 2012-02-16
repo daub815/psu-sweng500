@@ -17,9 +17,10 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
             <MenuItem Header="_Inventory">
-                <MenuItem Header="_Add" />
-                <MenuItem Header="_Edit" />
-                <MenuItem Header="_Delete" />
+                <MenuItem Header="_Add">
+                    <MenuItem Header="_Book" />
+                    <MenuItem Header="_Video" />
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="About" />
