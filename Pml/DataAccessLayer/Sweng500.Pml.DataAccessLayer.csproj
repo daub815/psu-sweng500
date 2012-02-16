@@ -75,6 +75,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Master.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Master.edmx.sqlce" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
