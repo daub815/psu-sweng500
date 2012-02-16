@@ -5,8 +5,5 @@
     /// </summary>
     public partial class Book
     {
-        public Book()
-        {
-        }
     }
 }

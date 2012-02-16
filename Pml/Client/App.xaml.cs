@@ -1,8 +1,8 @@
 ﻿namespace Sweng500.Pml.Client
 {
     using System.Windows;
-    using Sweng500.Pml.ViewModel.Workspaces;
     using Sweng500.Pml.ViewModel;
+    using Sweng500.Pml.ViewModel.Workspaces;
 
     /// <summary>
     /// Interaction logic for App.xaml

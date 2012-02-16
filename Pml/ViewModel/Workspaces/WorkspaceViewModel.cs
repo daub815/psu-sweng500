@@ -92,7 +92,7 @@
                 if (value != this.IsSelected)
                 {
                     this.mIsSelected = value;
-                    base.RaisePropertyChanged(IsSelectedPropertyName);
+                    this.RaisePropertyChanged(IsSelectedPropertyName);
                 }
             }
         }

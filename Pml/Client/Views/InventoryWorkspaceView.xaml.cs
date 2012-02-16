@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace Sweng500.Pml.Client.Views
+﻿namespace Sweng500.Pml.Client.Views
 {
+    using System.Windows.Controls;
+
     /// <summary>
     /// Interaction logic for InventoryWorkspaceView.xaml
     /// </summary>
     public partial class InventoryWorkspaceView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the InventoryWorkspaceView class
+        /// </summary>
         public InventoryWorkspaceView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
