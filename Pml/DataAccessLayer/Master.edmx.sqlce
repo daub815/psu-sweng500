@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 02/15/2012 21:56:28
--- Generated from EDMX file: C:\Users\Bob\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
+-- Date Created: 02/16/2012 18:17:16
+-- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
 
@@ -12,15 +12,15 @@
 -- NOTE: if the constraint does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
 
-    ALTER TABLE [Person_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
-GO
     ALTER TABLE [Media_Book] DROP CONSTRAINT [FK_Book_inherits_Media];
+GO
+    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
+GO
+    ALTER TABLE [Person_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
 GO
     ALTER TABLE [Person_ProducerDirector] DROP CONSTRAINT [FK_ProducerDirector_inherits_Person];
 GO
     ALTER TABLE [Person_User] DROP CONSTRAINT [FK_User_inherits_Person];
-GO
-    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
 GO
 
 -- --------------------------------------------------
@@ -34,11 +34,11 @@ GO
 GO
     DROP TABLE [Media];
 GO
+    DROP TABLE [Person];
+GO
     DROP TABLE [Media_Book];
 GO
     DROP TABLE [Media_Video];
-GO
-    DROP TABLE [Person];
 GO
     DROP TABLE [Person_Author];
 GO
@@ -69,18 +69,17 @@ GO
 -- Creating table 'Media'
 CREATE TABLE [Media] (
     [MediaID] int IDENTITY(1,1) NOT NULL,
-    [ISBN] nvarchar(13)  NOT NULL,
     [Title] nvarchar(100)  NOT NULL,
-    [Publsiher] nvarchar(40)  NULL,
-    [Pubdatetime] datetime  NULL,
+    [Publisher] nvarchar(40)  NULL,
+    [Published] datetime  NULL,
     [GenreID] int  NULL,
     [FormatID] int  NULL,
-    [Aquisitiondatetime] datetime  NULL,
+    [Acquired] datetime  NULL,
     [IsBorrowable] bit  NULL,
     [IsBorrowed] bit  NULL,
     [BorrowerID] int  NULL,
     [Price] decimal(19,4)  NULL,
-    [NofStars] decimal(18,0)  NULL,
+    [NumOfStars] decimal(18,0)  NULL,
     [Comment] nvarchar(1000)  NULL,
     [MediaDescription] nvarchar(1000)  NULL
 );
@@ -96,6 +95,24 @@ CREATE TABLE [Person] (
     [StateProvence] nvarchar(40)  NULL,
     [PostalCode] nvarchar(40)  NULL,
     [Country] nvarchar(40)  NULL
+);
+GO
+
+-- Creating table 'Media_Book'
+CREATE TABLE [Media_Book] (
+    [BookID] int IDENTITY(1,1) NOT NULL,
+    [LibraryLocation] nvarchar(100)  NULL,
+    [ISBN] nvarchar(13)  NULL,
+    [MediaID] int  NOT NULL
+);
+GO
+
+-- Creating table 'Media_Video'
+CREATE TABLE [Media_Video] (
+    [VideoID] int IDENTITY(1,1) NOT NULL,
+    [Released] datetime  NULL,
+    [BoardRatingID] int  NULL,
+    [MediaID] int  NOT NULL
 );
 GO
 
@@ -123,23 +140,6 @@ CREATE TABLE [Person_User] (
     [PasswordHash] binary(16)  NOT NULL,
     [LastLogindatetime] datetime  NULL,
     [PersonID] int  NOT NULL
-);
-GO
-
--- Creating table 'Media_Book'
-CREATE TABLE [Media_Book] (
-    [BookID] int IDENTITY(1,1) NOT NULL,
-    [LibraryLocation] nvarchar(100)  NULL,
-    [MediaID] int  NOT NULL
-);
-GO
-
--- Creating table 'Media_Video'
-CREATE TABLE [Media_Video] (
-    [VideoID] int IDENTITY(1,1) NOT NULL,
-    [datetimeRelased] datetime  NULL,
-    [BoardRatingID] int  NULL,
-    [MediaID] int  NOT NULL
 );
 GO
 
@@ -171,6 +171,18 @@ ADD CONSTRAINT [PK_Person]
     PRIMARY KEY ([PersonID] );
 GO
 
+-- Creating primary key on [MediaID] in table 'Media_Book'
+ALTER TABLE [Media_Book]
+ADD CONSTRAINT [PK_Media_Book]
+    PRIMARY KEY ([MediaID] );
+GO
+
+-- Creating primary key on [MediaID] in table 'Media_Video'
+ALTER TABLE [Media_Video]
+ADD CONSTRAINT [PK_Media_Video]
+    PRIMARY KEY ([MediaID] );
+GO
+
 -- Creating primary key on [PersonID] in table 'Person_Author'
 ALTER TABLE [Person_Author]
 ADD CONSTRAINT [PK_Person_Author]
@@ -189,21 +201,27 @@ ADD CONSTRAINT [PK_Person_User]
     PRIMARY KEY ([PersonID] );
 GO
 
--- Creating primary key on [MediaID] in table 'Media_Book'
-ALTER TABLE [Media_Book]
-ADD CONSTRAINT [PK_Media_Book]
-    PRIMARY KEY ([MediaID] );
-GO
-
--- Creating primary key on [MediaID] in table 'Media_Video'
-ALTER TABLE [Media_Video]
-ADD CONSTRAINT [PK_Media_Video]
-    PRIMARY KEY ([MediaID] );
-GO
-
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
+
+-- Creating foreign key on [MediaID] in table 'Media_Book'
+ALTER TABLE [Media_Book]
+ADD CONSTRAINT [FK_Book_inherits_Media]
+    FOREIGN KEY ([MediaID])
+    REFERENCES [Media]
+        ([MediaID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [MediaID] in table 'Media_Video'
+ALTER TABLE [Media_Video]
+ADD CONSTRAINT [FK_Video_inherits_Media]
+    FOREIGN KEY ([MediaID])
+    REFERENCES [Media]
+        ([MediaID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating foreign key on [PersonID] in table 'Person_Author'
 ALTER TABLE [Person_Author]
@@ -229,24 +247,6 @@ ADD CONSTRAINT [FK_User_inherits_Person]
     FOREIGN KEY ([PersonID])
     REFERENCES [Person]
         ([PersonID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [MediaID] in table 'Media_Book'
-ALTER TABLE [Media_Book]
-ADD CONSTRAINT [FK_Book_inherits_Media]
-    FOREIGN KEY ([MediaID])
-    REFERENCES [Media]
-        ([MediaID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [MediaID] in table 'Media_Video'
-ALTER TABLE [Media_Video]
-ADD CONSTRAINT [FK_Video_inherits_Media]
-    FOREIGN KEY ([MediaID])
-    REFERENCES [Media]
-        ([MediaID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 

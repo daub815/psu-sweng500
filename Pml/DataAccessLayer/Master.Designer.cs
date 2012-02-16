@@ -16,13 +16,6 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
-#region EDM Relationship Metadata
-
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_Author", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_Author), true)]
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_ProducerDirector", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_ProducerDirector), true)]
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_User), true)]
-
-#endregion
 
 namespace Sweng500.Pml.DataAccessLayer
 {
@@ -135,54 +128,6 @@ namespace Sweng500.Pml.DataAccessLayer
             }
         }
         private ObjectSet<Person> _Person;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Person_Author> Person_Author
-        {
-            get
-            {
-                if ((_Person_Author == null))
-                {
-                    _Person_Author = base.CreateObjectSet<Person_Author>("Person_Author");
-                }
-                return _Person_Author;
-            }
-        }
-        private ObjectSet<Person_Author> _Person_Author;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Person_ProducerDirector> Person_ProducerDirector
-        {
-            get
-            {
-                if ((_Person_ProducerDirector == null))
-                {
-                    _Person_ProducerDirector = base.CreateObjectSet<Person_ProducerDirector>("Person_ProducerDirector");
-                }
-                return _Person_ProducerDirector;
-            }
-        }
-        private ObjectSet<Person_ProducerDirector> _Person_ProducerDirector;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Person_User> Person_User
-        {
-            get
-            {
-                if ((_Person_User == null))
-                {
-                    _Person_User = base.CreateObjectSet<Person_User>("Person_User");
-                }
-                return _Person_User;
-            }
-        }
-        private ObjectSet<Person_User> _Person_User;
 
         #endregion
         #region AddTo Methods
@@ -218,30 +163,6 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             base.AddObject("Person", person);
         }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Person_Author EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPerson_Author(Person_Author person_Author)
-        {
-            base.AddObject("Person_Author", person_Author);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Person_ProducerDirector EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPerson_ProducerDirector(Person_ProducerDirector person_ProducerDirector)
-        {
-            base.AddObject("Person_ProducerDirector", person_ProducerDirector);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Person_User EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPerson_User(Person_User person_User)
-        {
-            base.AddObject("Person_User", person_User);
-        }
 
         #endregion
     }
@@ -250,6 +171,88 @@ namespace Sweng500.Pml.DataAccessLayer
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Author")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Author : Person
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Author object.
+        /// </summary>
+        /// <param name="personID">Initial value of the PersonID property.</param>
+        /// <param name="lastName">Initial value of the LastName property.</param>
+        /// <param name="authorID">Initial value of the AuthorID property.</param>
+        /// <param name="bookId">Initial value of the BookId property.</param>
+        public static Author CreateAuthor(global::System.Int32 personID, global::System.String lastName, global::System.Int32 authorID, global::System.Int32 bookId)
+        {
+            Author author = new Author();
+            author.PersonID = personID;
+            author.LastName = lastName;
+            author.AuthorID = authorID;
+            author.BookId = bookId;
+            return author;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AuthorID
+        {
+            get
+            {
+                return _AuthorID;
+            }
+            set
+            {
+                OnAuthorIDChanging(value);
+                ReportPropertyChanging("AuthorID");
+                _AuthorID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AuthorID");
+                OnAuthorIDChanged();
+            }
+        }
+        private global::System.Int32 _AuthorID;
+        partial void OnAuthorIDChanging(global::System.Int32 value);
+        partial void OnAuthorIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BookId
+        {
+            get
+            {
+                return _BookId;
+            }
+            set
+            {
+                OnBookIdChanging(value);
+                ReportPropertyChanging("BookId");
+                _BookId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BookId");
+                OnBookIdChanged();
+            }
+        }
+        private global::System.Int32 _BookId;
+        partial void OnBookIdChanging(global::System.Int32 value);
+        partial void OnBookIdChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -265,14 +268,12 @@ namespace Sweng500.Pml.DataAccessLayer
         /// Create a new Book object.
         /// </summary>
         /// <param name="mediaID">Initial value of the MediaID property.</param>
-        /// <param name="iSBN">Initial value of the ISBN property.</param>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="bookID">Initial value of the BookID property.</param>
-        public static Book CreateBook(global::System.Int32 mediaID, global::System.String iSBN, global::System.String title, global::System.Int32 bookID)
+        public static Book CreateBook(global::System.Int32 mediaID, global::System.String title, global::System.Int32 bookID)
         {
             Book book = new Book();
             book.MediaID = mediaID;
-            book.ISBN = iSBN;
             book.Title = title;
             book.BookID = bookID;
             return book;
@@ -328,6 +329,30 @@ namespace Sweng500.Pml.DataAccessLayer
         private global::System.String _LibraryLocation;
         partial void OnLibraryLocationChanging(global::System.String value);
         partial void OnLibraryLocationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ISBN
+        {
+            get
+            {
+                return _ISBN;
+            }
+            set
+            {
+                OnISBNChanging(value);
+                ReportPropertyChanging("ISBN");
+                _ISBN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ISBN");
+                OnISBNChanged();
+            }
+        }
+        private global::System.String _ISBN;
+        partial void OnISBNChanging(global::System.String value);
+        partial void OnISBNChanged();
 
         #endregion
     
@@ -529,26 +554,8 @@ namespace Sweng500.Pml.DataAccessLayer
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(Book))]
     [KnownTypeAttribute(typeof(Video))]
-    public partial class Media : EntityObject
+    public abstract partial class Media : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Media object.
-        /// </summary>
-        /// <param name="mediaID">Initial value of the MediaID property.</param>
-        /// <param name="iSBN">Initial value of the ISBN property.</param>
-        /// <param name="title">Initial value of the Title property.</param>
-        public static Media CreateMedia(global::System.Int32 mediaID, global::System.String iSBN, global::System.String title)
-        {
-            Media media = new Media();
-            media.MediaID = mediaID;
-            media.ISBN = iSBN;
-            media.Title = title;
-            return media;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>
@@ -583,30 +590,6 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String ISBN
-        {
-            get
-            {
-                return _ISBN;
-            }
-            set
-            {
-                OnISBNChanging(value);
-                ReportPropertyChanging("ISBN");
-                _ISBN = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("ISBN");
-                OnISBNChanged();
-            }
-        }
-        private global::System.String _ISBN;
-        partial void OnISBNChanging(global::System.String value);
-        partial void OnISBNChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String Title
         {
             get
@@ -631,48 +614,48 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Publsiher
+        public global::System.String Publisher
         {
             get
             {
-                return _Publsiher;
+                return _Publisher;
             }
             set
             {
-                OnPublsiherChanging(value);
-                ReportPropertyChanging("Publsiher");
-                _Publsiher = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Publsiher");
-                OnPublsiherChanged();
+                OnPublisherChanging(value);
+                ReportPropertyChanging("Publisher");
+                _Publisher = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Publisher");
+                OnPublisherChanged();
             }
         }
-        private global::System.String _Publsiher;
-        partial void OnPublsiherChanging(global::System.String value);
-        partial void OnPublsiherChanged();
+        private global::System.String _Publisher;
+        partial void OnPublisherChanging(global::System.String value);
+        partial void OnPublisherChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Pubdatetime
+        public Nullable<global::System.DateTime> Published
         {
             get
             {
-                return _Pubdatetime;
+                return _Published;
             }
             set
             {
-                OnPubdatetimeChanging(value);
-                ReportPropertyChanging("Pubdatetime");
-                _Pubdatetime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Pubdatetime");
-                OnPubdatetimeChanged();
+                OnPublishedChanging(value);
+                ReportPropertyChanging("Published");
+                _Published = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Published");
+                OnPublishedChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Pubdatetime;
-        partial void OnPubdatetimeChanging(Nullable<global::System.DateTime> value);
-        partial void OnPubdatetimeChanged();
+        private Nullable<global::System.DateTime> _Published;
+        partial void OnPublishedChanging(Nullable<global::System.DateTime> value);
+        partial void OnPublishedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -727,24 +710,24 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Aquisitiondatetime
+        public Nullable<global::System.DateTime> Acquired
         {
             get
             {
-                return _Aquisitiondatetime;
+                return _Acquired;
             }
             set
             {
-                OnAquisitiondatetimeChanging(value);
-                ReportPropertyChanging("Aquisitiondatetime");
-                _Aquisitiondatetime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Aquisitiondatetime");
-                OnAquisitiondatetimeChanged();
+                OnAcquiredChanging(value);
+                ReportPropertyChanging("Acquired");
+                _Acquired = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Acquired");
+                OnAcquiredChanged();
             }
         }
-        private Nullable<global::System.DateTime> _Aquisitiondatetime;
-        partial void OnAquisitiondatetimeChanging(Nullable<global::System.DateTime> value);
-        partial void OnAquisitiondatetimeChanged();
+        private Nullable<global::System.DateTime> _Acquired;
+        partial void OnAcquiredChanging(Nullable<global::System.DateTime> value);
+        partial void OnAcquiredChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -847,24 +830,24 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> NofStars
+        public Nullable<global::System.Decimal> NumOfStars
         {
             get
             {
-                return _NofStars;
+                return _NumOfStars;
             }
             set
             {
-                OnNofStarsChanging(value);
-                ReportPropertyChanging("NofStars");
-                _NofStars = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("NofStars");
-                OnNofStarsChanged();
+                OnNumOfStarsChanging(value);
+                ReportPropertyChanging("NumOfStars");
+                _NumOfStars = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumOfStars");
+                OnNumOfStarsChanged();
             }
         }
-        private Nullable<global::System.Decimal> _NofStars;
-        partial void OnNofStarsChanging(Nullable<global::System.Decimal> value);
-        partial void OnNofStarsChanged();
+        private Nullable<global::System.Decimal> _NumOfStars;
+        partial void OnNumOfStarsChanging(Nullable<global::System.Decimal> value);
+        partial void OnNumOfStarsChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -924,24 +907,11 @@ namespace Sweng500.Pml.DataAccessLayer
     [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Person : EntityObject
+    [KnownTypeAttribute(typeof(Author))]
+    [KnownTypeAttribute(typeof(ProducerDirector))]
+    [KnownTypeAttribute(typeof(User))]
+    public abstract partial class Person : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Person object.
-        /// </summary>
-        /// <param name="personID">Initial value of the PersonID property.</param>
-        /// <param name="lastName">Initial value of the LastName property.</param>
-        public static Person CreatePerson(global::System.Int32 personID, global::System.String lastName)
-        {
-            Person person = new Person();
-            person.PersonID = personID;
-            person.LastName = lastName;
-            return person;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>
@@ -1141,298 +1111,35 @@ namespace Sweng500.Pml.DataAccessLayer
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person_Author")]
-        public Person_Author Person_Author
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person_Author> Person_AuthorReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person_ProducerDirector")]
-        public Person_ProducerDirector Person_ProducerDirector
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person_ProducerDirector> Person_ProducerDirectorReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person_User")]
-        public Person_User Person_User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person_User> Person_UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_Author")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="ProducerDirector")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Person_Author : EntityObject
+    public partial class ProducerDirector : Person
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Person_Author object.
+        /// Create a new ProducerDirector object.
         /// </summary>
-        /// <param name="authorID">Initial value of the AuthorID property.</param>
-        /// <param name="bookId">Initial value of the BookId property.</param>
         /// <param name="personID">Initial value of the PersonID property.</param>
-        public static Person_Author CreatePerson_Author(global::System.Int32 authorID, global::System.Int32 bookId, global::System.Int32 personID)
-        {
-            Person_Author person_Author = new Person_Author();
-            person_Author.AuthorID = authorID;
-            person_Author.BookId = bookId;
-            person_Author.PersonID = personID;
-            return person_Author;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AuthorID
-        {
-            get
-            {
-                return _AuthorID;
-            }
-            set
-            {
-                OnAuthorIDChanging(value);
-                ReportPropertyChanging("AuthorID");
-                _AuthorID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AuthorID");
-                OnAuthorIDChanged();
-            }
-        }
-        private global::System.Int32 _AuthorID;
-        partial void OnAuthorIDChanging(global::System.Int32 value);
-        partial void OnAuthorIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 BookId
-        {
-            get
-            {
-                return _BookId;
-            }
-            set
-            {
-                OnBookIdChanging(value);
-                ReportPropertyChanging("BookId");
-                _BookId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("BookId");
-                OnBookIdChanged();
-            }
-        }
-        private global::System.Int32 _BookId;
-        partial void OnBookIdChanging(global::System.Int32 value);
-        partial void OnBookIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 PersonID
-        {
-            get
-            {
-                return _PersonID;
-            }
-            set
-            {
-                if (_PersonID != value)
-                {
-                    OnPersonIDChanging(value);
-                    ReportPropertyChanging("PersonID");
-                    _PersonID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("PersonID");
-                    OnPersonIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _PersonID;
-        partial void OnPersonIDChanging(global::System.Int32 value);
-        partial void OnPersonIDChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person")]
-        public Person Person
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person> PersonReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_ProducerDirector")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Person_ProducerDirector : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Person_ProducerDirector object.
-        /// </summary>
+        /// <param name="lastName">Initial value of the LastName property.</param>
         /// <param name="producerDirectorID">Initial value of the ProducerDirectorID property.</param>
         /// <param name="videoID">Initial value of the VideoID property.</param>
         /// <param name="isProducer">Initial value of the IsProducer property.</param>
-        /// <param name="personID">Initial value of the PersonID property.</param>
-        public static Person_ProducerDirector CreatePerson_ProducerDirector(global::System.Int32 producerDirectorID, global::System.Int32 videoID, global::System.Boolean isProducer, global::System.Int32 personID)
+        public static ProducerDirector CreateProducerDirector(global::System.Int32 personID, global::System.String lastName, global::System.Int32 producerDirectorID, global::System.Int32 videoID, global::System.Boolean isProducer)
         {
-            Person_ProducerDirector person_ProducerDirector = new Person_ProducerDirector();
-            person_ProducerDirector.ProducerDirectorID = producerDirectorID;
-            person_ProducerDirector.VideoID = videoID;
-            person_ProducerDirector.IsProducer = isProducer;
-            person_ProducerDirector.PersonID = personID;
-            return person_ProducerDirector;
+            ProducerDirector producerDirector = new ProducerDirector();
+            producerDirector.PersonID = personID;
+            producerDirector.LastName = lastName;
+            producerDirector.ProducerDirectorID = producerDirectorID;
+            producerDirector.VideoID = videoID;
+            producerDirector.IsProducer = isProducer;
+            return producerDirector;
         }
 
         #endregion
@@ -1509,104 +1216,38 @@ namespace Sweng500.Pml.DataAccessLayer
         private global::System.Boolean _IsProducer;
         partial void OnIsProducerChanging(global::System.Boolean value);
         partial void OnIsProducerChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 PersonID
-        {
-            get
-            {
-                return _PersonID;
-            }
-            set
-            {
-                if (_PersonID != value)
-                {
-                    OnPersonIDChanging(value);
-                    ReportPropertyChanging("PersonID");
-                    _PersonID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("PersonID");
-                    OnPersonIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _PersonID;
-        partial void OnPersonIDChanging(global::System.Int32 value);
-        partial void OnPersonIDChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person")]
-        public Person Person
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person> PersonReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_User")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="User")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Person_User : EntityObject
+    public partial class User : Person
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new Person_User object.
+        /// Create a new User object.
         /// </summary>
+        /// <param name="personID">Initial value of the PersonID property.</param>
+        /// <param name="lastName">Initial value of the LastName property.</param>
         /// <param name="userID">Initial value of the UserID property.</param>
         /// <param name="userCode">Initial value of the UserCode property.</param>
         /// <param name="passwordHash">Initial value of the PasswordHash property.</param>
-        /// <param name="personID">Initial value of the PersonID property.</param>
-        public static Person_User CreatePerson_User(global::System.Int32 userID, global::System.String userCode, global::System.Byte[] passwordHash, global::System.Int32 personID)
+        public static User CreateUser(global::System.Int32 personID, global::System.String lastName, global::System.Int32 userID, global::System.String userCode, global::System.Byte[] passwordHash)
         {
-            Person_User person_User = new Person_User();
-            person_User.UserID = userID;
-            person_User.UserCode = userCode;
-            person_User.PasswordHash = passwordHash;
-            person_User.PersonID = personID;
-            return person_User;
+            User user = new User();
+            user.PersonID = personID;
+            user.LastName = lastName;
+            user.UserID = userID;
+            user.UserCode = userCode;
+            user.PasswordHash = passwordHash;
+            return user;
         }
 
         #endregion
@@ -1707,77 +1348,9 @@ namespace Sweng500.Pml.DataAccessLayer
         private Nullable<global::System.DateTime> _LastLogindatetime;
         partial void OnLastLogindatetimeChanging(Nullable<global::System.DateTime> value);
         partial void OnLastLogindatetimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 PersonID
-        {
-            get
-            {
-                return _PersonID;
-            }
-            set
-            {
-                if (_PersonID != value)
-                {
-                    OnPersonIDChanging(value);
-                    ReportPropertyChanging("PersonID");
-                    _PersonID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("PersonID");
-                    OnPersonIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _PersonID;
-        partial void OnPersonIDChanging(global::System.Int32 value);
-        partial void OnPersonIDChanged();
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person")]
-        public Person Person
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Person> PersonReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -1794,14 +1367,12 @@ namespace Sweng500.Pml.DataAccessLayer
         /// Create a new Video object.
         /// </summary>
         /// <param name="mediaID">Initial value of the MediaID property.</param>
-        /// <param name="iSBN">Initial value of the ISBN property.</param>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="videoID">Initial value of the VideoID property.</param>
-        public static Video CreateVideo(global::System.Int32 mediaID, global::System.String iSBN, global::System.String title, global::System.Int32 videoID)
+        public static Video CreateVideo(global::System.Int32 mediaID, global::System.String title, global::System.Int32 videoID)
         {
             Video video = new Video();
             video.MediaID = mediaID;
-            video.ISBN = iSBN;
             video.Title = title;
             video.VideoID = videoID;
             return video;
@@ -1839,24 +1410,24 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> datetimeRelased
+        public Nullable<global::System.DateTime> Released
         {
             get
             {
-                return _datetimeRelased;
+                return _Released;
             }
             set
             {
-                OndatetimeRelasedChanging(value);
-                ReportPropertyChanging("datetimeRelased");
-                _datetimeRelased = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("datetimeRelased");
-                OndatetimeRelasedChanged();
+                OnReleasedChanging(value);
+                ReportPropertyChanging("Released");
+                _Released = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Released");
+                OnReleasedChanged();
             }
         }
-        private Nullable<global::System.DateTime> _datetimeRelased;
-        partial void OndatetimeRelasedChanging(Nullable<global::System.DateTime> value);
-        partial void OndatetimeRelasedChanged();
+        private Nullable<global::System.DateTime> _Released;
+        partial void OnReleasedChanging(Nullable<global::System.DateTime> value);
+        partial void OnReleasedChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

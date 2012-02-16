@@ -3,7 +3,7 @@
     /// <summary>
     /// This is the overridden Book class
     /// </summary>
-    public partial class Book
+    public partial class Book : Media
     {
     }
 }
