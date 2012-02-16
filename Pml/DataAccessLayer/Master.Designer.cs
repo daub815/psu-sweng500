@@ -18,11 +18,11 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("MasterModel", "FK_Book_inherits_Media", "Media", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Media), "Media_Book", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Media_Book), true)]
-[assembly: EdmRelationshipAttribute("MasterModel", "FK_Video_inherits_Media", "Media", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Media), "Media_Video", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Media_Video), true)]
-[assembly: EdmRelationshipAttribute("MasterModel", "FK_Author_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_Author", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_Author), true)]
-[assembly: EdmRelationshipAttribute("MasterModel", "FK_ProducerDirector_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_ProducerDirector", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_ProducerDirector), true)]
-[assembly: EdmRelationshipAttribute("MasterModel", "FK_User_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_User), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_Book_inherits_Media", "Media", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Media), "Media_Book", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Media_Book), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_Video_inherits_Media", "Media", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Media), "Media_Video", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Media_Video), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_Author", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_Author), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_ProducerDirector", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_ProducerDirector), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Person), "Person_User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sweng500.Pml.DataAccessLayer.Person_User), true)]
 
 #endregion
 
@@ -304,7 +304,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Code")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Code")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Code : EntityObject
@@ -411,7 +411,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="CodeType")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="CodeType")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class CodeType : EntityObject
@@ -492,7 +492,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Media")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Media")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Media : EntityObject
@@ -890,16 +890,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Book_inherits_Media", "Media_Book")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Book_inherits_Media", "Media_Book")]
         public Media_Book Media_Book
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("MasterModel.FK_Book_inherits_Media", "Media_Book").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media_Book").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("MasterModel.FK_Book_inherits_Media", "Media_Book").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media_Book").Value = value;
             }
         }
         /// <summary>
@@ -911,13 +911,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("MasterModel.FK_Book_inherits_Media", "Media_Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Book>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media_Book");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media_Book>("MasterModel.FK_Book_inherits_Media", "Media_Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media_Book>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media_Book", value);
                 }
             }
         }
@@ -928,16 +928,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Video_inherits_Media", "Media_Video")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Video_inherits_Media", "Media_Video")]
         public Media_Video Media_Video
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("MasterModel.FK_Video_inherits_Media", "Media_Video").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media_Video").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("MasterModel.FK_Video_inherits_Media", "Media_Video").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media_Video").Value = value;
             }
         }
         /// <summary>
@@ -949,13 +949,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("MasterModel.FK_Video_inherits_Media", "Media_Video");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media_Video>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media_Video");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media_Video>("MasterModel.FK_Video_inherits_Media", "Media_Video", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media_Video>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media_Video", value);
                 }
             }
         }
@@ -966,7 +966,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Media_Book")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Media_Book")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Media_Book : EntityObject
@@ -1074,16 +1074,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Book_inherits_Media", "Media")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Book_inherits_Media", "Media")]
         public Media Media
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Book_inherits_Media", "Media").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Book_inherits_Media", "Media").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media").Value = value;
             }
         }
         /// <summary>
@@ -1095,13 +1095,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Book_inherits_Media", "Media");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media>("MasterModel.FK_Book_inherits_Media", "Media", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media", "Media", value);
                 }
             }
         }
@@ -1112,7 +1112,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Media_Video")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Media_Video")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Media_Video : EntityObject
@@ -1244,16 +1244,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Video_inherits_Media", "Media")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Video_inherits_Media", "Media")]
         public Media Media
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Video_inherits_Media", "Media").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Video_inherits_Media", "Media").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media").Value = value;
             }
         }
         /// <summary>
@@ -1265,13 +1265,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("MasterModel.FK_Video_inherits_Media", "Media");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media>("MasterModel.FK_Video_inherits_Media", "Media", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Media>("Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media", "Media", value);
                 }
             }
         }
@@ -1282,7 +1282,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Person")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Person : EntityObject
@@ -1510,16 +1510,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Author_inherits_Person", "Person_Author")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person_Author")]
         public Person_Author Person_Author
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("MasterModel.FK_Author_inherits_Person", "Person_Author").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("MasterModel.FK_Author_inherits_Person", "Person_Author").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author").Value = value;
             }
         }
         /// <summary>
@@ -1531,13 +1531,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("MasterModel.FK_Author_inherits_Person", "Person_Author");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_Author>("MasterModel.FK_Author_inherits_Person", "Person_Author", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_Author>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person_Author", value);
                 }
             }
         }
@@ -1548,16 +1548,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_ProducerDirector_inherits_Person", "Person_ProducerDirector")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person_ProducerDirector")]
         public Person_ProducerDirector Person_ProducerDirector
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("MasterModel.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("MasterModel.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector").Value = value;
             }
         }
         /// <summary>
@@ -1569,13 +1569,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("MasterModel.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_ProducerDirector>("MasterModel.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_ProducerDirector>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person_ProducerDirector", value);
                 }
             }
         }
@@ -1586,16 +1586,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_User_inherits_Person", "Person_User")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person_User")]
         public Person_User Person_User
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("MasterModel.FK_User_inherits_Person", "Person_User").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("MasterModel.FK_User_inherits_Person", "Person_User").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User").Value = value;
             }
         }
         /// <summary>
@@ -1607,13 +1607,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("MasterModel.FK_User_inherits_Person", "Person_User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_User>("MasterModel.FK_User_inherits_Person", "Person_User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person_User>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person_User", value);
                 }
             }
         }
@@ -1624,7 +1624,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Person_Author")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_Author")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Person_Author : EntityObject
@@ -1734,16 +1734,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_Author_inherits_Person", "Person")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_Author_inherits_Person", "Person")]
         public Person Person
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_Author_inherits_Person", "Person").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_Author_inherits_Person", "Person").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person").Value = value;
             }
         }
         /// <summary>
@@ -1755,13 +1755,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_Author_inherits_Person", "Person");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("MasterModel.FK_Author_inherits_Person", "Person", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person", "Person", value);
                 }
             }
         }
@@ -1772,7 +1772,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Person_ProducerDirector")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_ProducerDirector")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Person_ProducerDirector : EntityObject
@@ -1908,16 +1908,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_ProducerDirector_inherits_Person", "Person")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_ProducerDirector_inherits_Person", "Person")]
         public Person Person
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_ProducerDirector_inherits_Person", "Person").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_ProducerDirector_inherits_Person", "Person").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person").Value = value;
             }
         }
         /// <summary>
@@ -1929,13 +1929,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_ProducerDirector_inherits_Person", "Person");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("MasterModel.FK_ProducerDirector_inherits_Person", "Person", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_ProducerDirector_inherits_Person", "Person", value);
                 }
             }
         }
@@ -1946,7 +1946,7 @@ namespace Sweng500.Pml.DataAccessLayer
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MasterModel", Name="Person_User")]
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="Person_User")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Person_User : EntityObject
@@ -2106,16 +2106,16 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MasterModel", "FK_User_inherits_Person", "Person")]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "FK_User_inherits_Person", "Person")]
         public Person Person
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_User_inherits_Person", "Person").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_User_inherits_Person", "Person").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person").Value = value;
             }
         }
         /// <summary>
@@ -2127,13 +2127,13 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("MasterModel.FK_User_inherits_Person", "Person");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("MasterModel.FK_User_inherits_Person", "Person", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Person>("Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person", "Person", value);
                 }
             }
         }

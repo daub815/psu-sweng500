@@ -15,6 +15,10 @@
         <DataTemplate DataType="{x:Type wrksp:EditWorkspaceViewModel}">
             <view:EditWorkspaceView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type wrksp:InventoryWorkspaceViewModel}">
+            <view:InventoryWorkspaceView />
+        </DataTemplate>
     </Window.Resources>
     
     <ContentControl Content="{Binding ElementName=mWindow, Path=DataContext, Mode=OneWay}" />

@@ -7,15 +7,55 @@
     /// </summary>
     public class WorkspaceViewModel : ViewModelBase
     {
+        #region Statics
+
         /// <summary>
         /// The property name of the Name property
         /// </summary>
         public const string NamePropertyName = "Name";
 
         /// <summary>
+        /// The property name of the IsSelected property
+        /// </summary>
+        public const string IsSelectedPropertyName = "IsSelected";
+
+        #endregion Statics
+
+        #region Fields
+
+        /// <summary>
         /// The backing field of the Name property
         /// </summary>
         private string mName = string.Empty;
+
+        /// <summary>
+        /// The backing field of the IsSelected property
+        /// </summary>
+        private bool mIsSelected = false;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the WorkspaceViewModel class
+        /// </summary>
+        public WorkspaceViewModel()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the WorkspaceViewModel class
+        /// </summary>
+        /// <param name="workspaceName">The workspace name</param>
+        public WorkspaceViewModel(string workspaceName)
+        {
+            this.Name = workspaceName;
+        }
+
+        #endregion Constructors
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the name of the workspace
@@ -31,16 +71,32 @@
             {
                 if (false == string.Equals(value, this.mName, System.StringComparison.OrdinalIgnoreCase))
                 {
-                    // Store the old value
-                    var oldValue = this.mName;
-
-                    // Set the new value
                     this.mName = value;
-
-                    // Raise the event and let others know of the new and old values
                     this.RaisePropertyChanged(NamePropertyName);
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this workspace is selected
+        /// </summary>
+        public bool IsSelected
+        {
+            get
+            {
+                return this.mIsSelected;
+            }
+
+            set
+            {
+                if (value != this.IsSelected)
+                {
+                    this.mIsSelected = value;
+                    base.RaisePropertyChanged(IsSelectedPropertyName);
+                }
+            }
+        }
+
+        #endregion Properties
     }
 }
