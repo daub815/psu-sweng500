@@ -193,20 +193,10 @@
     <EntitySet Name="Code" EntityType="Sweng500.Pml.DataAccessLayer.Code" />
     <EntitySet Name="CodeType" EntityType="Sweng500.Pml.DataAccessLayer.CodeType" />
     <EntitySet Name="Media" EntityType="Sweng500.Pml.DataAccessLayer.Media" />
-    <EntitySet Name="Media_Book" EntityType="Sweng500.Pml.DataAccessLayer.Media_Book" />
-    <EntitySet Name="Media_Video" EntityType="Sweng500.Pml.DataAccessLayer.Media_Video" />
     <EntitySet Name="Person" EntityType="Sweng500.Pml.DataAccessLayer.Person" />
     <EntitySet Name="Person_Author" EntityType="Sweng500.Pml.DataAccessLayer.Person_Author" />
     <EntitySet Name="Person_ProducerDirector" EntityType="Sweng500.Pml.DataAccessLayer.Person_ProducerDirector" />
     <EntitySet Name="Person_User" EntityType="Sweng500.Pml.DataAccessLayer.Person_User" />
-    <AssociationSet Name="FK_Book_inherits_Media" Association="Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media">
-      <End Role="Media" EntitySet="Media" />
-      <End Role="Media_Book" EntitySet="Media_Book" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Video_inherits_Media" Association="Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media">
-      <End Role="Media" EntitySet="Media" />
-      <End Role="Media_Video" EntitySet="Media_Video" />
-    </AssociationSet>
     <AssociationSet Name="FK_Author_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person">
       <End Role="Person" EntitySet="Person" />
       <End Role="Person_Author" EntitySet="Person_Author" />
@@ -254,27 +244,15 @@
     <Property Name="NofStars" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Comment" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <Property Name="MediaDescription" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="Media_Book" Relationship="Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media" FromRole="Media" ToRole="Media_Book" />
-    <NavigationProperty Name="Media_Video" Relationship="Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media" FromRole="Media" ToRole="Media_Video" />
   </EntityType>
-  <EntityType Name="Media_Book">
-    <Key>
-      <PropertyRef Name="MediaID" />
-    </Key>
+  <EntityType Name="Book" BaseType="Sweng500.Pml.DataAccessLayer.Media">
     <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="LibraryLocation" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="MediaID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Media" Relationship="Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media" FromRole="Media_Book" ToRole="Media" />
   </EntityType>
-  <EntityType Name="Media_Video">
-    <Key>
-      <PropertyRef Name="MediaID" />
-    </Key>
+  <EntityType Name="Video" BaseType="Sweng500.Pml.DataAccessLayer.Media">
     <Property Name="VideoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="datetimeRelased" Type="DateTime" />
     <Property Name="BoardRatingID" Type="Int32" />
-    <Property Name="MediaID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Media" Relationship="Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media" FromRole="Media_Video" ToRole="Media" />
   </EntityType>
   <EntityType Name="Person">
     <Key>
@@ -322,30 +300,6 @@
     <Property Name="PersonID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Person" Relationship="Sweng500.Pml.DataAccessLayer.FK_User_inherits_Person" FromRole="Person_User" ToRole="Person" />
   </EntityType>
-  <Association Name="FK_Book_inherits_Media">
-    <End Role="Media" Type="Sweng500.Pml.DataAccessLayer.Media" Multiplicity="1" />
-    <End Role="Media_Book" Type="Sweng500.Pml.DataAccessLayer.Media_Book" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Media">
-        <PropertyRef Name="MediaID" />
-      </Principal>
-      <Dependent Role="Media_Book">
-        <PropertyRef Name="MediaID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Video_inherits_Media">
-    <End Role="Media" Type="Sweng500.Pml.DataAccessLayer.Media" Multiplicity="1" />
-    <End Role="Media_Video" Type="Sweng500.Pml.DataAccessLayer.Media_Video" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Media">
-        <PropertyRef Name="MediaID" />
-      </Principal>
-      <Dependent Role="Media_Video">
-        <PropertyRef Name="MediaID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Author_inherits_Person">
     <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Person" Multiplicity="1" />
     <End Role="Person_Author" Type="Sweng500.Pml.DataAccessLayer.Person_Author" Multiplicity="0..1" />
@@ -405,44 +359,40 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Media">
-      <EntityTypeMapping TypeName="Sweng500.Pml.DataAccessLayer.Media">
-        <MappingFragment StoreEntitySet="Media">
-          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
-          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Publsiher" ColumnName="Publsiher" />
-          <ScalarProperty Name="Pubdatetime" ColumnName="Pubdatetime" />
-          <ScalarProperty Name="GenreID" ColumnName="GenreID" />
-          <ScalarProperty Name="FormatID" ColumnName="FormatID" />
-          <ScalarProperty Name="Aquisitiondatetime" ColumnName="Aquisitiondatetime" />
-          <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
-          <ScalarProperty Name="IsBorrowed" ColumnName="IsBorrowed" />
-          <ScalarProperty Name="BorrowerID" ColumnName="BorrowerID" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="NofStars" ColumnName="NofStars" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="MediaDescription" ColumnName="MediaDescription" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Media_Book">
-      <EntityTypeMapping TypeName="Sweng500.Pml.DataAccessLayer.Media_Book">
-        <MappingFragment StoreEntitySet="Media_Book">
-          <ScalarProperty Name="BookID" ColumnName="BookID" />
-          <ScalarProperty Name="LibraryLocation" ColumnName="LibraryLocation" />
-          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Media_Video">
-      <EntityTypeMapping TypeName="Sweng500.Pml.DataAccessLayer.Media_Video">
-        <MappingFragment StoreEntitySet="Media_Video">
-          <ScalarProperty Name="VideoID" ColumnName="VideoID" />
-          <ScalarProperty Name="datetimeRelased" ColumnName="datetimeRelased" />
-          <ScalarProperty Name="BoardRatingID" ColumnName="BoardRatingID" />
-          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
-        </MappingFragment>
-      </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Media)">
+              <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+                <ScalarProperty Name="MediaDescription" ColumnName="MediaDescription" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="NofStars" ColumnName="NofStars" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="BorrowerID" ColumnName="BorrowerID" />
+                <ScalarProperty Name="IsBorrowed" ColumnName="IsBorrowed" />
+                <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
+                <ScalarProperty Name="Aquisitiondatetime" ColumnName="Aquisitiondatetime" />
+                <ScalarProperty Name="FormatID" ColumnName="FormatID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="Pubdatetime" ColumnName="Pubdatetime" />
+                <ScalarProperty Name="Publsiher" ColumnName="Publsiher" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Book)">
+              <MappingFragment StoreEntitySet="Media_Book">
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+                <ScalarProperty Name="LibraryLocation" ColumnName="LibraryLocation" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Video)">
+              <MappingFragment StoreEntitySet="Media_Video">
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+                <ScalarProperty Name="BoardRatingID" ColumnName="BoardRatingID" />
+                <ScalarProperty Name="datetimeRelased" ColumnName="datetimeRelased" />
+                <ScalarProperty Name="VideoID" ColumnName="VideoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Person">
       <EntityTypeMapping TypeName="Sweng500.Pml.DataAccessLayer.Person">
@@ -500,20 +450,12 @@
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Code" Width="1.5" PointX="5.75" PointY="6.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.CodeType" Width="1.5" PointX="7.75" PointY="6.75" Height="1.4033821614583335" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="5.75" PointY="1.125" Height="4.2879036458333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media_Book" Width="1.5" PointX="8" PointY="1" Height="1.7879850260416657" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media_Video" Width="1.5" PointX="8" PointY="3.625" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Book" Width="1.5" PointX="8" PointY="1" Height="1.4033821614583331" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Video" Width="1.5" PointX="8" PointY="3.625" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Person" Width="1.5" PointX="0.75" PointY="3.375" Height="3.1340950520833331" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Person_Author" Width="1.5" PointX="3" PointY="1.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Person_ProducerDirector" Width="1.5" PointX="3" PointY="3.75" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Person_User" Width="1.5" PointX="3" PointY="6.5" Height="2.1725878906250005" IsExpanded="true" />
-        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.FK_Book_inherits_Media" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="1.9564925130208328" />
-          <ConnectorPoint PointX="8" PointY="1.9564925130208328" />
-        </AssociationConnector>
-        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.FK_Video_inherits_Media" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="4.5189518229166667" />
-          <ConnectorPoint PointX="8" PointY="4.5189518229166667" />
-        </AssociationConnector>
         <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.FK_Author_inherits_Person" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="3.375" />
           <ConnectorPoint PointX="1.5" PointY="2.1439925130208337" />
@@ -528,6 +470,14 @@
           <ConnectorPoint PointX="1.5" PointY="7.5908419713541662" />
           <ConnectorPoint PointX="3" PointY="7.5908419713541662" />
         </AssociationConnector>
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Book" >
+          <ConnectorPoint PointX="7.25" PointY="1.7641910807291665" />
+          <ConnectorPoint PointX="8" PointY="1.7641910807291665" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Video" >
+          <ConnectorPoint PointX="7.25" PointY="4.326650390625" />
+          <ConnectorPoint PointX="8" PointY="4.326650390625" />
+        </InheritanceConnector>
       </Diagram>
     </edmx:Diagrams>
 </edmx:Designer></edmx:Edmx>
