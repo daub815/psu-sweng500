@@ -44,6 +44,14 @@
         private DataStore()
         {
             this.MediaCollection = new ObservableCollection<Media>();
+
+            this.MediaCollection.Add(new Media
+            {
+                Aquisitiondatetime = DateTime.Now,
+                IsBorrowable = true,
+                IsBorrowed = true,
+                Title = "This is a title"
+            });
         }
 
         #endregion Constructors
