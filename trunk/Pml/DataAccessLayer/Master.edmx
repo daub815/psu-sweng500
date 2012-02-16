@@ -1,0 +1,533 @@
+﻿<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Runtime>
+<edmx:StorageModels>
+<Schema Namespace="MasterModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MasterModelStoreContainer">
+    <EntitySet Name="Code" EntityType="MasterModel.Store.Code" store:Type="Tables" />
+    <EntitySet Name="CodeType" EntityType="MasterModel.Store.CodeType" store:Type="Tables" />
+    <EntitySet Name="Media" EntityType="MasterModel.Store.Media" store:Type="Tables" />
+    <EntitySet Name="Media_Book" EntityType="MasterModel.Store.Media_Book" store:Type="Tables" />
+    <EntitySet Name="Media_Video" EntityType="MasterModel.Store.Media_Video" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="MasterModel.Store.Person" store:Type="Tables" />
+    <EntitySet Name="Person_Author" EntityType="MasterModel.Store.Person_Author" store:Type="Tables" />
+    <EntitySet Name="Person_ProducerDirector" EntityType="MasterModel.Store.Person_ProducerDirector" store:Type="Tables" />
+    <EntitySet Name="Person_User" EntityType="MasterModel.Store.Person_User" store:Type="Tables" />
+    <AssociationSet Name="FK_Author_inherits_Person" Association="MasterModel.Store.FK_Author_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_Author" EntitySet="Person_Author" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_inherits_Media" Association="MasterModel.Store.FK_Book_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Media_Book" EntitySet="Media_Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProducerDirector_inherits_Person" Association="MasterModel.Store.FK_ProducerDirector_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_ProducerDirector" EntitySet="Person_ProducerDirector" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_inherits_Person" Association="MasterModel.Store.FK_User_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_User" EntitySet="Person_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_inherits_Media" Association="MasterModel.Store.FK_Video_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Media_Video" EntitySet="Media_Video" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Code">
+    <Key>
+      <PropertyRef Name="CodeID" />
+    </Key>
+    <Property Name="CodeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CodeDescription" Type="nvarchar" Nullable="false" MaxLength="40" />
+    <Property Name="CodeTypeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CodeType">
+    <Key>
+      <PropertyRef Name="CodeTypeID" />
+    </Key>
+    <Property Name="CodeTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CodeType1" Type="nvarchar" Nullable="false" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ISBN" Type="nvarchar" Nullable="false" MaxLength="13" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Publsiher" Type="nvarchar" MaxLength="40" />
+    <Property Name="Pubdatetime" Type="datetime" />
+    <Property Name="GenreID" Type="int" />
+    <Property Name="FormatID" Type="int" />
+    <Property Name="Aquisitiondatetime" Type="datetime" />
+    <Property Name="IsBorrowable" Type="bit" />
+    <Property Name="IsBorrowed" Type="bit" />
+    <Property Name="BorrowerID" Type="int" />
+    <Property Name="Price" Type="numeric" Precision="19" Scale="4" />
+    <Property Name="NofStars" Type="numeric" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+    <Property Name="MediaDescription" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Media_Book">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="BookID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LibraryLocation" Type="nvarchar" MaxLength="100" />
+    <Property Name="MediaID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media_Video">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="VideoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="datetimeRelased" Type="datetime" />
+    <Property Name="BoardRatingID" Type="int" />
+    <Property Name="MediaID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="40" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="40" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="City" Type="nvarchar" MaxLength="40" />
+    <Property Name="StateProvence" Type="nvarchar" MaxLength="40" />
+    <Property Name="PostalCode" Type="nvarchar" MaxLength="40" />
+    <Property Name="Country" Type="nvarchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="Person_Author">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BookId" Type="int" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person_ProducerDirector">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="ProducerDirectorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="VideoID" Type="int" Nullable="false" />
+    <Property Name="IsProducer" Type="bit" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person_User">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserCode" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="PasswordHash" Type="binary" Nullable="false" MaxLength="16" />
+    <Property Name="LastLogindatetime" Type="datetime" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Author_inherits_Person">
+    <End Role="Person" Type="MasterModel.Store.Person" Multiplicity="1" />
+    <End Role="Person_Author" Type="MasterModel.Store.Person_Author" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_Author">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_inherits_Media">
+    <End Role="Media" Type="MasterModel.Store.Media" Multiplicity="1" />
+    <End Role="Media_Book" Type="MasterModel.Store.Media_Book" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Media_Book">
+        <PropertyRef Name="MediaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProducerDirector_inherits_Person">
+    <End Role="Person" Type="MasterModel.Store.Person" Multiplicity="1" />
+    <End Role="Person_ProducerDirector" Type="MasterModel.Store.Person_ProducerDirector" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_ProducerDirector">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_inherits_Person">
+    <End Role="Person" Type="MasterModel.Store.Person" Multiplicity="1" />
+    <End Role="Person_User" Type="MasterModel.Store.Person_User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_User">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_inherits_Media">
+    <End Role="Media" Type="MasterModel.Store.Media" Multiplicity="1" />
+    <End Role="Media_Video" Type="MasterModel.Store.Media_Video" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Media_Video">
+        <PropertyRef Name="MediaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
+</edmx:StorageModels>
+<edmx:ConceptualModels>
+<Schema Namespace="MasterModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MasterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Code" EntityType="MasterModel.Code" />
+    <EntitySet Name="CodeType" EntityType="MasterModel.CodeType" />
+    <EntitySet Name="Media" EntityType="MasterModel.Media" />
+    <EntitySet Name="Media_Book" EntityType="MasterModel.Media_Book" />
+    <EntitySet Name="Media_Video" EntityType="MasterModel.Media_Video" />
+    <EntitySet Name="Person" EntityType="MasterModel.Person" />
+    <EntitySet Name="Person_Author" EntityType="MasterModel.Person_Author" />
+    <EntitySet Name="Person_ProducerDirector" EntityType="MasterModel.Person_ProducerDirector" />
+    <EntitySet Name="Person_User" EntityType="MasterModel.Person_User" />
+    <AssociationSet Name="FK_Book_inherits_Media" Association="MasterModel.FK_Book_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Media_Book" EntitySet="Media_Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_inherits_Media" Association="MasterModel.FK_Video_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Media_Video" EntitySet="Media_Video" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Author_inherits_Person" Association="MasterModel.FK_Author_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_Author" EntitySet="Person_Author" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProducerDirector_inherits_Person" Association="MasterModel.FK_ProducerDirector_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_ProducerDirector" EntitySet="Person_ProducerDirector" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_inherits_Person" Association="MasterModel.FK_User_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Person_User" EntitySet="Person_User" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Code">
+    <Key>
+      <PropertyRef Name="CodeID" />
+    </Key>
+    <Property Name="CodeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeDescription" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="CodeTypeID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CodeType">
+    <Key>
+      <PropertyRef Name="CodeTypeID" />
+    </Key>
+    <Property Name="CodeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeType1" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="13" Unicode="true" FixedLength="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Publsiher" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="Pubdatetime" Type="DateTime" />
+    <Property Name="GenreID" Type="Int32" />
+    <Property Name="FormatID" Type="Int32" />
+    <Property Name="Aquisitiondatetime" Type="DateTime" />
+    <Property Name="IsBorrowable" Type="Boolean" />
+    <Property Name="IsBorrowed" Type="Boolean" />
+    <Property Name="BorrowerID" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NofStars" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Comment" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <Property Name="MediaDescription" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Media_Book" Relationship="MasterModel.FK_Book_inherits_Media" FromRole="Media" ToRole="Media_Book" />
+    <NavigationProperty Name="Media_Video" Relationship="MasterModel.FK_Video_inherits_Media" FromRole="Media" ToRole="Media_Video" />
+  </EntityType>
+  <EntityType Name="Media_Book">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LibraryLocation" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="MediaID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Media" Relationship="MasterModel.FK_Book_inherits_Media" FromRole="Media_Book" ToRole="Media" />
+  </EntityType>
+  <EntityType Name="Media_Video">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="VideoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="datetimeRelased" Type="DateTime" />
+    <Property Name="BoardRatingID" Type="Int32" />
+    <Property Name="MediaID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Media" Relationship="MasterModel.FK_Video_inherits_Media" FromRole="Media_Video" ToRole="Media" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="StateProvence" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Person_Author" Relationship="MasterModel.FK_Author_inherits_Person" FromRole="Person" ToRole="Person_Author" />
+    <NavigationProperty Name="Person_ProducerDirector" Relationship="MasterModel.FK_ProducerDirector_inherits_Person" FromRole="Person" ToRole="Person_ProducerDirector" />
+    <NavigationProperty Name="Person_User" Relationship="MasterModel.FK_User_inherits_Person" FromRole="Person" ToRole="Person_User" />
+  </EntityType>
+  <EntityType Name="Person_Author">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="MasterModel.FK_Author_inherits_Person" FromRole="Person_Author" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="Person_ProducerDirector">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="ProducerDirectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VideoID" Type="Int32" Nullable="false" />
+    <Property Name="IsProducer" Type="Boolean" Nullable="false" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="MasterModel.FK_ProducerDirector_inherits_Person" FromRole="Person_ProducerDirector" ToRole="Person" />
+  </EntityType>
+  <EntityType Name="Person_User">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserCode" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordHash" Type="Binary" Nullable="false" MaxLength="16" FixedLength="true" />
+    <Property Name="LastLogindatetime" Type="DateTime" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="MasterModel.FK_User_inherits_Person" FromRole="Person_User" ToRole="Person" />
+  </EntityType>
+  <Association Name="FK_Book_inherits_Media">
+    <End Role="Media" Type="MasterModel.Media" Multiplicity="1" />
+    <End Role="Media_Book" Type="MasterModel.Media_Book" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Media_Book">
+        <PropertyRef Name="MediaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_inherits_Media">
+    <End Role="Media" Type="MasterModel.Media" Multiplicity="1" />
+    <End Role="Media_Video" Type="MasterModel.Media_Video" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="Media_Video">
+        <PropertyRef Name="MediaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Author_inherits_Person">
+    <End Role="Person" Type="MasterModel.Person" Multiplicity="1" />
+    <End Role="Person_Author" Type="MasterModel.Person_Author" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_Author">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProducerDirector_inherits_Person">
+    <End Role="Person" Type="MasterModel.Person" Multiplicity="1" />
+    <End Role="Person_ProducerDirector" Type="MasterModel.Person_ProducerDirector" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_ProducerDirector">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_inherits_Person">
+    <End Role="Person" Type="MasterModel.Person" Multiplicity="1" />
+    <End Role="Person_User" Type="MasterModel.Person_User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Person_User">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
+</edmx:ConceptualModels>
+<edmx:Mappings>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MasterModelStoreContainer" CdmEntityContainer="MasterEntities">
+    <EntitySetMapping Name="Code">
+      <EntityTypeMapping TypeName="MasterModel.Code">
+        <MappingFragment StoreEntitySet="Code">
+          <ScalarProperty Name="CodeID" ColumnName="CodeID" />
+          <ScalarProperty Name="CodeDescription" ColumnName="CodeDescription" />
+          <ScalarProperty Name="CodeTypeID" ColumnName="CodeTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CodeType">
+      <EntityTypeMapping TypeName="MasterModel.CodeType">
+        <MappingFragment StoreEntitySet="CodeType">
+          <ScalarProperty Name="CodeTypeID" ColumnName="CodeTypeID" />
+          <ScalarProperty Name="CodeType1" ColumnName="CodeType1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="MasterModel.Media">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Publsiher" ColumnName="Publsiher" />
+          <ScalarProperty Name="Pubdatetime" ColumnName="Pubdatetime" />
+          <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+          <ScalarProperty Name="FormatID" ColumnName="FormatID" />
+          <ScalarProperty Name="Aquisitiondatetime" ColumnName="Aquisitiondatetime" />
+          <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
+          <ScalarProperty Name="IsBorrowed" ColumnName="IsBorrowed" />
+          <ScalarProperty Name="BorrowerID" ColumnName="BorrowerID" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="NofStars" ColumnName="NofStars" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="MediaDescription" ColumnName="MediaDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media_Book">
+      <EntityTypeMapping TypeName="MasterModel.Media_Book">
+        <MappingFragment StoreEntitySet="Media_Book">
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="LibraryLocation" ColumnName="LibraryLocation" />
+          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media_Video">
+      <EntityTypeMapping TypeName="MasterModel.Media_Video">
+        <MappingFragment StoreEntitySet="Media_Video">
+          <ScalarProperty Name="VideoID" ColumnName="VideoID" />
+          <ScalarProperty Name="datetimeRelased" ColumnName="datetimeRelased" />
+          <ScalarProperty Name="BoardRatingID" ColumnName="BoardRatingID" />
+          <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="MasterModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="StateProvence" ColumnName="StateProvence" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person_Author">
+      <EntityTypeMapping TypeName="MasterModel.Person_Author">
+        <MappingFragment StoreEntitySet="Person_Author">
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person_ProducerDirector">
+      <EntityTypeMapping TypeName="MasterModel.Person_ProducerDirector">
+        <MappingFragment StoreEntitySet="Person_ProducerDirector">
+          <ScalarProperty Name="ProducerDirectorID" ColumnName="ProducerDirectorID" />
+          <ScalarProperty Name="VideoID" ColumnName="VideoID" />
+          <ScalarProperty Name="IsProducer" ColumnName="IsProducer" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person_User">
+      <EntityTypeMapping TypeName="MasterModel.Person_User">
+        <MappingFragment StoreEntitySet="Person_User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="LastLogindatetime" ColumnName="LastLogindatetime" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
+</edmx:Mappings>
+</edmx:Runtime>
+<edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+<Connection><DesignerInfoPropertySet><DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" /></DesignerInfoPropertySet></Connection>
+<edmx:Options><DesignerInfoPropertySet><DesignerProperty Name="ValidateOnBuild" Value="True" /><DesignerProperty Name="EnablePluralization" Value="False" /><DesignerProperty Name="IncludeForeignKeysInModel" Value="True" /><DesignerProperty Name="CodeGenerationStrategy" Value="Default" /></DesignerInfoPropertySet></edmx:Options>
+<edmx:Diagrams >
+      <Diagram Name="Master">
+        <EntityTypeShape EntityType="MasterModel.Code" Width="1.5" PointX="5.75" PointY="6.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.CodeType" Width="1.5" PointX="7.75" PointY="6.75" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Media" Width="1.5" PointX="5.75" PointY="1.125" Height="4.2879036458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Media_Book" Width="1.5" PointX="8" PointY="1" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Media_Video" Width="1.5" PointX="8" PointY="3.625" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Person" Width="1.5" PointX="0.75" PointY="3.375" Height="3.1340950520833331" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Person_Author" Width="1.5" PointX="3" PointY="1.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Person_ProducerDirector" Width="1.5" PointX="3" PointY="3.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterModel.Person_User" Width="1.5" PointX="3" PointY="6.5" Height="2.1725878906250005" IsExpanded="true" />
+        <AssociationConnector Association="MasterModel.FK_Book_inherits_Media" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.25" PointY="1.9564925130208328" />
+          <ConnectorPoint PointX="8" PointY="1.9564925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="MasterModel.FK_Video_inherits_Media" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.25" PointY="4.5189518229166667" />
+          <ConnectorPoint PointX="8" PointY="4.5189518229166667" />
+        </AssociationConnector>
+        <AssociationConnector Association="MasterModel.FK_Author_inherits_Person" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="3.375" />
+          <ConnectorPoint PointX="1.5" PointY="2.1439925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.1439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="MasterModel.FK_ProducerDirector_inherits_Person" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.7401432291666659" />
+          <ConnectorPoint PointX="3" PointY="4.7401432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="MasterModel.FK_User_inherits_Person" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="6.5090950520833335" />
+          <ConnectorPoint PointX="1.5" PointY="7.5908419713541662" />
+          <ConnectorPoint PointX="3" PointY="7.5908419713541662" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+</edmx:Designer></edmx:Edmx>
