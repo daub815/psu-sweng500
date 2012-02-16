@@ -28,6 +28,12 @@
             {
                 new InventoryWorkspaceViewModel()
             };
+
+            GlobalCommands.Instance.EditMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<DataAccessLayer.Media>(
+                (media) =>
+                {
+                    this.Workspaces.Add(new EditWorkspaceViewModel(media));
+                });
         }
 
         #endregion Constructors

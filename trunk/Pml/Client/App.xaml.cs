@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using Sweng500.Pml.ViewModel.Workspaces;
+    using Sweng500.Pml.ViewModel;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -15,6 +16,9 @@
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            //// TODO: This is temporary because we can do this in xaml
+            this.Resources.Add("GlobalCommands", GlobalCommands.Instance);
 
             // Create the main window and set the datacontext
             this.MainWindow = new MainWindow
