@@ -1,8 +1,6 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
-    using System.Collections.ObjectModel;
-    using Sweng500.Pml.DataAccessLayer;
-using System.ComponentModel;
+    using System.ComponentModel;
     using System.Windows.Data;
 
     /// <summary>
@@ -34,7 +32,7 @@ using System.ComponentModel;
         #region Properties
 
         /// <summary>
-        /// Gets the view of the media Collection
+        /// Gets or sets the view of the media Collection
         /// </summary>
         public ICollectionView Media
         {

@@ -10,6 +10,11 @@
     {
         #region Statics
 
+        /// <summary>
+        /// Property name for the SelectedWorkspace property
+        /// </summary>
+        public const string SelectedWorkspacePropertyName = "SelectedWorkspace";
+
         #endregion Statics
 
         #region Fields
@@ -41,7 +46,7 @@
         #region Properties
 
         /// <summary>
-        /// Gets a collection of workspaces
+        /// Gets or sets a collection of workspaces
         /// </summary>
         public ObservableCollection<WorkspaceViewModel> Workspaces
         {

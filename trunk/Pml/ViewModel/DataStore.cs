@@ -1,11 +1,8 @@
 ﻿namespace Sweng500.Pml.ViewModel
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using GalaSoft.MvvmLight;
     using System.Collections.ObjectModel;
+    using GalaSoft.MvvmLight;
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
@@ -31,15 +28,13 @@
         /// <summary>
         /// Initializes static members of the DataStore class
         /// </summary>
-        /// <remarks>
-        /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1409:RemoveUnnecessaryCode", Justification = "Explicit static constructor to tell C# compiler not to mark type as beforefieldinit")]
         static DataStore()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the DataStore class
+        /// Prevents a default instance of the DataStore class from being created
         /// </summary>
         private DataStore()
         {
@@ -70,7 +65,7 @@
         }
 
         /// <summary>
-        /// Gets the collection of media elements
+        /// Gets or sets the collection of media elements
         /// </summary>
         public ObservableCollection<Media> MediaCollection
         {

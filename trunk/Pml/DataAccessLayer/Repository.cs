@@ -16,9 +16,7 @@
         /// <summary>
         /// Initializes static members of the Repository class
         /// </summary>
-        /// <remarks>
-        /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1409:RemoveUnnecessaryCode",  Justification = "Explicit static constructor to tell C# compiler not to mark type as beforefieldinit")]
         static Repository()
         {
         }

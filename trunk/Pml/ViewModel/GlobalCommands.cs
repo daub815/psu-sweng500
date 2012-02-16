@@ -31,15 +31,13 @@
         /// <summary>
         /// Initializes static members of the GlobalCommands class
         /// </summary>
-        /// <remarks>
-        /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1409:RemoveUnnecessaryCode", Justification = "Explicit static constructor to tell C# compiler not to mark type as beforefieldinit")]
         static GlobalCommands()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the GlobalCommands class
+        /// Prevents a default instance of the GlobalCommands class from being created
         /// </summary>
         private GlobalCommands()
         {
@@ -67,16 +65,16 @@
         {
             get
             {
-                return mEditMediaItemCommand;
+                return this.mEditMediaItemCommand;
             }
 
             set
             {
                 // Only allow the assignment once
-                if (null == mEditMediaItemCommand &&
+                if (null == this.mEditMediaItemCommand &&
                     null != value)
                 {
-                    mEditMediaItemCommand = value;
+                    this.mEditMediaItemCommand = value;
                 }
             }
         }
