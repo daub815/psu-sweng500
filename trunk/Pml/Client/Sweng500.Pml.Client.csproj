@@ -74,6 +74,9 @@
     <Compile Include="Views\EditWorkspaceView.xaml.cs">
       <DependentUpon>EditWorkspaceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InventoryWorkspaceView.xaml.cs">
+      <DependentUpon>InventoryWorkspaceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWorkspaceView.xaml.cs">
       <DependentUpon>MainWorkspaceView.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InventoryWorkspaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWorkspaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,6 +112,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\Sweng500.Pml.DataAccessLayer.csproj">
+      <Project>{152C7244-CE8C-4F1E-B248-795C738FEB90}</Project>
+      <Name>Sweng500.Pml.DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModel\Sweng500.Pml.ViewModel.csproj">
       <Project>{B27AFC2B-B0DF-477E-ABD6-293C5D6027E2}</Project>
       <Name>Sweng500.Pml.ViewModel</Name>

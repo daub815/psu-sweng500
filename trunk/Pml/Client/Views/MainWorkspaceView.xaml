@@ -3,40 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="400" 
-             d:DesignWidth="400">
+             mc:Ignorable="d" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         
-        <DataGrid ItemsSource="{Binding TheCollection}" 
-                  SelectionMode="Single" SelectionUnit="FullRow"
-                  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Title"
-                                    Binding="{Binding Path=Title}" />
-                <DataGridTextColumn Header="Publisher"
-                                    Binding="{Binding Path=Publisher}" />
-                <DataGridTextColumn Header="Description"
-                                    Binding="{Binding Path=MediaDescription}" />
-                <DataGridTextColumn Header="Dir"
-                                    Binding="{Binding Path=DirectorName}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Inventory">
+                <MenuItem Header="_Add" />
+                <MenuItem Header="_Edit" />
+                <MenuItem Header="_Delete" />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="About" />
+            </MenuItem>
+        </Menu>
         
-        <ListBox Grid.Column="1" 
-                 ItemsSource="{Binding TheCollection}"
-                 Margin="15"/>
-
-        <ContentControl Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Content="{Binding TempEditor}" Margin="0,29,0,-29" />
+        <TabControl Grid.Row="2"
+                    ItemsSource="{Binding Workspaces}"
+                    SelectedIndex="0">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+        
+        <StatusBar Grid.Row="3" />
     </Grid>
 </UserControl>
