@@ -45,8 +45,8 @@
                     context.Dispose();
                 }
             }
-            return mediaitems;
 
+            return mediaitems;
         }
 
         /// <summary>
@@ -61,6 +61,7 @@
                 log.Warn("null argument sent to Update");
                 throw new ArgumentNullException("null argument sent to Update");
             }
+
             MasterEntities context = null;
 
             try
@@ -70,7 +71,7 @@
             }
             catch (Exception e)
             {
-                log.Error("unable to update a media item.  received exception: ",e);
+                log.Error("unable to update a media item.  received exception: ", e);
                 throw;
             }
             finally
@@ -166,8 +167,6 @@
                     context.Dispose();
                 }
             }
-
-
         }
 
         #endregion ICrudService

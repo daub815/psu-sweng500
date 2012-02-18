@@ -40,9 +40,9 @@
         {
             this.MediaCollection = new ObservableCollection<Media>();
 
-            this.MediaCollection.Add(new Media
+            this.MediaCollection.Add(new Book
             {
-                Aquisitiondatetime = DateTime.Now,
+                Acquired = DateTime.Now,
                 IsBorrowable = true,
                 IsBorrowed = true,
                 Title = "This is a title"
