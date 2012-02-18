@@ -40,13 +40,23 @@
         {
             this.MediaCollection = new ObservableCollection<Media>();
 
-            this.MediaCollection.Add(new Book
-            {
-                Acquired = DateTime.Now,
-                IsBorrowable = true,
-                IsBorrowed = true,
-                Title = "This is a title"
-            });
+            this.MediaCollection.Add(
+                new Book
+                {
+                    Acquired = DateTime.Now,
+                    IsBorrowable = true,
+                    IsBorrowed = true,
+                    Title = "This is a title"
+                });
+
+            this.MediaCollection.Add(
+                new Video
+                {
+                    Acquired = DateTime.Now,
+                    IsBorrowable = true,
+                    IsBorrowed = true,
+                    Title = "This is a title"
+                });
         }
 
         #endregion Constructors

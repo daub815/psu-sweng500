@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dal="clr-namespace:Sweng500.Pml.DataAccessLayer;assembly=Sweng500.Pml.DataAccessLayer"
              mc:Ignorable="d" >
     <Grid>
         <Grid.RowDefinitions>
@@ -18,8 +19,12 @@
             </MenuItem>
             <MenuItem Header="_Inventory">
                 <MenuItem Header="_Add">
-                    <MenuItem Header="_Book" />
-                    <MenuItem Header="_Video" />
+                    <MenuItem Header="_Book"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=AddMediaItemCommand, Mode=OneWay}"
+                              CommandParameter="{x:Static dal:MediaTypes.Book}"/>
+                    <MenuItem Header="_Video"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=AddMediaItemCommand, Mode=OneWay}"
+                              CommandParameter="{x:Static dal:MediaTypes.Video}" />
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">

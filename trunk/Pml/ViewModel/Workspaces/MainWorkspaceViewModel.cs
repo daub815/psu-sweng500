@@ -50,6 +50,18 @@
                     };
                 };
 
+            GlobalCommands.Instance.AddMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<MediaTypes>(
+                mediaType =>
+                    {
+                        // Create and add the new workspace
+                        var workspace = new EditWorkspaceViewModel(mediaType);
+                        workspace.IsOpen = true;
+                        this.Workspaces.Add(workspace);
+
+                        // Make the workspace selected
+                        GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
+                    });
+
             GlobalCommands.Instance.EditMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<Media>(
                 media => 
                     {
