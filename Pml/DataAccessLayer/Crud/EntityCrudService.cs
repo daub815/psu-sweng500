@@ -100,12 +100,6 @@
                 throw new ArgumentNullException("null argument sent to Add");
             }
 
-            if (null != media.EntityKey)
-            {
-                log.Warn("media item sent to add already exists");
-                throw new ArgumentException("media item sent to add already exists");
-            }
-
             MasterEntities context = null;
 
             try

@@ -518,6 +518,31 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-    
-    <ContentControl Content="{Binding MediaToEdit}" />
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.ColumnSpan="2">
+            <ContentControl Content="{Binding MediaToEdit}" />
+        </ScrollViewer>
+
+        <Button Content="Save"
+                Command="{Binding SaveCommand}"
+                Grid.Column="0"
+                Grid.Row="1"
+                Margin="5" />
+
+        <Button Content="Reset"
+                Command="{Binding ResetCommand}"
+                Grid.Column="1"
+                Grid.Row="1"
+                Margin="5" />
+    </Grid>
 </UserControl>
