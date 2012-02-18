@@ -1,6 +1,8 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
+    using System.Windows.Input;
     using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
 
     /// <summary>
     /// Base class for a workspace that provides basic functionality such as visibility
@@ -19,6 +21,11 @@
         /// </summary>
         public const string IsSelectedPropertyName = "IsSelected";
 
+        /// <summary>
+        /// The property name of the IsOpen property
+        /// </summary>
+        public const string IsOpenPropertyName = "IsOpen";
+
         #endregion Statics
 
         #region Fields
@@ -32,6 +39,11 @@
         /// The backing field of the IsSelected property
         /// </summary>
         private bool mIsSelected = false;
+
+        /// <summary>
+        /// The backing field of the IsOpen property
+        /// </summary>
+        private bool mIsOpen = false;
 
         #endregion Fields
 
@@ -51,9 +63,27 @@
         public WorkspaceViewModel(string workspaceName)
         {
             this.Name = workspaceName;
+            this.CloseWorkspaceCommand = new RelayCommand(
+                () =>
+                    {
+                        this.IsOpen = false;
+                    });
         }
 
         #endregion Constructors
+
+        #region Commands
+
+        /// <summary>
+        /// Gets or sets a command to close the workspace
+        /// </summary>
+        public ICommand CloseWorkspaceCommand
+        {
+            get;
+            protected set;
+        }
+
+        #endregion Commands
 
         #region Properties
 
@@ -93,6 +123,26 @@
                 {
                     this.mIsSelected = value;
                     this.RaisePropertyChanged(IsSelectedPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this workspace is open
+        /// </summary>
+        public bool IsOpen
+        {
+            get
+            {
+                return this.mIsOpen;
+            }
+
+            set
+            {
+                if (value != this.IsOpen)
+                {
+                    this.mIsOpen = value;
+                    this.RaisePropertyChanged(IsOpenPropertyName);
                 }
             }
         }

@@ -1,14 +1,27 @@
 ﻿namespace Sweng500.Pml.ViewModel
 {
+    using System.Windows.Input;
+    using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using Sweng500.Pml.DataAccessLayer;
+    using Sweng500.Pml.ViewModel.Workspaces;
 
     /// <summary>
     /// Contains the global commands for the application
     /// </summary>
-    public class GlobalCommands
+    public class GlobalCommands : ViewModelBase
     {
         #region Statics
+
+        /// <summary>
+        /// Property name for the EditMediaItemCommand property
+        /// </summary>
+        public const string EditMediaItemCommandPropertyName = "EditMediaItemCommand";
+
+        /// <summary>
+        /// Property name for the SelectWorkspaceCommand property
+        /// </summary>
+        public const string SelectWorkspaceCommandPropertyName = "SelectWorkspaceCommand";
 
         /// <summary>
         /// The singleton instance
@@ -20,9 +33,14 @@
         #region Fields
 
         /// <summary>
-        /// Static instance of the edit media command
+        /// Backing field for the EditMediaItemCommand
         /// </summary>
         private RelayCommand<Media> mEditMediaItemCommand;
+
+        /// <summary>
+        /// Backing field for the SelectWorkspaceCommand
+        /// </summary>
+        private RelayCommand<WorkspaceViewModel> mSelectWorkspaceCommand;
 
         #endregion Fields
 
@@ -70,11 +88,32 @@
 
             set
             {
-                // Only allow the assignment once
-                if (null == this.mEditMediaItemCommand &&
+                if (null == this.EditMediaItemCommand &&
                     null != value)
                 {
                     this.mEditMediaItemCommand = value;
+                    this.RaisePropertyChanged(EditMediaItemCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to select the workspace
+        /// </summary>
+        public RelayCommand<WorkspaceViewModel> SelectWorkspaceCommand
+        {
+            get
+            {
+                return this.mSelectWorkspaceCommand;
+            }
+
+            set
+            {
+                if (null == this.SelectWorkspaceCommand &&
+                    null != value)
+                {
+                    this.mSelectWorkspaceCommand = value;
+                    this.RaisePropertyChanged(SelectWorkspaceCommandPropertyName);
                 }
             }
         }
