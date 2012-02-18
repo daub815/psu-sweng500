@@ -1,6 +1,8 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
     using System;
+    using GalaSoft.MvvmLight.Command;
+    using log4net;
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
@@ -14,6 +16,11 @@
         /// Property name for the MediaToEdit property
         /// </summary>
         public const string MediaToEditPropertyName = "MediaToEdit";
+
+        /// <summary>
+        /// Class logger
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         #endregion Statics
 
@@ -31,9 +38,37 @@
         /// <summary>
         /// Initializes a new instance of the EditWorkspaceViewModel class
         /// </summary>
+        /// <param name="workspaceName">The name of the workspace</param>
+        public EditWorkspaceViewModel(string workspaceName)
+            : base(workspaceName)
+        {
+            this.SaveCommand = new RelayCommand(
+                () =>
+                    {
+                        var crudService = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+
+                        try
+                        {
+                            this.MediaToEdit = crudService.Add(this.MediaToEdit);
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error("Unable to save the media.", e);
+                        }
+                    });
+
+            this.ResetCommand = new RelayCommand(
+                () =>
+                    {
+                    });
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the EditWorkspaceViewModel class
+        /// </summary>
         /// <param name="mediaType">The type of media type to edit</param>
         public EditWorkspaceViewModel(MediaTypes mediaType)
-            : base("Add " + mediaType.ToString())
+            : this("Add " + mediaType.ToString())
         {
             switch (mediaType)
             {
@@ -53,7 +88,7 @@
         /// </summary>
         /// <param name="mediaToEdit">The element to be edited</param>
         public EditWorkspaceViewModel(Media mediaToEdit)
-            : base("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaID)
+            : this("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaID)
         {
             this.MediaToEdit = mediaToEdit;
         }
@@ -83,5 +118,27 @@
         }
 
         #endregion Properties
+
+        #region Commands
+
+        /// <summary>
+        /// Gets or sets a command to save the media item
+        /// </summary>
+        public RelayCommand SaveCommand
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Gets or sets a command to reset the media item
+        /// </summary>
+        public RelayCommand ResetCommand
+        {
+            get;
+            protected set;
+        }
+
+        #endregion Commands
     }
 }
