@@ -1,5 +1,6 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
+    using System;
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
@@ -30,9 +31,21 @@
         /// <summary>
         /// Initializes a new instance of the EditWorkspaceViewModel class
         /// </summary>
-        public EditWorkspaceViewModel()
-            : this(new Book())
+        /// <param name="mediaType">The type of media type to edit</param>
+        public EditWorkspaceViewModel(MediaTypes mediaType)
+            : base("Add " + mediaType.ToString())
         {
+            switch (mediaType)
+            {
+                case MediaTypes.Book:
+                    this.MediaToEdit = new Book();
+                    break;
+                case MediaTypes.Video:
+                    this.MediaToEdit = new Video();
+                    break;
+                default:
+                    throw new ArgumentException("Invalid MediaType");
+            }
         }
 
         /// <summary>
@@ -40,7 +53,7 @@
         /// </summary>
         /// <param name="mediaToEdit">The element to be edited</param>
         public EditWorkspaceViewModel(Media mediaToEdit)
-            : base("Edit " + mediaToEdit.MediaID)
+            : base("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaID)
         {
             this.MediaToEdit = mediaToEdit;
         }

@@ -1,6 +1,5 @@
 ﻿namespace Sweng500.Pml.ViewModel
 {
-    using System.Windows.Input;
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using Sweng500.Pml.DataAccessLayer;
@@ -12,6 +11,11 @@
     public class GlobalCommands : ViewModelBase
     {
         #region Statics
+
+        /// <summary>
+        /// Property name for the AddMediaItemCommand property
+        /// </summary>
+        public const string AddMediaItemCommandPropertyName = "AddMediaItemCommand";
 
         /// <summary>
         /// Property name for the EditMediaItemCommand property
@@ -33,12 +37,17 @@
         #region Fields
 
         /// <summary>
-        /// Backing field for the EditMediaItemCommand
+        /// Backing field for the AddMediaItemCommand property
+        /// </summary>
+        private RelayCommand<MediaTypes> mAddMediaItemCommand;
+
+        /// <summary>
+        /// Backing field for the EditMediaItemCommand property
         /// </summary>
         private RelayCommand<Media> mEditMediaItemCommand;
 
         /// <summary>
-        /// Backing field for the SelectWorkspaceCommand
+        /// Backing field for the SelectWorkspaceCommand property
         /// </summary>
         private RelayCommand<WorkspaceViewModel> mSelectWorkspaceCommand;
 
@@ -73,6 +82,27 @@
             get
             {
                 return StaticInstance;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to add a media item
+        /// </summary>
+        public RelayCommand<MediaTypes> AddMediaItemCommand
+        {
+            get
+            {
+                return this.mAddMediaItemCommand;
+            }
+
+            set
+            {
+                if (null == this.AddMediaItemCommand &&
+                    null != value)
+                {
+                    this.mAddMediaItemCommand = value;
+                    this.RaisePropertyChanged(AddMediaItemCommandPropertyName);
+                }
             }
         }
 
