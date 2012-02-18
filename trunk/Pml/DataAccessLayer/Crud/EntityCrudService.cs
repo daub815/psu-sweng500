@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using log4net;
 
     /// <summary>
@@ -167,6 +168,64 @@
                     context.Dispose();
                 }
             }
+        }
+
+        /// <summary>
+        /// gets a dictionary of the genres defined
+        /// </summary>
+        /// <returns>The genres as a dictionary</returns>
+        public IDictionary<int, string> GetGenres()
+        {
+            IDictionary<int, string> genreDictionary = new Dictionary<int, string>();
+            var context = new MasterEntities();
+            var query = from c in context.Code where c.CodeTypeID == (int)DropDownTypes.Genre select c;
+            var genres = query.ToList();
+            foreach (var item in genres)
+            {
+                genreDictionary.Add(item.CodeID, item.CodeDescription);
+            }
+
+            return genreDictionary;
+        }
+
+        /// <summary>
+        /// gets a dictionary of the available formats
+        /// </summary>
+        /// <returns>The formats as a dictionary</returns>
+        public IDictionary<int, string> GetFormats()
+        {
+            IDictionary<int, string> formatDictionary = new Dictionary<int, string>();
+            var context = new MasterEntities();
+            var query = from c in context.Code where c.CodeTypeID == (int)DropDownTypes.Format select c;
+            var formats = query.ToList();
+            foreach (var formatitem in formats)
+            {
+                formatDictionary.Add(formatitem.CodeID, formatitem.CodeDescription);
+            }
+
+            return formatDictionary;
+        }
+
+        /// <summary>
+        /// gets the list of People currently defined
+        /// </summary>
+        /// <returns>Gets a list of people defined in any way</returns>
+        public IEnumerable<Person> GetPeople()
+        {
+            var context = new MasterEntities();
+            var query = from c in context.Person select c;
+            return query.ToList<Person>();
+        }
+
+        /// <summary>
+        /// gets the list of Authors currently defined
+        /// </summary>
+        /// <returns>Gets a list of people defined as authors</returns>
+        public IEnumerable<Person> GetAuthors()
+        {
+            var context = new MasterEntities();
+            var query = from p in context.Person.OfType<Author>() select p;
+            return query.ToList<Person>();
         }
 
         #endregion ICrudService

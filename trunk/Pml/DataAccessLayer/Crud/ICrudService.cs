@@ -32,5 +32,29 @@
         /// </summary>
         /// <param name="media">The media to delete</param>
         void Delete(Media media);
+
+        /// <summary>
+        /// gets a dictionary of the genres defined
+        /// </summary>
+        /// <returns> a dictionary of available genre</returns>
+        IDictionary<int, string> GetGenres();
+
+        /// <summary>
+        /// gets a dictionary of the available formats
+        /// </summary>
+        /// <returns>a dictionary of available formats</returns>
+        IDictionary<int, string> GetFormats();
+
+        /// <summary>
+        /// gets the list of People currently defined
+        /// </summary>
+        /// <returns>a list of Person</returns>
+        IEnumerable<Person> GetPeople();
+
+        /// <summary>
+        /// gets the list of Authors currently defined
+        /// </summary>
+        /// <returns>a list of known authors</returns>
+        IEnumerable<Person> GetAuthors();
     }
 }

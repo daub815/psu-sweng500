@@ -55,11 +55,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropDownTypes.cs" />
     <Compile Include="Master.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Master.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MediaTypes.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
