@@ -90,7 +90,7 @@
                                  Grid.Row="0"
                                  IsReadOnly="True"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.GenreID, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.GenreID}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="1"
@@ -100,7 +100,7 @@
                                  Grid.Row="1"
                                  IsReadOnly="True"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.FormatID, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.FormatID}" />
                     </Grid>
                 </GroupBox>
 
@@ -130,7 +130,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="0"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.Title, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.Title}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="1"
@@ -139,7 +139,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="1"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.Publisher, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.Publisher}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="2"
@@ -148,7 +148,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="2"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Published, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.Published}" />
 
 
                         <Label Grid.Column="0"
@@ -158,7 +158,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="3"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Acquired, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.Acquired}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="4"
@@ -167,7 +167,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="4"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.LibraryLocation, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.LibraryLocation}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="5"
@@ -176,7 +176,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="5"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.NumOfStars, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.NumOfStars}" />
                     </Grid>
                 </GroupBox>
                 
@@ -335,7 +335,7 @@
                                  Grid.Row="0"
                                  IsReadOnly="True"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.GenreID, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.GenreID}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="1"
@@ -345,7 +345,7 @@
                                  Grid.Row="1"
                                  IsReadOnly="True"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.FormatID, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.FormatID}" />
                     </Grid>
                 </GroupBox>
 
@@ -376,7 +376,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="0"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.Title, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.Title}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="1"
@@ -385,7 +385,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="1"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.Publisher, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.Publisher}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="2"
@@ -394,7 +394,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="2"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Published, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.Published}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="3"
@@ -403,7 +403,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="3"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Released, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.Released}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="4"
@@ -412,7 +412,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="4"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Acquired, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.Acquired}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="5"
@@ -421,7 +421,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="5"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.BoardRatingID, Mode=OneWay}" />
+                                    Text="{Binding MediaToEdit.BoardRatingID}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="6"
@@ -430,7 +430,7 @@
                         <TextBox Grid.Column="1"
                                  Grid.Row="6"
                                  Margin="5"
-                                 Text="{Binding MediaToEdit.NumOfStars, Mode=OneWay}" />
+                                 Text="{Binding MediaToEdit.NumOfStars}" />
                     </Grid>
                 </GroupBox>
 
