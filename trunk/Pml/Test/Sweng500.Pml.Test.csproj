@@ -76,11 +76,8 @@
       <Name>Sweng500.Pml.DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="..\DataAccessLayer\App.Config">
-      <Link>App.Config</Link>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)External\StyleCop\StyleCop.targets" />
