@@ -36,16 +36,20 @@
             {
                 context = new MasterEntities();
 
-                foreach (var book in context.Books)
+                foreach (var media in context.Media)
                 {
-                    context.Books.DeleteObject(book);
+                    context.Media.DeleteObject(media);
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
+               
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Assert.Fail("Unable to clear the database after test.");
+                string message = "Unable to clear the database after test.";
+                message = message + "Received Exception: " + e.Message;
+
+                Assert.Fail(message);
             }
             finally
             {
@@ -80,8 +84,10 @@
         [TestMethod]
         public void AddTest()
         {
-            var originalBooks = Mock.BookObjectMother.CreateNewBooks();
+            var originalBooks = Mock.MediaObjectMother.CreateNewBooks();
             var booksToAdd = new List<Book>(originalBooks);
+
+            var originalVideos = Mock.MediaObjectMother.CreateNewVideos();
 
             // Create a set of books (original and one to add), but both will be the same
             var testBooks = originalBooks.Zip(booksToAdd, (a, b) => new { Original = a, ToAdd = b });            
@@ -90,7 +96,7 @@
             foreach (var testBook in testBooks)
             {
                 // Match the datetimes since we created a new instance
-                testBook.ToAdd.DateAdded = testBook.Original.DateAdded;
+                testBook.ToAdd.Acquired = testBook.Original.Acquired;
 
                 // Add the book
                 var addedBook = service.Add(testBook.ToAdd);
@@ -98,10 +104,10 @@
                 // Verify the book content
                 Assert.IsNotNull(addedBook);
                 Assert.IsNotNull(testBook.Original);
-                Assert.IsTrue(testBook.Original.Id != addedBook.Id);
+                Assert.IsTrue(testBook.Original.MediaID != addedBook.MediaID);
                 Assert.IsTrue(testBook.Original.Title == addedBook.Title);
-                Assert.IsTrue(testBook.Original.Author == addedBook.Author);
-                Assert.IsTrue(testBook.Original.DateAdded == addedBook.DateAdded);
+
+                Assert.IsTrue(testBook.Original.Acquired == addedBook.Acquired);
             }
         }
 
@@ -115,12 +121,12 @@
 
             // Add the list of books to get
             var expected = new List<Book>();
-            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            foreach (var book in Mock.MediaObjectMother.CreateNewBooks())
             {
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
 
-                expected.Add(bookAdded);
+                expected.Add((Book)bookAdded);
             }
 
             // Delete the books
@@ -134,9 +140,9 @@
                 service.Delete(bookToDelete);
 
                 // Check if the book is there
-                var booksAfterDelete = service.GetBooks();
-                Assert.IsTrue(booksAfterDelete.Count() == expected.Count);
-                Assert.IsFalse(booksAfterDelete.Contains(bookToDelete));
+                var mediaAfterDelete = service.GetMediaItems();
+                Assert.IsTrue(mediaAfterDelete.Count() == expected.Count);
+                Assert.IsFalse(mediaAfterDelete.Contains(bookToDelete));
             }
         }
 
@@ -154,12 +160,14 @@
             {
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
-
-                expected.Add(bookAdded);
+                if (bookAdded is Book)
+                {
+                    expected.Add((Book)bookAdded);
+                }
             }
 
             // They should match
-            var actual = service.GetBooks();
+            var actual = service.GetMediaItems();
             Assert.IsTrue(actual.Intersect(expected).Count() == expected.Count);
             
             // They should not match
@@ -182,35 +190,34 @@
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
 
-                expectedList.Add(bookAdded);
+                expectedList.Add((Book)bookAdded);
             }
 
             // Update each of the books
             var actualList = new List<Book>();
             foreach (var book in expectedList)
             {
-                // Update the author
-                book.Author = Guid.NewGuid().ToString();
-                var updatedAuthor = service.Update(book);
-                Assert.IsNotNull(updatedAuthor);
-                Assert.IsTrue(book.Equals(updatedAuthor));
+                // Update the price
+                book.Price = new decimal(4.95);
+                var updatedItem = service.Update(book);
+                Assert.IsNotNull(updatedItem);
+                Assert.IsTrue(book.Equals(updatedItem));
 
                 // Update Title
-                updatedAuthor.Title = Guid.NewGuid().ToString();
-                var updatedTitle = service.Update(updatedAuthor);
-                Assert.IsNotNull(updatedAuthor);
-                Assert.IsTrue(book.Equals(updatedAuthor));
+                updatedItem.Title = "An updated title";
+                var updatedTitle = service.Update(updatedItem);
+                Assert.IsNotNull(updatedItem);
+                Assert.IsTrue(book.Equals(updatedItem));
 
-                actualList.Add(updatedAuthor);
+                actualList.Add((Book)updatedItem);
             }
 
             // Verify the changes are stored
-            var updatedList = service.GetBooks();
+            var updatedList = service.GetMediaItems();
             var zippedList = updatedList.Zip(actualList, (u, a) => new { FromService = u, TestUpdate = a });
             foreach (var entry in zippedList)
             {
                 Assert.IsTrue(entry.FromService.Equals(entry.TestUpdate));
-                Assert.IsTrue(entry.FromService.Author == entry.TestUpdate.Author);
                 Assert.IsTrue(entry.FromService.Title == entry.TestUpdate.Title);
             }
         }

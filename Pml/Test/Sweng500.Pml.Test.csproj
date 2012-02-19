@@ -66,6 +66,7 @@
     <Compile Include="Mock\BookObjectMother.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mock\MediaObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\EntityCrudServiceTest.cs" />
   </ItemGroup>
