@@ -49,7 +49,14 @@
 
                         try
                         {
-                            this.MediaToEdit = crudService.Add(this.MediaToEdit);
+                            if (null == this.MediaToEdit.EntityKey)
+                            {
+                                this.MediaToEdit = crudService.Add(this.MediaToEdit);
+                            }
+                            else
+                            {
+                                this.MediaToEdit = crudService.Update(this.MediaToEdit);
+                            }
                         }
                         catch (Exception e)
                         {
