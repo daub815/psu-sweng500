@@ -52,6 +52,7 @@
                             if (null == this.MediaToEdit.EntityKey)
                             {
                                 this.MediaToEdit = crudService.Add(this.MediaToEdit);
+                                DataStore.Instance.MediaCollection.Add(this.MediaToEdit);
                             }
                             else
                             {
