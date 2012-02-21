@@ -148,7 +148,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="2"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Published}" />
+                                    SelectedDate="{Binding MediaToEdit.Published}" />
 
 
                         <Label Grid.Column="0"
@@ -158,7 +158,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="3"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Acquired}" />
+                                    SelectedDate="{Binding MediaToEdit.Acquired}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="4"
@@ -394,7 +394,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="2"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Published}" />
+                                    SelectedDate="{Binding MediaToEdit.Published}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="3"
@@ -403,7 +403,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="3"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Released}" />
+                                    SelectedDate="{Binding MediaToEdit.Released}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="4"
@@ -412,7 +412,7 @@
                         <DatePicker Grid.Column="1"
                                     Grid.Row="4"
                                     Margin="5"
-                                    Text="{Binding MediaToEdit.Acquired}" />
+                                    SelectedDate="{Binding MediaToEdit.Acquired}" />
 
                         <Label Grid.Column="0"
                                Grid.Row="5"
