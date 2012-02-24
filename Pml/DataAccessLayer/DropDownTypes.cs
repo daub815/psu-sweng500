@@ -13,11 +13,6 @@
         /// <summary>
         /// definition of Format
         /// </summary>
-        Format = 2,
-        
-        /// <summary>
-        /// definition of Board Ratings
-        /// </summary>
-        BoardRating = 3
+        Format = 2
     }
 }
