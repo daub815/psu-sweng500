@@ -1,0 +1,548 @@
+﻿<UserControl x:Class="Sweng500.Pml.Client.Views.EditWorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dal="clr-namespace:Sweng500.Pml.DataAccessLayer;assembly=Sweng500.Pml.DataAccessLayer"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             d:DesignWidth="300"
+             x:Name="EditView">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type dal:Book}">
+            <Grid DataContext="{Binding ElementName=EditView, Path=DataContext}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Identity"
+                          Grid.Column="0"
+                          Grid.Row="0"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Media Id" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.MediaID, Mode=OneWay}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Book Id" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.BookID, Mode=OneWay}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Margin="5"
+                               Content="ISBN" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="2"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.ISBN}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Categorization"
+                          Grid.Column="0"
+                          Grid.Row="1"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Genre" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.GenreID}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Format" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.FormatID}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Information"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Title" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Title}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Publisher" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Publisher}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Margin="5"
+                               Content="Published" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="2"
+                                    Margin="5"
+                                    SelectedDate="{Binding MediaToEdit.Published}" />
+
+
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Margin="5"
+                               Content="Acquired" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="3"
+                                    Margin="5"
+                                    SelectedDate="{Binding MediaToEdit.Acquired}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Margin="5"
+                               Content="Library Location" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="4"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.LibraryLocation}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Margin="5"
+                               Content="Number of Stars" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="5"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.NumOfStars}" />
+                    </Grid>
+                </GroupBox>
+                
+                <GroupBox Header="Borrower Information"
+                          Grid.Column="0"
+                          Grid.Row="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Is Borrowable?" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="0"
+                                  Margin="5"
+                                  IsChecked="{Binding MediaToEdit.IsBorrowable}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Is Borrowed?" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="1"
+                                  Margin="5"
+                                  IsChecked="{Binding MediaToEdit.IsBorrowed}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Margin="5"
+                               Content="Borrowed By" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="2"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.BorrowerID}" />
+                    </Grid>
+                </GroupBox>
+                
+                <GroupBox Header="User Specific"
+                          Grid.Column="1"
+                          Grid.Row="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Description" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.MediaDescription}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Comment" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Comment}" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type dal:Video}">
+            <Grid DataContext="{Binding ElementName=EditView, Path=DataContext}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Identity"
+                          Grid.Column="0"
+                          Grid.Row="0"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Media Id" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.MediaID, Mode=OneWay}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Video Id" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.VideoID, Mode=OneWay}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Categorization"
+                          Grid.Column="0"
+                          Grid.Row="1"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Genre" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.GenreID}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Format" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 IsReadOnly="True"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.FormatID}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Information"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Title" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Title}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Publisher" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Publisher}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Margin="5"
+                               Content="Published" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="2"
+                                    Margin="5"
+                                    SelectedDate="{Binding MediaToEdit.Published}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Margin="5"
+                               Content="Released" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="3"
+                                    Margin="5"
+                                    SelectedDate="{Binding MediaToEdit.Released}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Margin="5"
+                               Content="Acquired" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="4"
+                                    Margin="5"
+                                    SelectedDate="{Binding MediaToEdit.Acquired}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Margin="5"
+                               Content="MPAA Rating" />
+                        <DatePicker Grid.Column="1"
+                                    Grid.Row="5"
+                                    Margin="5"
+                                    Text="{Binding MediaToEdit.BoardRatingID}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="6"
+                               Margin="5"
+                               Content="Number of Stars" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="6"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.NumOfStars}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Borrower Information"
+                          Grid.Column="0"
+                          Grid.Row="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Is Borrowable?" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="0"
+                                  Margin="5"
+                                  IsChecked="{Binding MediaToEdit.IsBorrowable}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Is Borrowed?" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="1"
+                                  Margin="5"
+                                  IsChecked="{Binding MediaToEdit.IsBorrowed}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Margin="5"
+                               Content="Borrowed By" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="2"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.BorrowerID}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="User Specific"
+                          Grid.Column="1"
+                          Grid.Row="2"
+                          Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75" />
+                            <RowDefinition Height="75" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Margin="5"
+                               Content="Description" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.MediaDescription}" />
+
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Margin="5"
+                               Content="Comment" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Margin="5"
+                                 Text="{Binding MediaToEdit.Comment}" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.ColumnSpan="2">
+            <ContentControl Content="{Binding MediaToEdit}" />
+        </ScrollViewer>
+
+        <Button Content="Save"
+                Command="{Binding SaveCommand}"
+                Grid.Column="0"
+                Grid.Row="1"
+                Margin="5" />
+
+        <Button Content="Reset"
+                Command="{Binding ResetCommand}"
+                Grid.Column="1"
+                Grid.Row="1"
+                Margin="5" />
+    </Grid>
+</UserControl>

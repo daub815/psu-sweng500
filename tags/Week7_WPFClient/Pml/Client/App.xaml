@@ -1,0 +1,20 @@
+﻿<Application x:Class="Sweng500.Pml.Client.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Sweng500.Pml.ViewModel;assembly=Sweng500.Pml.ViewModel">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ObjectDataProvider x:Key="DataStore" 
+                            ObjectType="{x:Type vm:DataStore}"
+                            MethodName="GetInstance" />
+
+            <ObjectDataProvider x:Key="GlobalCommands" 
+                            ObjectType="{x:Type vm:GlobalCommands}"
+                            MethodName="GetInstance" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
