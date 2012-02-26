@@ -100,10 +100,10 @@
                 // Verify the book content
                 Assert.IsNotNull(addedBook);
                 Assert.IsNotNull(testBook.Original);
-                Assert.IsTrue(testBook.Original.BookID == 0);
-                Assert.IsTrue(testBook.Original.BookID != addedBook.BookID);
-                Assert.IsTrue(testBook.Original.MediaID == 0);
-                Assert.IsTrue(testBook.Original.MediaID != addedBook.MediaID);
+////                Assert.IsTrue(testBook.Original.BookID == 0);
+////                Assert.IsTrue(testBook.Original.BookID != addedBook.BookID);
+                Assert.IsTrue(testBook.Original.MediaId == 0);
+                Assert.IsTrue(testBook.Original.MediaId != addedBook.MediaId);
                 Assert.IsTrue(testBook.Original.Title == addedBook.Title);
 
                 Assert.IsTrue(testBook.Original.Acquired == addedBook.Acquired);
@@ -131,10 +131,10 @@
                 //// Verify the book content
                 Assert.IsNotNull(addedMedia);
                 Assert.IsNotNull(testMedia.Original);
-                Assert.IsTrue(testMedia.Original.VideoID == 0);
-                Assert.IsTrue(testMedia.Original.VideoID != addedMedia.VideoID);
-                Assert.IsTrue(testMedia.Original.MediaID == 0);
-                Assert.IsTrue(testMedia.Original.MediaID != addedMedia.MediaID);
+////                Assert.IsTrue(testMedia.Original.VideoID == 0);
+////                Assert.IsTrue(testMedia.Original.VideoID != addedMedia.VideoID);
+                Assert.IsTrue(testMedia.Original.MediaId == 0);
+                Assert.IsTrue(testMedia.Original.MediaId != addedMedia.MediaId);
                 Assert.IsTrue(testMedia.Original.Title == addedMedia.Title);
 
                 Assert.IsTrue(testMedia.Original.Acquired == addedMedia.Acquired);
@@ -252,6 +252,13 @@
         public void UpdateTest()
         {
             var service = new EntityCrudService();
+            int formatId = 0;
+            IDictionary<int, string> formats = service.GetGenres();
+            ICollection<int> formatKeys = formats.Keys;
+            if (formatKeys != null)
+            {
+                formatId = formatKeys.First();
+            }
 
             // Add the list of books to get
             var expectedList = new List<Book>();
@@ -268,7 +275,7 @@
             foreach (var book in expectedList)
             {
                 // Update the price
-                book.Price = new decimal(4.95);
+                book.FormatId = formatId;
                 var updatedItem = service.Update(book);
                 Assert.IsNotNull(updatedItem);
                 Assert.IsTrue(book.Equals(updatedItem));
@@ -304,30 +311,40 @@
             {
                 context = new MasterEntities();
                 Code genre1 = new Code();
-                genre1.CodeTypeID = 1;
-                genre1.CodeID = 1;
+                genre1.CodeTypeId = 1;
                 genre1.CodeDescription = "test 1";
 
-                context.Code.AddObject(genre1);
+                context.Codes.AddObject(genre1);
 
                 Code genre2 = new Code();
-                genre2.CodeTypeID = 1;
-                genre2.CodeID = 2;
+                genre2.CodeTypeId = 1;
                 genre2.CodeDescription = "test 2";
-                context.Code.AddObject(genre2);
+                context.Codes.AddObject(genre2);
 
                 Code format1 = new Code();
-                format1.CodeTypeID = 2;
-                format1.CodeID = 1;
+                format1.CodeTypeId = 2;
                 format1.CodeDescription = "test format 1";
-                context.Code.AddObject(format1);
+                context.Codes.AddObject(format1);
 
                 Code format2 = new Code();
-                format2.CodeTypeID = 2;
-                format2.CodeID = 2;
+                format2.CodeTypeId = 2;
                 format2.CodeDescription = "test format 2";
-                context.Code.AddObject(format2);
+                context.Codes.AddObject(format2);
 
+                Code boardRatingG = new Code();
+                boardRatingG.CodeTypeId = 3;
+                boardRatingG.CodeDescription = "G- General Audiences";
+                context.Codes.AddObject(boardRatingG);
+
+                Code boardRatingPG = new Code();
+                boardRatingPG.CodeTypeId = 3;
+                boardRatingPG.CodeDescription = "PG- Parental Guidance Suggested";
+                context.Codes.AddObject(boardRatingPG);
+
+                Code boardRatingPG13 = new Code();
+                boardRatingPG13.CodeTypeId = 3;
+                boardRatingPG13.CodeDescription = "PG-13- Parents Strongly Cautioned";
+                context.Codes.AddObject(boardRatingPG13);
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -354,9 +371,9 @@
         {
             var context = new MasterEntities();
 
-            foreach (var code in context.Code)
+            foreach (var code in context.Codes)
             {
-                context.Code.DeleteObject(code);
+                context.Codes.DeleteObject(code);
             }
 
             context.SaveChanges();

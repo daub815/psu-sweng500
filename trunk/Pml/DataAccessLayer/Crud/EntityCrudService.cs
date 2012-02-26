@@ -172,11 +172,11 @@
         {
             IDictionary<int, string> genreDictionary = new Dictionary<int, string>();
             var context = new MasterEntities();
-            var query = from c in context.Code where c.CodeTypeID == (int)DropDownTypes.Genre select c;
+            var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.Genre select c;
             var genres = query.ToList();
             foreach (var item in genres)
             {
-                genreDictionary.Add(item.CodeID, item.CodeDescription);
+                genreDictionary.Add(item.CodeId, item.CodeDescription);
             }
 
             return genreDictionary;
@@ -190,14 +190,32 @@
         {
             IDictionary<int, string> formatDictionary = new Dictionary<int, string>();
             var context = new MasterEntities();
-            var query = from c in context.Code where c.CodeTypeID == (int)DropDownTypes.Format select c;
+            var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.Format select c;
             var formats = query.ToList();
             foreach (var formatitem in formats)
             {
-                formatDictionary.Add(formatitem.CodeID, formatitem.CodeDescription);
+                formatDictionary.Add(formatitem.CodeId, formatitem.CodeDescription);
             }
 
             return formatDictionary;
+        }
+
+        /// <summary>
+        /// gets a dictionary of the available board ratings
+        /// </summary>
+        /// <returns>The formats as a dictionary</returns>
+        public IDictionary<int, string> GetBoardRatings()
+        {
+            IDictionary<int, string> ratingDictionary = new Dictionary<int, string>();
+            var context = new MasterEntities();
+            var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.BoardRating select c;
+            var ratings = query.ToList();
+            foreach (var item in ratings)
+            {
+                ratingDictionary.Add(item.CodeId, item.CodeDescription);
+            }
+
+            return ratingDictionary;
         }
 
         /// <summary>
@@ -207,7 +225,7 @@
         public IEnumerable<Person> GetPeople()
         {
             var context = new MasterEntities();
-            var query = from c in context.Person select c;
+            var query = from c in context.People select c;
             return query.ToList<Person>();
         }
 
@@ -218,7 +236,7 @@
         public IEnumerable<Person> GetAuthors()
         {
             var context = new MasterEntities();
-            var query = from p in context.Person.OfType<Author>() select p;
+            var query = from p in context.People.OfType<Author>() select p;
             return query.ToList<Person>();
         }
 
