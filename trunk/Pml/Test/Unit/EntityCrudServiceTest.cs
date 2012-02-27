@@ -286,8 +286,8 @@
             var actualList = new List<Book>();
             foreach (var book in expectedList)
             {
-                // Update the price
-                book.FormatId = formatId;
+                // Update the comment
+                book.Comment = "An updated comment";
                 var updatedItem = service.Update(book);
                 Assert.IsNotNull(updatedItem);
                 Assert.IsTrue(book.Equals(updatedItem));
