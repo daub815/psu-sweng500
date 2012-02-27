@@ -122,8 +122,6 @@
     <Property Name="Comment" Type="nvarchar" Nullable="true" />
     <Property Name="Description" Type="nvarchar" Nullable="true" />
     <Property Name="IsBorrowable" Type="bit" Nullable="false" />
-    <Property Name="GenreId" Type="int" Nullable="true" />
-    <Property Name="FormatId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="BorrowedMedias">
     <Key>
@@ -436,7 +434,7 @@
             <End Role="Video" EntitySet="Media" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Person">
+        <EntityType Name="Person" Abstract="true">
           <Key>
             <PropertyRef Name="PersonId" />
           </Key>
@@ -480,7 +478,7 @@
           <Property Type="Boolean" Name="CanBorrow" Nullable="true" />
           <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.BorrowerBorrowedMedia" FromRole="Borrower" ToRole="BorrowedMedia" />
         </EntityType>
-        <EntityType Name="Media">
+        <EntityType Name="Media" Abstract="true">
           <Key>
             <PropertyRef Name="MediaId" />
           </Key>
@@ -492,8 +490,6 @@
           <Property Type="String" Name="Comment" Nullable="true" />
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="IsBorrowable" Nullable="false" />
-          <Property Type="Int32" Name="GenreId" Nullable="true" />
-          <Property Type="Int32" Name="FormatId" Nullable="true" />
           <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" FromRole="Media" ToRole="BorrowedMedia" />
         </EntityType>
         <EntityType Name="BorrowedMedia">
@@ -646,8 +642,6 @@
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
-          <ScalarProperty Name="GenreId" ColumnName="GenreId" />
-          <ScalarProperty Name="FormatId" ColumnName="FormatId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Book)">
@@ -735,15 +729,15 @@
           <ConnectorPoint PointX="6.50212" PointY="1.201691080729167" />
           <ConnectorPoint PointX="6.625" PointY="1.201691080729167" />
         </InheritanceConnector>
-        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="2.5" PointY="5.375" Height="3.1340950520833317" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="2.5" PointY="5.375" Height="2.7494921874999996" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.BorrowedMedia" Width="1.5" PointX="6.75" PointY="3" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Video" Width="1.5" PointX="4.625" PointY="3.875" Height="1.9802864583333326" />
-        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Video" >
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Video" ManuallyRouted="false" >
           <ConnectorPoint PointX="4" PointY="5.6151432291666659" />
           <ConnectorPoint PointX="4.625" PointY="5.6151432291666659" />
         </InheritanceConnector>
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Book" Width="1.5" PointX="0.625" PointY="4.625" Height="1.5956835937499996" />
-        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Book" >
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Book" ManuallyRouted="false" >
           <ConnectorPoint PointX="2.5" PointY="5.797841796875" />
           <ConnectorPoint PointX="2.125" PointY="5.797841796875" />
         </InheritanceConnector>
@@ -761,8 +755,8 @@
           <ConnectorPoint PointX="7.4375" PointY="3" />
         </AssociationConnector>
         <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia">
-          <ConnectorPoint PointX="4" PointY="7.2134407552083317" />
-          <ConnectorPoint PointX="7.5" PointY="7.2134407552083317" />
+          <ConnectorPoint PointX="4" PointY="7.0211393229166656" />
+          <ConnectorPoint PointX="7.5" PointY="7.0211393229166656" />
           <ConnectorPoint PointX="7.5" PointY="5.3648893229166656" />
         </AssociationConnector>
         <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.AuthorBook">
