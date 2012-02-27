@@ -303,57 +303,9 @@
         /// A test for GetGenre
         /// </summary>
         [TestMethod]
-        public void GetGenres()
+        public void GetCodes()
         {
-            MasterEntities context = null;
-            this.ClearCodes();
-            try
-            {
-                context = new MasterEntities();
-                Code genre1 = new Code();
-                genre1.CodeTypeId = 1;
-                genre1.CodeDescription = "test 1";
-
-                context.Codes.AddObject(genre1);
-
-                Code genre2 = new Code();
-                genre2.CodeTypeId = 1;
-                genre2.CodeDescription = "test 2";
-                context.Codes.AddObject(genre2);
-
-                Code format1 = new Code();
-                format1.CodeTypeId = 2;
-                format1.CodeDescription = "test format 1";
-                context.Codes.AddObject(format1);
-
-                Code format2 = new Code();
-                format2.CodeTypeId = 2;
-                format2.CodeDescription = "test format 2";
-                context.Codes.AddObject(format2);
-
-                Code boardRatingG = new Code();
-                boardRatingG.CodeTypeId = 3;
-                boardRatingG.CodeDescription = "G- General Audiences";
-                context.Codes.AddObject(boardRatingG);
-
-                Code boardRatingPG = new Code();
-                boardRatingPG.CodeTypeId = 3;
-                boardRatingPG.CodeDescription = "PG- Parental Guidance Suggested";
-                context.Codes.AddObject(boardRatingPG);
-
-                Code boardRatingPG13 = new Code();
-                boardRatingPG13.CodeTypeId = 3;
-                boardRatingPG13.CodeDescription = "PG-13- Parents Strongly Cautioned";
-                context.Codes.AddObject(boardRatingPG13);
-                context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                string message = "Unable to clear the database after test.";
-                message = message + "Received Exception: " + e.Message;
-
-                Assert.Fail(message);
-            }
+            this.PopulateCodes();
 
             var service = new EntityCrudService();
             IDictionary<int, string> genres = service.GetGenres();
@@ -361,13 +313,23 @@
             ICollection<string> descriptions = genres.Values;
             Assert.IsTrue(descriptions.Contains("test 1"));
             Assert.IsTrue(descriptions.Contains("test 2"));
-            this.ClearCodes(); 
+
+            IDictionary<int, string> formats = service.GetFormats();
+            Assert.IsTrue(formats.Count == 3);
+            ICollection<string> formatDescriptions = formats.Values;
+            Assert.IsTrue(formatDescriptions.Contains("test format 1"));
+            Assert.IsTrue(formatDescriptions.Contains("test format 2"));
+
+            IDictionary<int, string> ratings = service.GetBoardRatings();
+            Assert.IsTrue(ratings.Count == 4);
+            ICollection<string> ratingDescriptions = ratings.Values;
+            Assert.IsTrue(ratingDescriptions.Contains("R- Restricted"));
         }
 
         /// <summary>
-        /// clear codes in database
+        /// populates codeTypes and codes in database by clearing them and adding
         /// </summary>
-        public void ClearCodes()
+        public void PopulateCodes()
         {
             var context = new MasterEntities();
 
@@ -376,7 +338,73 @@
                 context.Codes.DeleteObject(code);
             }
 
+            foreach (var code in context.CodeTypes)
+            {
+                context.CodeTypes.DeleteObject(code);
+            }
+
             context.SaveChanges();
+
+            CodeType genreType = new CodeType();
+            genreType.Type = "Genres";
+            context.CodeTypes.AddObject(genreType);
+
+            CodeType formatType = new CodeType();
+            formatType.Type = "Formats";
+            context.CodeTypes.AddObject(formatType);
+
+            CodeType ratingType = new CodeType();
+            ratingType.Type = "MPAA Board Ratings";
+            context.CodeTypes.AddObject(ratingType);
+            context.SaveChanges();
+
+                Code genre1 = new Code();
+                genre1.CodeTypeId = genreType.CodeTypeId;
+                genre1.CodeDescription = "test 1";
+
+                context.Codes.AddObject(genre1);
+
+                Code genre2 = new Code();
+                genre2.CodeTypeId = genreType.CodeTypeId;
+                genre2.CodeDescription = "test 2";
+                context.Codes.AddObject(genre2);
+
+                Code format1 = new Code();
+                format1.CodeTypeId = formatType.CodeTypeId;
+                format1.CodeDescription = "test format 1";
+                context.Codes.AddObject(format1);
+
+                Code format2 = new Code();
+                format2.CodeTypeId = formatType.CodeTypeId;
+                format2.CodeDescription = "test format 2";
+                context.Codes.AddObject(format2);
+
+                Code format3 = new Code();
+                format3.CodeTypeId = formatType.CodeTypeId;
+                format3.CodeDescription = "test format 3";
+                context.Codes.AddObject(format3);
+
+                Code boardRatingG = new Code();
+                boardRatingG.CodeTypeId = ratingType.CodeTypeId;
+                boardRatingG.CodeDescription = "G- General Audiences";
+                context.Codes.AddObject(boardRatingG);
+
+                Code boardRatingPG = new Code();
+                boardRatingPG.CodeTypeId = ratingType.CodeTypeId;
+                boardRatingPG.CodeDescription = "PG- Parental Guidance Suggested";
+                context.Codes.AddObject(boardRatingPG);
+
+                Code boardRatingPG13 = new Code();
+                boardRatingPG13.CodeTypeId = ratingType.CodeTypeId;
+                boardRatingPG13.CodeDescription = "PG-13- Parents Strongly Cautioned";
+                context.Codes.AddObject(boardRatingPG13);
+
+                Code boardRatingR = new Code();
+                boardRatingR.CodeTypeId = ratingType.CodeTypeId;
+                boardRatingR.CodeDescription = "R- Restricted";
+                context.Codes.AddObject(boardRatingR);
+
+                context.SaveChanges();
         }
     }
 }
