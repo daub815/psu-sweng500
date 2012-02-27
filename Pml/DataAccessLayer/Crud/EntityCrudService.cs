@@ -100,6 +100,15 @@
                 throw new ArgumentNullException("null argument sent to Add");
             }
 
+            if (media is Video)
+            {
+                Video videoItem = (Video)media;
+                if (null == videoItem.Released)
+                {
+                    videoItem.Released = DateTime.UtcNow;
+                } 
+            }
+
             MasterEntities context = null;
 
             try
@@ -110,6 +119,7 @@
             }
             catch (Exception e)
             {
+                Console.WriteLine("unable to add a media item.  received exception: " + e.ToString());
                 log.Error("unable to add a media item.  received exception: ", e);
                 throw;
             }

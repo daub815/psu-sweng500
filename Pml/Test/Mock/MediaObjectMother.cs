@@ -59,6 +59,7 @@
         {
             IList<Video> videos = new List<Video>();
             Video video1 = new Video();
+
 ////           video1.MediaId = mediaID;
             video1.Acquired = new System.DateTime(2010, 12, 25);
 ////            video1.BoardRatingId =
@@ -67,7 +68,7 @@
             video1.IsBorrowable = false;
             video1.Description = "The Complete First Season";
 ////            video1.Price = new decimal(9.99);
-////            video1.Published = new System.DateTime(2006, 1, 1);
+            video1.Released = new System.DateTime(2006, 1, 1);
             video1.Publisher = "Metro Goldwyn Meyers Studio";
             video1.Title = "Stargate SG.1 Season 1";
             videos.Add(video1);
