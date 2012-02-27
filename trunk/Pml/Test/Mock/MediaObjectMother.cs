@@ -62,6 +62,7 @@
 
 ////           video1.MediaId = mediaID;
             video1.Acquired = new System.DateTime(2010, 12, 25);
+            
 ////            video1.BoardRatingId =
             video1.Comment = "Great Series";
             video1.NumberOfStars = new decimal(3);
