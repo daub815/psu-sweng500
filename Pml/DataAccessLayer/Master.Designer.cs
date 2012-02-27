@@ -994,28 +994,8 @@ namespace Sweng500.Pml.DataAccessLayer
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(Book))]
     [KnownTypeAttribute(typeof(Video))]
-    public partial class Media : EntityObject
+    public abstract partial class Media : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Media object.
-        /// </summary>
-        /// <param name="mediaId">Initial value of the MediaId property.</param>
-        /// <param name="title">Initial value of the Title property.</param>
-        /// <param name="acquired">Initial value of the Acquired property.</param>
-        /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
-        public static Media CreateMedia(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable)
-        {
-            Media media = new Media();
-            media.MediaId = mediaId;
-            media.Title = title;
-            media.Acquired = acquired;
-            media.IsBorrowable = isBorrowable;
-            return media;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>
@@ -1212,54 +1192,6 @@ namespace Sweng500.Pml.DataAccessLayer
         private global::System.Boolean _IsBorrowable;
         partial void OnIsBorrowableChanging(global::System.Boolean value);
         partial void OnIsBorrowableChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> GenreId
-        {
-            get
-            {
-                return _GenreId;
-            }
-            set
-            {
-                OnGenreIdChanging(value);
-                ReportPropertyChanging("GenreId");
-                _GenreId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("GenreId");
-                OnGenreIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _GenreId;
-        partial void OnGenreIdChanging(Nullable<global::System.Int32> value);
-        partial void OnGenreIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> FormatId
-        {
-            get
-            {
-                return _FormatId;
-            }
-            set
-            {
-                OnFormatIdChanging(value);
-                ReportPropertyChanging("FormatId");
-                _FormatId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FormatId");
-                OnFormatIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _FormatId;
-        partial void OnFormatIdChanging(Nullable<global::System.Int32> value);
-        partial void OnFormatIdChanged();
 
         #endregion
     
@@ -1301,24 +1233,8 @@ namespace Sweng500.Pml.DataAccessLayer
     [KnownTypeAttribute(typeof(Producer))]
     [KnownTypeAttribute(typeof(Director))]
     [KnownTypeAttribute(typeof(User))]
-    public partial class Person : EntityObject
+    public abstract partial class Person : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Person object.
-        /// </summary>
-        /// <param name="personId">Initial value of the PersonId property.</param>
-        /// <param name="lastName">Initial value of the LastName property.</param>
-        public static Person CreatePerson(global::System.Int32 personId, global::System.String lastName)
-        {
-            Person person = new Person();
-            person.PersonId = personId;
-            person.LastName = lastName;
-            return person;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>

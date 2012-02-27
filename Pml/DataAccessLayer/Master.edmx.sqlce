@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 02/24/2012 20:08:04
+-- Date Created: 02/26/2012 21:42:27
 -- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
@@ -14,19 +14,35 @@
 
     ALTER TABLE [Codes] DROP CONSTRAINT [FK_CodeTypeCode];
 GO
-    ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
+    ALTER TABLE [BorrowedMedias] DROP CONSTRAINT [FK_BorrowerBorrowedMedia];
 GO
-    ALTER TABLE [People_Director] DROP CONSTRAINT [FK_Director_inherits_Person];
+    ALTER TABLE [BorrowedMedias] DROP CONSTRAINT [FK_MediaBorrowedMedia];
 GO
-    ALTER TABLE [People_Producer] DROP CONSTRAINT [FK_Producer_inherits_Person];
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Author];
+GO
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Book];
+GO
+    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Video];
+GO
+    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Producer];
+GO
+    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Director];
+GO
+    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Video];
 GO
     ALTER TABLE [People_Borrower] DROP CONSTRAINT [FK_Borrower_inherits_Person];
 GO
-    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
+    ALTER TABLE [People_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
 GO
     ALTER TABLE [Media_Book] DROP CONSTRAINT [FK_Book_inherits_Media];
 GO
-    ALTER TABLE [People_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
+    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
+GO
+    ALTER TABLE [People_Producer] DROP CONSTRAINT [FK_Producer_inherits_Person];
+GO
+    ALTER TABLE [People_Director] DROP CONSTRAINT [FK_Director_inherits_Person];
+GO
+    ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
 GO
 
 -- --------------------------------------------------
@@ -44,19 +60,25 @@ GO
 GO
     DROP TABLE [BorrowedMedias];
 GO
-    DROP TABLE [People_User];
-GO
-    DROP TABLE [People_Director];
-GO
-    DROP TABLE [People_Producer];
-GO
     DROP TABLE [People_Borrower];
 GO
-    DROP TABLE [Media_Video];
+    DROP TABLE [People_Author];
 GO
     DROP TABLE [Media_Book];
 GO
-    DROP TABLE [People_Author];
+    DROP TABLE [Media_Video];
+GO
+    DROP TABLE [People_Producer];
+GO
+    DROP TABLE [People_Director];
+GO
+    DROP TABLE [People_User];
+GO
+    DROP TABLE [AuthorBook];
+GO
+    DROP TABLE [VideoProducer];
+GO
+    DROP TABLE [DirectorVideo];
 GO
 
 -- --------------------------------------------------
@@ -99,9 +121,7 @@ CREATE TABLE [Media] (
     [NumberOfStars] decimal(18,0)  NULL,
     [Comment] nvarchar(4000)  NULL,
     [Description] nvarchar(4000)  NULL,
-    [IsBorrowable] bit  NOT NULL,
-    [GenreId] int  NULL,
-    [FormatId] int  NULL
+    [IsBorrowable] bit  NOT NULL
 );
 GO
 
