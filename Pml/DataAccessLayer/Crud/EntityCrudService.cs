@@ -157,6 +157,7 @@
             try
             {
                 context = new MasterEntities();
+                context.Media.Attach(media);
                 context.Media.DeleteObject(media);
                 context.SaveChanges();
             }

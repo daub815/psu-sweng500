@@ -159,21 +159,23 @@
                 expected.Add((Book)bookAdded);
             }
 
-            // Delete the books
-            for (int i = expected.Count - 1; i >= 0; --i)
+            var mediaItems = service.GetMediaItems();
+            int mediaCount = 0;
+            foreach (var item in mediaItems)
             {
-                // Get the book
-                var bookToDelete = expected[i];
-
-                // Remove the book
-                expected.RemoveAt(i);
-                service.Delete(bookToDelete);
-
-                // Check if the book is there
-                var mediaAfterDelete = service.GetMediaItems();
-                Assert.IsTrue(mediaAfterDelete.Count() == expected.Count);
-                Assert.IsFalse(mediaAfterDelete.Contains(bookToDelete));
+                mediaCount++;
             }
+
+            Assert.IsTrue(mediaCount == expected.Count);
+
+            // Delete the books
+            foreach (Book item in expected)
+            {
+                service.Delete(item);
+            }
+
+            IEnumerable<Media> items = service.GetMediaItems();
+            Assert.IsTrue(items.Count() == 0);
         }
 
         /// <summary>
@@ -182,11 +184,13 @@
         [TestMethod]
         public void GetBooksTest()
         {
+            int bookCount = 0;
+            int otherCount = 0;
             var service = new EntityCrudService();
 
             // Add the list of books to get
             var expected = new List<Book>();
-            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            foreach (var book in Mock.MediaObjectMother.CreateNewBooks())
             {
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
@@ -198,11 +202,19 @@
 
             // They should match
             var actual = service.GetMediaItems();
-            Assert.IsTrue(actual.Intersect(expected).Count() == expected.Count);
-            
-            // They should not match
-            expected.Add(new Book());
-            Assert.IsFalse(actual.Intersect(expected).Count() == expected.Count);
+            foreach (var item in actual)
+            {
+                if (item is Book)
+                {
+                    bookCount++;
+                }
+                else
+                {
+                    otherCount++;
+                }
+            }
+
+            Assert.IsTrue(bookCount == expected.Count);
         }
 
         /// <summary>
@@ -262,7 +274,7 @@
 
             // Add the list of books to get
             var expectedList = new List<Book>();
-            foreach (var book in Mock.BookObjectMother.CreateNewBooks())
+            foreach (var book in Mock.MediaObjectMother.CreateNewBooks())
             {
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
