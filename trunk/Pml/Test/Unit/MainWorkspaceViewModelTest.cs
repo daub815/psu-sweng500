@@ -5,10 +5,10 @@
     using Sweng500.Pml.ViewModel.Workspaces;    
     
     /// <summary>
-    ///This is a test class for MainWorkspaceViewModelTest and is intended
-    ///to contain all MainWorkspaceViewModelTest Unit Tests
-    ///</summary>
-    [TestClass()]
+    /// This is a test class for MainWorkspaceViewModelTest and is intended
+    /// to contain all MainWorkspaceViewModelTest Unit Tests
+    /// </summary>
+    [TestClass]
     public class MainWorkspaceViewModelTest
     {
         /// <summary>
@@ -24,7 +24,7 @@
         /// <summary>
         /// A test for MainWorkspaceViewModel Constructor
         /// </summary>
-        [TestMethod()]
+        [TestMethod]
         public void MainWorkspaceViewModelConstructorTest()
         {
             MainWorkspaceViewModel target = new MainWorkspaceViewModel();
@@ -43,9 +43,9 @@
         }
 
         /// <summary>
-        ///A test for SelectedWorkspace
-        ///</summary>
-        [TestMethod()]
+        /// A test for SelectedWorkspace
+        /// </summary>
+        [TestMethod]
         public void SelectedWorkspaceTest()
         {
             MainWorkspaceViewModel target = new MainWorkspaceViewModel(); // TODO: Initialize to an appropriate value
