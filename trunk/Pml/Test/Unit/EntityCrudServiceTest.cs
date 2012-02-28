@@ -28,34 +28,9 @@
         /// </summary>
         /// <param name="testContext">Unused by this method</param>
         [ClassInitialize]
-        public static void CleanDatabase(TestContext testContext = null)
+        public static void ClassInitialize(TestContext testContext = null)
         {
-            MasterEntities context = null;
-
-            try
-            {
-                context = new MasterEntities();
-
-                foreach (var media in context.Media)
-                {
-                    context.Media.DeleteObject(media);
-                    context.SaveChanges();
-                }  
-            }
-            catch (Exception e)
-            {
-                string message = "Unable to clear the database after test.";
-                message = message + "Received Exception: " + e.Message;
-
-                Assert.Fail(message);
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
-            }
+            Utilities.CleanDatabase();
         }
 
         /// <summary>
@@ -64,7 +39,7 @@
         [TestCleanup]
         public void TestCleanup()
         {
-            CleanDatabase();
+            Utilities.CleanDatabase();
         }
 
         /// <summary>
