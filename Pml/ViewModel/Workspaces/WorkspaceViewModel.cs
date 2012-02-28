@@ -53,6 +53,7 @@
         /// Initializes a new instance of the WorkspaceViewModel class
         /// </summary>
         public WorkspaceViewModel()
+            : this(null)
         {
         }
 

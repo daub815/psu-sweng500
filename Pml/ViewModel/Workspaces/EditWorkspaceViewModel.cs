@@ -96,7 +96,7 @@
         /// </summary>
         /// <param name="mediaToEdit">The element to be edited</param>
         public EditWorkspaceViewModel(Media mediaToEdit)
-            : this("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaID)
+            : this("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaId)
         {
             this.MediaToEdit = mediaToEdit;
         }
