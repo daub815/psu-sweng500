@@ -2,6 +2,8 @@
 {
     using System.ComponentModel;
     using System.Windows.Data;
+    using log4net;
+    using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
     /// Provides the inventory functionality
@@ -10,11 +12,12 @@
     {
         #region Statics
 
+        /// <summary>
+        /// Class logger
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #endregion Statics
-
-        #region Fields
-
-        #endregion Fields
 
         #region Constructors
 
@@ -25,6 +28,7 @@
             : base("Inventory")
         {
             this.Media = new ListCollectionView(DataStore.Instance.MediaCollection);
+            this.Media.CurrentChanged += (obj, args) => this.RaisePropertyChanged(SelectedMediaPropertyName);
         }
 
         #endregion Constructors
@@ -38,6 +42,17 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Gets the selected media, which is just the currently selected on in the collectionview
+        /// </summary>
+        public override Media SelectedMedia
+        {
+            get
+            {
+                return (Media)this.Media.CurrentItem;
+            }
         }
 
         #endregion Properties

@@ -2,8 +2,8 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Sweng500.Pml.ViewModel;
-    using Sweng500.Pml.ViewModel.Workspaces;    
-    
+    using Sweng500.Pml.ViewModel.Workspaces;
+
     /// <summary>
     /// This is a test class for MainWorkspaceViewModelTest and is intended
     /// to contain all MainWorkspaceViewModelTest Unit Tests
@@ -33,9 +33,6 @@
             
             // Verify workspaces
             Assert.IsNotNull(target.Workspaces);
-            Assert.IsTrue(target.Workspaces.Count == 1);
-            Assert.IsNotNull(target.Workspaces[0]);
-            Assert.IsInstanceOfType(target.Workspaces[0], typeof(InventoryWorkspaceViewModel));
 
             // Verify commands are set
             Assert.IsNotNull(GlobalCommands.Instance.AddMediaItemCommand);
@@ -54,12 +51,10 @@
             WorkspaceViewModel actual;
             actual = target.SelectedWorkspace;
             Assert.IsNotNull(actual);
-            Assert.ReferenceEquals(actual, target.Workspaces[0]);
 
             // Verify selected workspace with an added workspace
             InventoryWorkspaceViewModel workspace = new InventoryWorkspaceViewModel();
             workspace.Name = "Second Inventory";
-            target.Workspaces.Add(workspace);
             workspace.IsSelected = true;
             actual = target.SelectedWorkspace;
             Assert.IsNotNull(actual);

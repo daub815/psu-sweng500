@@ -23,6 +23,11 @@
         public const string EditMediaItemCommandPropertyName = "EditMediaItemCommand";
 
         /// <summary>
+        /// Property name for the DeleteMediaItemCommand property
+        /// </summary>
+        public const string DeleteMediaItemCommandPropertyName = "DeleteMediaItemCommand";
+
+        /// <summary>
         /// Property name for the SelectWorkspaceCommand property
         /// </summary>
         public const string SelectWorkspaceCommandPropertyName = "SelectWorkspaceCommand";
@@ -45,6 +50,11 @@
         /// Backing field for the EditMediaItemCommand property
         /// </summary>
         private RelayCommand<Media> mEditMediaItemCommand;
+
+        /// <summary>
+        /// Backing field for the DeleteMediaItemCommand property
+        /// </summary>
+        private RelayCommand<Media> mDeleteMediaItemCommand;
 
         /// <summary>
         /// Backing field for the SelectWorkspaceCommand property
@@ -123,6 +133,27 @@
                 {
                     this.mEditMediaItemCommand = value;
                     this.RaisePropertyChanged(EditMediaItemCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to delete a media item
+        /// </summary>
+        public RelayCommand<Media> DeleteMediaItemCommand
+        {
+            get
+            {
+                return this.mDeleteMediaItemCommand;
+            }
+
+            set
+            {
+                if (null == this.DeleteMediaItemCommand &&
+                    null != value)
+                {
+                    this.mDeleteMediaItemCommand = value;
+                    this.RaisePropertyChanged(DeleteMediaItemCommandPropertyName);
                 }
             }
         }

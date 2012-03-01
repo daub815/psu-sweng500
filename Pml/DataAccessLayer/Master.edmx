@@ -152,6 +152,7 @@
     </Key>
     <Property Name="ISBN" Type="nvarchar" Nullable="true" MaxLength="13" />
     <Property Name="LibraryLocation" Type="nvarchar" Nullable="true" />
+    <Property Name="Published" Type="datetime" Nullable="false" />
     <Property Name="MediaId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Media_Video">
@@ -515,6 +516,7 @@
           <Property Type="String" Name="ISBN" Nullable="true" MaxLength="13" />
           <Property Type="String" Name="LibraryLocation" Nullable="true" />
           <NavigationProperty Name="Authors" Relationship="Sweng500.Pml.DataAccessLayer.AuthorBook" FromRole="Book" ToRole="Author" />
+          <Property Type="DateTime" Name="Published" Nullable="false" />
         </EntityType>
         <EntityType Name="Author" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
           <NavigationProperty Name="Books" Relationship="Sweng500.Pml.DataAccessLayer.AuthorBook" FromRole="Author" ToRole="Book" />
@@ -649,6 +651,7 @@
           <ScalarProperty Name="MediaId" ColumnName="MediaId" />
           <ScalarProperty Name="ISBN" ColumnName="ISBN" />
           <ScalarProperty Name="LibraryLocation" ColumnName="LibraryLocation" />
+          <ScalarProperty Name="Published" ColumnName="Published" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Video)">
@@ -736,10 +739,10 @@
           <ConnectorPoint PointX="4" PointY="5.6151432291666659" />
           <ConnectorPoint PointX="4.625" PointY="5.6151432291666659" />
         </InheritanceConnector>
-        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Book" Width="1.5" PointX="0.625" PointY="4.625" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Book" Width="1.5" PointX="0.625" PointY="4.625" Height="1.7879850260416665" />
         <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Book" ManuallyRouted="false" >
-          <ConnectorPoint PointX="2.5" PointY="5.797841796875" />
-          <ConnectorPoint PointX="2.125" PointY="5.797841796875" />
+          <ConnectorPoint PointX="2.5" PointY="5.8939925130208337" />
+          <ConnectorPoint PointX="2.125" PointY="5.8939925130208337" />
         </InheritanceConnector>
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Author" Width="1.5" PointX="0.625" PointY="1.625" Height="1.2110807291666665" />
         <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Author" >

@@ -3,6 +3,7 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
+    using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
     /// Base class for a workspace that provides basic functionality such as visibility
@@ -25,6 +26,11 @@
         /// The property name of the IsOpen property
         /// </summary>
         public const string IsOpenPropertyName = "IsOpen";
+
+        /// <summary>
+        /// The property name of the SelectedMedia property
+        /// </summary>
+        public const string SelectedMediaPropertyName = "SelectedMedia";
 
         #endregion Statics
 
@@ -124,6 +130,7 @@
                 {
                     this.mIsSelected = value;
                     this.RaisePropertyChanged(IsSelectedPropertyName);
+                    this.RaisePropertyChanged(SelectedMediaPropertyName);
                 }
             }
         }
@@ -145,6 +152,18 @@
                     this.mIsOpen = value;
                     this.RaisePropertyChanged(IsOpenPropertyName);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected media for this workspace
+        /// </summary>
+        /// <remarks>There's probably a better way to this (ie interface or something), but this gets it done :)</remarks>
+        public virtual Media SelectedMedia
+        {
+            get
+            {
+                return null;
             }
         }
 
