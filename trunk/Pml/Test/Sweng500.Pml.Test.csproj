@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InventoryWorkspaceViewModelTest.cs" />
+    <Compile Include="Unit\SearchMediaTest.cs" />
     <Compile Include="Unit\MainWorkspaceViewModelTest.cs" />
     <Compile Include="Mock\BookObjectMother.cs">
       <SubType>Code</SubType>

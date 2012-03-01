@@ -69,6 +69,7 @@
             {
                 context = new MasterEntities();
                 context.Attach(media);
+
                 // Update the state of the object to modified
                 context.ObjectStateManager.ChangeObjectState(media, System.Data.EntityState.Modified);
 
