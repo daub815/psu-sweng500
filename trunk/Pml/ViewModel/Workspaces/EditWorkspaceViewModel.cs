@@ -121,7 +121,19 @@
                 {
                     this.mMediaToEdit = value;
                     this.RaisePropertyChanged(MediaToEditPropertyName);
+                    this.RaisePropertyChanged(SelectedMediaPropertyName);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected media, which is really just the media to edit
+        /// </summary>
+        public override Media SelectedMedia
+        {
+            get
+            {
+                return this.MediaToEdit;
             }
         }
 

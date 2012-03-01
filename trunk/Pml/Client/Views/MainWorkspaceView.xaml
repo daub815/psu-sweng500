@@ -15,7 +15,7 @@
         
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="Exit" />
             </MenuItem>
             <MenuItem Header="_Inventory">
                 <MenuItem Header="_Add">
@@ -26,6 +26,12 @@
                               Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=AddMediaItemCommand, Mode=OneWay}"
                               CommandParameter="{x:Static dal:MediaTypes.Video}" />
                 </MenuItem>
+                <MenuItem Header="_Edit"
+                          Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditMediaItemCommand, Mode=OneWay}"
+                          CommandParameter="{Binding Path=SelectedWorkspace.SelectedMedia, Mode=OneWay}"/>
+                <MenuItem Header="_Delete"
+                          Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteMediaItemCommand, Mode=OneWay}"
+                          CommandParameter="{Binding Path=SelectedWorkspace.SelectedMedia, Mode=OneWay}" />
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="About" />

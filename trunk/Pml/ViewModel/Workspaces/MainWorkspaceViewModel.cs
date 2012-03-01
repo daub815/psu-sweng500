@@ -1,10 +1,13 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
+    using System.Windows.Data;
+    using log4net;
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
@@ -19,7 +22,21 @@
         /// </summary>
         public const string SelectedWorkspacePropertyName = "SelectedWorkspace";
 
+        /// <summary>
+        /// Class logger
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #endregion Statics
+
+        #region Fields
+
+        /// <summary>
+        /// The backing collection of workspaces
+        /// </summary>
+        private ObservableCollection<WorkspaceViewModel> mWorkspaces = new ObservableCollection<WorkspaceViewModel>();
+
+        #endregion Fields
 
         #region Constructors
 
@@ -29,8 +46,7 @@
         public MainWorkspaceViewModel()
             : base("Personal Media Library")
         {
-            this.Workspaces = new ObservableCollection<WorkspaceViewModel>();
-            this.Workspaces.CollectionChanged += (obj, args) =>
+            this.mWorkspaces.CollectionChanged += (obj, args) =>
                 {
                     switch (args.Action)
                     {
@@ -50,13 +66,31 @@
                     };
                 };
 
+            this.Workspaces = new ListCollectionView(this.mWorkspaces);
+            this.Workspaces.CurrentChanged += (obj, args) =>
+                {
+                    foreach (var workspace in this.mWorkspaces)
+                    {
+                        workspace.IsSelected = false;
+                    }
+
+                    if (null != this.SelectedWorkspace)
+                    {
+                        this.SelectedWorkspace.IsSelected = true;
+                    }
+                    else if (this.Workspaces.MoveCurrentToLast())
+                    {
+                        this.SelectedWorkspace.IsSelected = true;
+                    }
+                };
+
             GlobalCommands.Instance.AddMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<MediaTypes>(
                 mediaType =>
                     {
                         // Create and add the new workspace
                         var workspace = new EditWorkspaceViewModel(mediaType);
                         workspace.IsOpen = true;
-                        this.Workspaces.Add(workspace);
+                        this.mWorkspaces.Add(workspace);
 
                         // Make the workspace selected
                         GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
@@ -68,36 +102,61 @@
                         var workspace = new EditWorkspaceViewModel(media);
 
                         // Add the workspace if it's not already in the list
-                        if (false == this.Workspaces.Any(w => w.Name == workspace.Name))
+                        if (false == this.mWorkspaces.Any(w => w.Name == workspace.Name))
                         {
                             workspace.IsOpen = true;
-                            this.Workspaces.Add(workspace);
+                            this.mWorkspaces.Add(workspace);
                         }
 
                         // Make the workspace selected
                         GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace); 
+                    },
+                media =>
+                    {
+                        return
+                            null != media &&
+                            false == (this.SelectedWorkspace is EditWorkspaceViewModel);
+                    });
+
+            GlobalCommands.Instance.DeleteMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<Media>(
+                media =>
+                    {
+                        var crudService = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+
+                        try
+                        {
+                            crudService.Delete(media);
+                            DataStore.Instance.MediaCollection.Remove(media);
+                        }
+                        catch (Exception e)
+                        {
+                            log.Error("Unable to delete the media", e);
+                        }
+                    },
+                media =>
+                    {
+                        return 
+                            null != media &&
+                            null != media.EntityKey;
                     });
 
             GlobalCommands.Instance.SelectWorkspaceCommand = new GalaSoft.MvvmLight.Command.RelayCommand<WorkspaceViewModel>(
                 workspace =>
                     {
-                        // No need to swap the values
                         if (this.SelectedWorkspace != workspace)
                         {
-                            // Swap the values
-                            this.SelectedWorkspace.IsSelected = false;
-                            workspace.IsSelected = true;
+                            this.Workspaces.MoveCurrentToPosition(this.mWorkspaces.IndexOf(workspace));
                         }
                     });
 
             // Add the inventory workspace
             var inventoryWorkspace = new InventoryWorkspaceViewModel
             {
-                IsOpen = true,
-                IsSelected = true
+                IsOpen = true
             };
 
-            this.Workspaces.Add(inventoryWorkspace);
+            this.mWorkspaces.Add(inventoryWorkspace);
+            GlobalCommands.Instance.SelectWorkspaceCommand.Execute(inventoryWorkspace);
         }
 
         #endregion Constructors
@@ -105,9 +164,9 @@
         #region Properties
 
         /// <summary>
-        /// Gets or sets a collection of workspaces
+        /// Gets or sets collection view of workspaces
         /// </summary>
-        public ObservableCollection<WorkspaceViewModel> Workspaces
+        public ICollectionView Workspaces
         {
             get;
             protected set;
@@ -120,19 +179,7 @@
         {
             get
             {
-                var workspace = this.Workspaces.FirstOrDefault((w) => true == w.IsSelected);
-
-                // Gets the first workspace if there wasn't a selected one and make that selected
-                if (null == workspace)
-                {
-                    workspace = this.Workspaces.LastOrDefault();
-                    if (null != workspace)
-                    {
-                        workspace.IsSelected = true;
-                    }
-                }
-
-                return workspace;
+                return (WorkspaceViewModel)this.Workspaces.CurrentItem;
             }
         }
 
@@ -179,9 +226,9 @@
                     if (false == workspace.IsOpen)
                     {
                         // Only workspaces to be removed if it's not the last one
-                        if (this.Workspaces.Count > 1)
+                        if (this.mWorkspaces.Count > 1)
                         {
-                            this.Workspaces.Remove(workspace);
+                            this.mWorkspaces.Remove(workspace);
                         }
                     }
                 }

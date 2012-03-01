@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Media.cs" />
     <Compile Include="DropDownTypes.cs" />
     <Compile Include="Master.Designer.cs">
       <AutoGen>True</AutoGen>

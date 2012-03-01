@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 02/26/2012 21:42:27
+-- Date Created: 02/29/2012 20:57:02
 -- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
@@ -152,6 +152,7 @@ GO
 CREATE TABLE [Media_Book] (
     [ISBN] nvarchar(13)  NULL,
     [LibraryLocation] nvarchar(4000)  NULL,
+    [Published] datetime  NOT NULL,
     [MediaId] int  NOT NULL
 );
 GO

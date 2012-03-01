@@ -275,13 +275,15 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="acquired">Initial value of the Acquired property.</param>
         /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
-        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable)
+        /// <param name="published">Initial value of the Published property.</param>
+        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.DateTime published)
         {
             Book book = new Book();
             book.MediaId = mediaId;
             book.Title = title;
             book.Acquired = acquired;
             book.IsBorrowable = isBorrowable;
+            book.Published = published;
             return book;
         }
 
@@ -335,6 +337,30 @@ namespace Sweng500.Pml.DataAccessLayer
         private global::System.String _LibraryLocation;
         partial void OnLibraryLocationChanging(global::System.String value);
         partial void OnLibraryLocationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Published
+        {
+            get
+            {
+                return _Published;
+            }
+            set
+            {
+                OnPublishedChanging(value);
+                ReportPropertyChanging("Published");
+                _Published = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Published");
+                OnPublishedChanged();
+            }
+        }
+        private global::System.DateTime _Published;
+        partial void OnPublishedChanging(global::System.DateTime value);
+        partial void OnPublishedChanged();
 
         #endregion
     

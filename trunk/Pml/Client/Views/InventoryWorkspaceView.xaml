@@ -18,6 +18,16 @@
                   SelectionUnit="FullRow"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Edit"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditMediaItemCommand, Mode=OneWay}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
+                    <MenuItem Header="_Delete"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteMediaItemCommand, Mode=OneWay}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditMediaItemCommand, Mode=OneWay}"
