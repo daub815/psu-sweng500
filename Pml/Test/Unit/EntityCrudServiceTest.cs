@@ -310,7 +310,6 @@
             }
         }
 
-
         /// <summary>
         /// A test for GetGenre
         /// </summary>
