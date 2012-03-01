@@ -239,52 +239,77 @@
         public void UpdateTest()
         {
             var service = new EntityCrudService();
-            int formatId = 0;
-            IDictionary<int, string> formats = service.GetGenres();
-            ICollection<int> formatKeys = formats.Keys;
-            if (formatKeys != null)
-            {
-                formatId = formatKeys.First();
-            }
+            const string UPDATED_TITLE = "An updated title";
+            const string UPDATED_COMMENT = "An updated title";
+
+            var starting = service.GetMediaItems();
+            Assert.IsTrue(starting.Count() == 0);
 
             // Add the list of books to get
-            var expectedList = new List<Book>();
-            foreach (var book in Mock.MediaObjectMother.CreateNewBooks())
+            IList<Media> updatedMedia = new List<Media>();
+            IList<Media> originalMedia = new List<Media>();
+            foreach (var media in Mock.MediaObjectMother.CreateNewBooks())
             {
-                var bookAdded = service.Add(book);
+                var bookAdded = service.Add(media);
                 Assert.IsNotNull(bookAdded);
 
-                expectedList.Add((Book)bookAdded);
+                originalMedia.Add(bookAdded);
             }
 
-            // Update each of the books
-            var actualList = new List<Book>();
-            foreach (var book in expectedList)
+            foreach (var media in Mock.MediaObjectMother.CreateNewVideos())
+            {
+                var videoAdded = service.Add(media);
+                Assert.IsNotNull(videoAdded);
+
+                originalMedia.Add(videoAdded);
+            }
+
+            starting = service.GetMediaItems();
+            foreach (Media item in starting)
+            {
+                Console.WriteLine("Starting " + item);
+            }
+
+            Assert.IsTrue(starting.Count() == originalMedia.Count);
+
+            // Update each of the items
+            IList<Media> actualList = new List<Media>();
+            int num = 600;
+            foreach (var media in starting)
             {
                 // Update the comment
-                book.Comment = "An updated comment";
-                var updatedItem = service.Update(book);
-                Assert.IsNotNull(updatedItem);
-                Assert.IsTrue(book.Equals(updatedItem));
+                media.Comment = UPDATED_COMMENT;
+                if (media is Book)
+                {
+                    Book abook = (Book)media;
+                    abook.ISBN = num.ToString();
+                    num += 50;
+                }
 
-                // Update Title
-                updatedItem.Title = "An updated title";
-                var updatedTitle = service.Update(updatedItem);
+                media.Title = UPDATED_TITLE;
+                Media updatedItem = service.Update(media);
+                updatedMedia.Add(updatedItem);
                 Assert.IsNotNull(updatedItem);
-                Assert.IsTrue(book.Equals(updatedItem));
-
-                actualList.Add((Book)updatedItem);
+                Assert.IsTrue(media.Equals(updatedItem));
+                actualList.Add(updatedItem);
             }
 
             // Verify the changes are stored
+            num = 600;
             var updatedList = service.GetMediaItems();
-            var zippedList = updatedList.Zip(actualList, (u, a) => new { FromService = u, TestUpdate = a });
-            foreach (var entry in zippedList)
+            foreach (Media item in updatedList)
             {
-                Assert.IsTrue(entry.FromService.Equals(entry.TestUpdate));
-                Assert.IsTrue(entry.FromService.Title == entry.TestUpdate.Title);
+                Assert.IsTrue(UPDATED_TITLE.Equals(item.Title));
+                Assert.IsTrue(UPDATED_COMMENT.Equals(item.Comment));
+                if (item is Book)
+                {
+                    Book retbook = (Book)item;
+                    Assert.IsTrue(num.ToString().Equals(retbook.ISBN));
+                    num += 50;
+                }
             }
         }
+
 
         /// <summary>
         /// A test for GetGenre
