@@ -43,7 +43,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities() : base("name=MasterEntities", "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = true;
+            this.ContextOptions.LazyLoadingEnabled = false;
             OnContextCreated();
         }
     
@@ -52,7 +52,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities(string connectionString) : base(connectionString, "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = true;
+            this.ContextOptions.LazyLoadingEnabled = false;
             OnContextCreated();
         }
     
@@ -61,7 +61,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities(EntityConnection connection) : base(connection, "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = true;
+            this.ContextOptions.LazyLoadingEnabled = false;
             OnContextCreated();
         }
     

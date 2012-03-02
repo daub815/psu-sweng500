@@ -19,17 +19,31 @@
             try
             {
                 context = new MasterEntities();
-
+               
                 foreach (var media in context.Media)
                 {
+                    if (media is Book)
+                    {
+                        Book book = (Book)media;
+                        book.Authors.Clear();
+                    }
+
+                    if (media is Video)
+                    {
+                        Video video = (Video)media;
+                        video.Directors.Clear();
+                        video.Producers.Clear();
+                    }
+
                     context.Media.DeleteObject(media);
-                    context.SaveChanges();
                 }
+ 
+                context.SaveChanges();
             }
             catch (Exception e)
             {
                 string message = "Unable to clear the database after test.";
-                message = message + "Received Exception: " + e.Message;
+                message = message + " Received Exception: " + e.Message;
 
                 Assert.Fail(message);
             }

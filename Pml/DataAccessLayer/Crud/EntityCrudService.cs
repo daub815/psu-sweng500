@@ -29,9 +29,36 @@
             try
             {
                 context = new MasterEntities();
+                context.ContextOptions.LazyLoadingEnabled = false;
                 foreach (var item in context.Media)
                 {
-                    mediaitems.Add(item);
+                    if (item is Book)
+                    {
+                        // Load the Authors for the book explicitly.
+                        Book book = (Book)item;
+                        if (!book.Authors.IsLoaded)
+                        {
+                            book.Authors.Load();
+                        }
+
+                        mediaitems.Add(book);
+                    }
+
+                    if (item is Video)
+                    {
+                        Video video = (Video)item;
+                        if (!video.Directors.IsLoaded)
+                        {
+                            video.Directors.Load();
+                        }
+
+                        if (!video.Producers.IsLoaded)
+                        {
+                            video.Producers.Load();
+                        }
+
+                        mediaitems.Add(video);
+                    }
                 }
             }
             catch (Exception e)
@@ -107,11 +134,7 @@
 
             if (media is Video)
             {
-                Video videoItem = (Video)media;
-                if (null == videoItem.Released)
-                {
-                    videoItem.Released = DateTime.UtcNow;
-                } 
+                Video videoItem = (Video)media; 
             }
 
             MasterEntities context = null;
@@ -254,6 +277,85 @@
             var context = new MasterEntities();
             var query = from p in context.People.OfType<Author>() select p;
             return query.ToList<Person>();
+        }
+
+        /// <summary>
+        /// Updates the provided person in the inventory
+        /// </summary>
+        /// <param name="person">The person to be updated</param>
+        /// <returns>The updated person</returns>
+        public Person Update(Person person)
+        {
+            if (null == person)
+            {
+                log.Warn("null argument sent to Update");
+                throw new ArgumentNullException("null argument sent to Update");
+            }
+
+            MasterEntities context = null;
+
+            try
+            {
+                context = new MasterEntities();
+                context.Attach(person);
+
+                // Update the state of the object to modified
+                context.ObjectStateManager.ChangeObjectState(person, System.Data.EntityState.Modified);
+
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                log.Error("unable to update a person, received exception: ", e);
+                throw;
+            }
+            finally
+            {
+                if (null != context)
+                {
+                    context.Dispose();
+                }
+            }
+
+            return person;
+        }
+
+        /// <summary>
+        /// Adds the provided person
+        /// </summary>
+        /// <param name="person">The person to add</param>
+        /// <returns>The added person with the key generated from the service</returns>
+        public Person Add(Person person)
+        {
+            if (null == person)
+            {
+                log.Warn("null argument sent to Add");
+                throw new ArgumentNullException("null argument sent to Add");
+            }
+
+            MasterEntities context = null;
+
+            try
+            {
+                context = new MasterEntities();
+                context.People.AddObject(person);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("unable to add a person, received exception: " + e.ToString());
+                log.Error("unable to add a person, received exception: ", e);
+                throw;
+            }
+            finally
+            {
+                if (null != context)
+                {
+                    context.Dispose();
+                }
+            }
+
+            return person;
         }
 
         #endregion ICrudService
