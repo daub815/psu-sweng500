@@ -14,17 +14,17 @@
         IEnumerable<Media> GetMediaItems();
 
         /// <summary>
-        /// Updates the provided book
+        /// Updates the provided media
         /// </summary>
-        /// <param name="media">The updated media</param>
-        /// <returns>The updated media with an of the generated items from the service</returns>
+        /// <param name="media">The media to be updated</param>
+        /// <returns>The updated media</returns>
         Media Update(Media media);
 
         /// <summary>
         /// Adds the provided media
         /// </summary>
         /// <param name="media">The book to add</param>
-        /// <returns>The added media with any of the generated items from the service</returns>
+        /// <returns>The added media with the key generated from the service</returns>
         Media Add(Media media);
 
         /// <summary>
@@ -56,5 +56,19 @@
         /// </summary>
         /// <returns>a list of known authors</returns>
         IEnumerable<Person> GetAuthors();
+
+        /// <summary>
+        /// Updates the provided person
+        /// </summary>
+        /// <param name="person">The person to be updated</param>
+        /// <returns>The updated person</returns>
+        Person Update(Person person);
+
+        /// <summary>
+        /// Adds the provided person
+        /// </summary>
+        /// <param name="person">The person to add</param>
+        /// <returns>The added person with the key generated from the service</returns>
+        Person Add(Person person);
     }
 }

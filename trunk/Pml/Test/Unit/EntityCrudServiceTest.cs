@@ -57,8 +57,8 @@
         [TestMethod]
         public void AddTest()
         {
-            var originalBooks = Mock.MediaObjectMother.CreateNewBooks();
-            var booksToAdd = Mock.MediaObjectMother.CreateNewBooks();
+            var originalBooks = Mock.MediaObjectMother.CreateNewBooks_Authors();
+            var booksToAdd = Mock.MediaObjectMother.CreateNewBooks_Authors();
 
             // Create a set of books (original and one to add), but both will be the same
             var testBooks = originalBooks.Zip(booksToAdd, (a, b) => new { Original = a, ToAdd = b });            
@@ -82,6 +82,12 @@
                 Assert.IsTrue(testBook.Original.Title == addedBook.Title);
 
                 Assert.IsTrue(testBook.Original.Acquired == addedBook.Acquired);
+            }
+
+            var mediaitems = service.GetMediaItems();
+            foreach (Media item in mediaitems)
+            {
+                Console.WriteLine("item {0}", item);
             }
         }
 
@@ -248,7 +254,7 @@
             // Add the list of books to get
             IList<Media> updatedMedia = new List<Media>();
             IList<Media> originalMedia = new List<Media>();
-            foreach (var media in Mock.MediaObjectMother.CreateNewBooks())
+            foreach (var media in Mock.MediaObjectMother.CreateNewBooks_Authors())
             {
                 var bookAdded = service.Add(media);
                 Assert.IsNotNull(bookAdded);
