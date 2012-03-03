@@ -29,7 +29,31 @@
         /// <returns>The hashcode for this object</returns>
         public override int GetHashCode()
         {
-            return this.MediaId * 397;
+            unchecked
+            {
+                return this.MediaId * 397;
+            }
         }
+
+        /// <summary>
+        /// Provides a method to determine if this person is associated with this Media object
+        /// </summary>
+        /// <param name="person">The person to check</param>
+        /// <returns>A value indicating if this person is associated with this Media object</returns>
+        public abstract bool ContainsPerson(Person person);
+
+        /// <summary>
+        /// Provides a way to add a person depending on the type of person to the correct collection
+        /// </summary>
+        /// <param name="person">The Person to add</param>
+        /// <returns>A value indicating if it was successfully added to a collection</returns>
+        public abstract bool AddPerson(Person person);
+
+        /// <summary>
+        /// Provides a way to remove a person depending on the type of person from the correct collection
+        /// </summary>
+        /// <param name="person">The person to remove</param>
+        /// <returns>A value indicating whether it was successfully found and removed from the collection</returns>
+        public abstract bool RemovePerson(Person person);
     }
 }

@@ -68,6 +68,47 @@
             this.ResetCommand = new RelayCommand(
                 () =>
                     {
+                        if (null != this.MediaToEdit.EntityKey)
+                        {
+                            int index = DataStore.Instance.MediaCollection.IndexOf(this.MediaToEdit);
+                            if (-1 != index)
+                            {
+                                this.MediaToEdit = DataStore.Instance.MediaCollection[index];
+
+                                //// TODO: Raise string.Empty for all properties of MediaToEdit
+                            }
+                        }
+                    },
+                () =>
+                    {
+                        return 
+                            null != this.MediaToEdit.EntityKey;
+                    });
+
+            this.AddPersonCommand = new RelayCommand<Person>(
+                (person) =>
+                    {
+                        if (false == this.MediaToEdit.AddPerson(person))
+                        {
+                            throw new ArgumentException("Unable to remove the person");
+                        }
+                    },
+                (person) =>
+                    {
+                        return !this.MediaToEdit.ContainsPerson(person);
+                    });
+
+            this.RemovePersonCommand = new RelayCommand<Person>(
+                (person) =>
+                    {
+                        if (false == this.MediaToEdit.RemovePerson(person))
+                        {
+                            throw new ArgumentException("Unable to remove the person");
+                        }
+                    },
+                (person) =>
+                    {
+                        return this.MediaToEdit.ContainsPerson(person);
                     });
         }
 
@@ -154,6 +195,24 @@
         /// Gets or sets a command to reset the media item
         /// </summary>
         public RelayCommand ResetCommand
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Gets or sets a command to add a person to the media item
+        /// </summary>
+        public RelayCommand<Person> AddPersonCommand
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Gets or sets a command to remove a person to the media item
+        /// </summary>
+        public RelayCommand<Person> RemovePersonCommand
         {
             get;
             protected set;
