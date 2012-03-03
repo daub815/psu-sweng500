@@ -146,7 +146,8 @@
                             <RowDefinition Height="35" />
                         </Grid.RowDefinitions>
 
-                        <ListBox Grid.Row="0"
+                        <ListBox x:Name="AuthorsListBox"
+                                 Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Authors, Mode=OneWay}"
                                  Margin="5">
@@ -171,7 +172,9 @@
                         <Button Content="Remove"
                                 Grid.Column="1"
                                 Grid.Row="1"
-                                Margin="5"/>
+                                Margin="5"
+                                Command="{Binding ElementName=EditView, Path=DataContext.RemovePersonCommand, Mode=OneWay}"
+                                CommandParameter="{Binding ElementName=AuthorsListBox, Path=SelectedItem, Mode=OneWay}"/>
                     </Grid>
                 </GroupBox>
                 
@@ -352,7 +355,8 @@
                             <RowDefinition Height="35" />
                         </Grid.RowDefinitions>
 
-                        <ListBox Grid.Row="0"
+                        <ListBox x:Name="ProducersListBox"
+                                 Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Producers, Mode=OneWay}"
                                  Margin="5">
@@ -377,7 +381,9 @@
                         <Button Content="Remove"
                                 Grid.Column="1"
                                 Grid.Row="1"
-                                Margin="5"/>
+                                Margin="5"
+                                Command="{Binding ElementName=EditView, Path=DataContext.RemovePersonCommand, Mode=OneWay}"
+                                CommandParameter="{Binding ElementName=ProducersListBox, Path=SelectedItem, Mode=OneWay}"/>
                     </Grid>
                 </GroupBox>
 
@@ -396,7 +402,8 @@
                             <RowDefinition Height="35" />
                         </Grid.RowDefinitions>
 
-                        <ListBox Grid.Row="0"
+                        <ListBox x:Name="DirectorsListBox"
+                                 Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Directors, Mode=OneWay}"
                                  Margin="5">
@@ -421,7 +428,9 @@
                         <Button Content="Remove"
                                 Grid.Column="1"
                                 Grid.Row="1"
-                                Margin="5" />
+                                Margin="5"
+                                Command="{Binding ElementName=EditView, Path=DataContext.RemovePersonCommand, Mode=OneWay}"
+                                CommandParameter="{Binding ElementName=DirectorsListBox, Path=SelectedItem, Mode=OneWay}"/>
                     </Grid>
                 </GroupBox>
 
