@@ -21,7 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sweng500.Pml.ViewModel", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3E7DB5D-2491-47FC-9336-5794100553EF}"
 	ProjectSection(SolutionItems) = preProject
-		Performance1.psess = Performance1.psess
 		PmlTestSettings.testsettings = PmlTestSettings.testsettings
 		Sweng500.vsmdi = Sweng500.vsmdi
 	EndProjectSection

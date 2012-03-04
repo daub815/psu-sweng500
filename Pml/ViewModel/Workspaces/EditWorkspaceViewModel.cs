@@ -95,7 +95,9 @@
                     },
                 (person) =>
                     {
-                        return !this.MediaToEdit.ContainsPerson(person);
+                        return 
+                            null != person &&
+                            !this.MediaToEdit.ContainsPerson(person);
                     });
 
             this.RemovePersonCommand = new RelayCommand<Person>(
@@ -108,7 +110,9 @@
                     },
                 (person) =>
                     {
-                        return this.MediaToEdit.ContainsPerson(person);
+                        return 
+                            null != person &&
+                            this.MediaToEdit.ContainsPerson(person);
                     });
         }
 
