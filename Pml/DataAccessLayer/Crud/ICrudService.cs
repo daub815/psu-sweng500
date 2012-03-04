@@ -1,11 +1,12 @@
 ﻿namespace Sweng500.Pml.DataAccessLayer
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// Provides the interface for the CRUD functionality
     /// </summary>
-    public interface ICrudService
+    public interface ICrudService : IDisposable
     {
         /// <summary>
         /// Gets the list of media items in the inventory
@@ -70,5 +71,10 @@
         /// <param name="person">The person to add</param>
         /// <returns>The added person with the key generated from the service</returns>
         Person Add(Person person);
+
+        /// <summary>
+        /// Dispose of this service
+        /// </summary>
+        void Dispose();
     }
 }

@@ -358,6 +358,13 @@
             return person;
         }
 
+        /// <summary>
+        /// Disposes of the context
+        /// </summary>
+        public void Dispose()
+        {
+        }
+
         #endregion ICrudService
     }
 }

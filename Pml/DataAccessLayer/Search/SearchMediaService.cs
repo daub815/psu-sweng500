@@ -62,6 +62,13 @@
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Disposes of the service
+        /// </summary>
+        public void Dispose()
+        {
+        }
+
         #endregion ISearchMedia
     }
 }
