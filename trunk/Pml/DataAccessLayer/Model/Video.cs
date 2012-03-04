@@ -47,7 +47,8 @@
         {
             bool rtn = false;
 
-            if (false == this.ContainsPerson(person))
+            if (null != person &&
+                false == this.ContainsPerson(person))
             {
                 if (person is Producer)
                 {

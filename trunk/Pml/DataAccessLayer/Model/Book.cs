@@ -61,7 +61,8 @@
         {
             bool rtn = false;
 
-            if (true == this.ContainsPerson(person))
+            if (null != person &&
+                true == this.ContainsPerson(person))
             {
                 rtn = this.Authors.Remove((Author)person);
             }

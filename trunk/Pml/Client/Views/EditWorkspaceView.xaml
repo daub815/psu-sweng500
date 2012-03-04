@@ -150,6 +150,7 @@
                                  Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Authors, Mode=OneWay}"
+                                 SelectionMode="Single"
                                  Margin="5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -164,11 +165,12 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        
-                        <Button Content="Add"
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="5"/>
+
+                        <ToggleButton x:Name="AuthorAddBtn"
+                                      Content="Add"
+                                      Grid.Column="0"
+                                      Grid.Row="1"
+                                      Margin="5" />
                         <Button Content="Remove"
                                 Grid.Column="1"
                                 Grid.Row="1"
@@ -215,6 +217,66 @@
                                  Text="{Binding MediaToEdit.Comment}" />
                     </Grid>
                 </GroupBox>
+                
+                <Grid Grid.ColumnSpan="2"
+                      Grid.RowSpan="3"
+                      Visibility="{Binding ElementName=AuthorAddBtn, Path=IsChecked, Mode=OneWay, Converter={StaticResource ResourceKey=BooleanToVisibilityConverter}}">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black"
+                                         Opacity=".50" />
+                    </Grid.Background>
+                    <Border Background="White"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="25"
+                            Margin="50"
+                            MaxHeight="400"
+                            MaxWidth="550">
+                        <Grid Margin="10"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="175"
+                                               Height="Auto" />
+                                <RowDefinition Height="35" />
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="AddAuthorsListBox"
+                                     Grid.Row="0"
+                                     Grid.ColumnSpan="2"
+                                     ItemsSource="{Binding Source={StaticResource ResourceKey=DataStore}, Path=AuthorCollection, Mode=OneWay}"
+                                     SelectionMode="Single"
+                                     Margin="5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="FirstName" />
+                                                <Binding Path="LastName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <Button Content="Add Author"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    Margin="5"
+                                    Command="{Binding ElementName=EditView, Path=DataContext.AddPersonCommand, Mode=OneWay}"
+                                    CommandParameter="{Binding ElementName=AddAuthorsListBox, Path=SelectedItem, Mode=OneWay}" />
+                            <Button Content="Cancel"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="5" />
+                        </Grid>
+                    </Border>
+                </Grid>
             </Grid>
         </DataTemplate>
         
@@ -359,6 +421,7 @@
                                  Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Producers, Mode=OneWay}"
+                                 SelectionMode="Single"
                                  Margin="5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -406,6 +469,7 @@
                                  Grid.Row="0"
                                  Grid.ColumnSpan="2"
                                  ItemsSource="{Binding MediaToEdit.Directors, Mode=OneWay}"
+                                 SelectionMode="Single"
                                  Margin="5">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
