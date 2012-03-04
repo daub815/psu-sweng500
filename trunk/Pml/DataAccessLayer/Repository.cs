@@ -1,12 +1,13 @@
 ﻿namespace Sweng500.Pml.DataAccessLayer
 {
+    using System;
     using Microsoft.Practices.ServiceLocation;
     using Ninject;
 
     /// <summary>
     /// Static class used to set up all the various services used for dependency injection
     /// </summary>
-    public sealed class Repository
+    public sealed class Repository : IDisposable
     {
         /// <summary>
         /// Singleton instance of the repository
@@ -60,6 +61,13 @@
             {
                 return Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
             }
+        }
+
+        /// <summary>
+        /// Dispose of all the disposable interfaces
+        /// </summary>
+        public void Dispose()
+        {
         }
     }
 }
