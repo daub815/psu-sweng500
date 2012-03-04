@@ -43,7 +43,7 @@
         {
             bool rtn = false;
 
-            if (true == this.ContainsPerson(person))
+            if (false == this.ContainsPerson(person))
             {
                 this.Authors.Add((Author)person);
                 rtn = true;
