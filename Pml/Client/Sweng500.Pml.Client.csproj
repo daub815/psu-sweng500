@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\DropDownButton.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Views\EditWorkspaceView.xaml.cs">
       <DependentUpon>EditWorkspaceView.xaml</DependentUpon>
