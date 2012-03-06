@@ -1,0 +1,485 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 02/29/2012 20:57:02
+-- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    ALTER TABLE [Codes] DROP CONSTRAINT [FK_CodeTypeCode];
+GO
+    ALTER TABLE [BorrowedMedias] DROP CONSTRAINT [FK_BorrowerBorrowedMedia];
+GO
+    ALTER TABLE [BorrowedMedias] DROP CONSTRAINT [FK_MediaBorrowedMedia];
+GO
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Author];
+GO
+    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Book];
+GO
+    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Video];
+GO
+    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Producer];
+GO
+    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Director];
+GO
+    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Video];
+GO
+    ALTER TABLE [People_Borrower] DROP CONSTRAINT [FK_Borrower_inherits_Person];
+GO
+    ALTER TABLE [People_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
+GO
+    ALTER TABLE [Media_Book] DROP CONSTRAINT [FK_Book_inherits_Media];
+GO
+    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
+GO
+    ALTER TABLE [People_Producer] DROP CONSTRAINT [FK_Producer_inherits_Person];
+GO
+    ALTER TABLE [People_Director] DROP CONSTRAINT [FK_Director_inherits_Person];
+GO
+    ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [People];
+GO
+    DROP TABLE [CodeTypes];
+GO
+    DROP TABLE [Codes];
+GO
+    DROP TABLE [Media];
+GO
+    DROP TABLE [BorrowedMedias];
+GO
+    DROP TABLE [People_Borrower];
+GO
+    DROP TABLE [People_Author];
+GO
+    DROP TABLE [Media_Book];
+GO
+    DROP TABLE [Media_Video];
+GO
+    DROP TABLE [People_Producer];
+GO
+    DROP TABLE [People_Director];
+GO
+    DROP TABLE [People_User];
+GO
+    DROP TABLE [AuthorBook];
+GO
+    DROP TABLE [VideoProducer];
+GO
+    DROP TABLE [DirectorVideo];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'People'
+CREATE TABLE [People] (
+    [PersonId] int IDENTITY(1,1) NOT NULL,
+    [LastName] nvarchar(4000)  NOT NULL,
+    [FirstName] nvarchar(4000)  NULL,
+    [Address] nvarchar(4000)  NULL,
+    [StateOrProvince] nvarchar(4000)  NULL,
+    [PostalCode] nvarchar(4000)  NULL,
+    [Country] nvarchar(4000)  NULL
+);
+GO
+
+-- Creating table 'CodeTypes'
+CREATE TABLE [CodeTypes] (
+    [CodeTypeId] int IDENTITY(1,1) NOT NULL,
+    [Type] nvarchar(4000)  NOT NULL
+);
+GO
+
+-- Creating table 'Codes'
+CREATE TABLE [Codes] (
+    [CodeId] int IDENTITY(1,1) NOT NULL,
+    [CodeDescription] nvarchar(4000)  NOT NULL,
+    [CodeTypeId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Media'
+CREATE TABLE [Media] (
+    [MediaId] int IDENTITY(1,1) NOT NULL,
+    [Title] nvarchar(4000)  NOT NULL,
+    [Publisher] nvarchar(4000)  NULL,
+    [Acquired] datetime  NOT NULL,
+    [NumberOfStars] decimal(18,0)  NULL,
+    [Comment] nvarchar(4000)  NULL,
+    [Description] nvarchar(4000)  NULL,
+    [IsBorrowable] bit  NOT NULL
+);
+GO
+
+-- Creating table 'BorrowedMedias'
+CREATE TABLE [BorrowedMedias] (
+    [BorrowedOn] datetime  NOT NULL,
+    [BorrowerPersonId] int  NOT NULL,
+    [ReturnedOn] datetime  NULL,
+    [MediaMediaId] int  NOT NULL,
+    [BorrowedMediaId] int IDENTITY(1,1) NOT NULL
+);
+GO
+
+-- Creating table 'People_Borrower'
+CREATE TABLE [People_Borrower] (
+    [CanBorrow] bit  NULL,
+    [PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'People_Author'
+CREATE TABLE [People_Author] (
+    [PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Media_Book'
+CREATE TABLE [Media_Book] (
+    [ISBN] nvarchar(13)  NULL,
+    [LibraryLocation] nvarchar(4000)  NULL,
+    [Published] datetime  NOT NULL,
+    [MediaId] int  NOT NULL
+);
+GO
+
+-- Creating table 'Media_Video'
+CREATE TABLE [Media_Video] (
+    [UPC] nvarchar(15)  NULL,
+    [Released] datetime  NOT NULL,
+    [BoardRatingId] int  NULL,
+    [MediaId] int  NOT NULL
+);
+GO
+
+-- Creating table 'People_Producer'
+CREATE TABLE [People_Producer] (
+    [PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'People_Director'
+CREATE TABLE [People_Director] (
+    [PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'People_User'
+CREATE TABLE [People_User] (
+    [Code] nvarchar(4000)  NOT NULL,
+    [Password] varbinary(8000)  NOT NULL,
+    [LastLogin] datetime  NOT NULL,
+    [PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'AuthorBook'
+CREATE TABLE [AuthorBook] (
+    [Authors_PersonId] int  NOT NULL,
+    [Books_MediaId] int  NOT NULL
+);
+GO
+
+-- Creating table 'VideoProducer'
+CREATE TABLE [VideoProducer] (
+    [Videos_MediaId] int  NOT NULL,
+    [Producers_PersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'DirectorVideo'
+CREATE TABLE [DirectorVideo] (
+    [Directors_PersonId] int  NOT NULL,
+    [Videos_MediaId] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [PersonId] in table 'People'
+ALTER TABLE [People]
+ADD CONSTRAINT [PK_People]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [CodeTypeId] in table 'CodeTypes'
+ALTER TABLE [CodeTypes]
+ADD CONSTRAINT [PK_CodeTypes]
+    PRIMARY KEY ([CodeTypeId] );
+GO
+
+-- Creating primary key on [CodeId] in table 'Codes'
+ALTER TABLE [Codes]
+ADD CONSTRAINT [PK_Codes]
+    PRIMARY KEY ([CodeId] );
+GO
+
+-- Creating primary key on [MediaId] in table 'Media'
+ALTER TABLE [Media]
+ADD CONSTRAINT [PK_Media]
+    PRIMARY KEY ([MediaId] );
+GO
+
+-- Creating primary key on [BorrowedMediaId] in table 'BorrowedMedias'
+ALTER TABLE [BorrowedMedias]
+ADD CONSTRAINT [PK_BorrowedMedias]
+    PRIMARY KEY ([BorrowedMediaId] );
+GO
+
+-- Creating primary key on [PersonId] in table 'People_Borrower'
+ALTER TABLE [People_Borrower]
+ADD CONSTRAINT [PK_People_Borrower]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [PersonId] in table 'People_Author'
+ALTER TABLE [People_Author]
+ADD CONSTRAINT [PK_People_Author]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [MediaId] in table 'Media_Book'
+ALTER TABLE [Media_Book]
+ADD CONSTRAINT [PK_Media_Book]
+    PRIMARY KEY ([MediaId] );
+GO
+
+-- Creating primary key on [MediaId] in table 'Media_Video'
+ALTER TABLE [Media_Video]
+ADD CONSTRAINT [PK_Media_Video]
+    PRIMARY KEY ([MediaId] );
+GO
+
+-- Creating primary key on [PersonId] in table 'People_Producer'
+ALTER TABLE [People_Producer]
+ADD CONSTRAINT [PK_People_Producer]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [PersonId] in table 'People_Director'
+ALTER TABLE [People_Director]
+ADD CONSTRAINT [PK_People_Director]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [PersonId] in table 'People_User'
+ALTER TABLE [People_User]
+ADD CONSTRAINT [PK_People_User]
+    PRIMARY KEY ([PersonId] );
+GO
+
+-- Creating primary key on [Authors_PersonId], [Books_MediaId] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [PK_AuthorBook]
+    PRIMARY KEY ([Authors_PersonId], [Books_MediaId] );
+GO
+
+-- Creating primary key on [Videos_MediaId], [Producers_PersonId] in table 'VideoProducer'
+ALTER TABLE [VideoProducer]
+ADD CONSTRAINT [PK_VideoProducer]
+    PRIMARY KEY ([Videos_MediaId], [Producers_PersonId] );
+GO
+
+-- Creating primary key on [Directors_PersonId], [Videos_MediaId] in table 'DirectorVideo'
+ALTER TABLE [DirectorVideo]
+ADD CONSTRAINT [PK_DirectorVideo]
+    PRIMARY KEY ([Directors_PersonId], [Videos_MediaId] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [CodeTypeId] in table 'Codes'
+ALTER TABLE [Codes]
+ADD CONSTRAINT [FK_CodeTypeCode]
+    FOREIGN KEY ([CodeTypeId])
+    REFERENCES [CodeTypes]
+        ([CodeTypeId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CodeTypeCode'
+CREATE INDEX [IX_FK_CodeTypeCode]
+ON [Codes]
+    ([CodeTypeId]);
+GO
+
+-- Creating foreign key on [BorrowerPersonId] in table 'BorrowedMedias'
+ALTER TABLE [BorrowedMedias]
+ADD CONSTRAINT [FK_BorrowerBorrowedMedia]
+    FOREIGN KEY ([BorrowerPersonId])
+    REFERENCES [People_Borrower]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BorrowerBorrowedMedia'
+CREATE INDEX [IX_FK_BorrowerBorrowedMedia]
+ON [BorrowedMedias]
+    ([BorrowerPersonId]);
+GO
+
+-- Creating foreign key on [MediaMediaId] in table 'BorrowedMedias'
+ALTER TABLE [BorrowedMedias]
+ADD CONSTRAINT [FK_MediaBorrowedMedia]
+    FOREIGN KEY ([MediaMediaId])
+    REFERENCES [Media]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MediaBorrowedMedia'
+CREATE INDEX [IX_FK_MediaBorrowedMedia]
+ON [BorrowedMedias]
+    ([MediaMediaId]);
+GO
+
+-- Creating foreign key on [Authors_PersonId] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [FK_AuthorBook_Author]
+    FOREIGN KEY ([Authors_PersonId])
+    REFERENCES [People_Author]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Books_MediaId] in table 'AuthorBook'
+ALTER TABLE [AuthorBook]
+ADD CONSTRAINT [FK_AuthorBook_Book]
+    FOREIGN KEY ([Books_MediaId])
+    REFERENCES [Media_Book]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AuthorBook_Book'
+CREATE INDEX [IX_FK_AuthorBook_Book]
+ON [AuthorBook]
+    ([Books_MediaId]);
+GO
+
+-- Creating foreign key on [Videos_MediaId] in table 'VideoProducer'
+ALTER TABLE [VideoProducer]
+ADD CONSTRAINT [FK_VideoProducer_Video]
+    FOREIGN KEY ([Videos_MediaId])
+    REFERENCES [Media_Video]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Producers_PersonId] in table 'VideoProducer'
+ALTER TABLE [VideoProducer]
+ADD CONSTRAINT [FK_VideoProducer_Producer]
+    FOREIGN KEY ([Producers_PersonId])
+    REFERENCES [People_Producer]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VideoProducer_Producer'
+CREATE INDEX [IX_FK_VideoProducer_Producer]
+ON [VideoProducer]
+    ([Producers_PersonId]);
+GO
+
+-- Creating foreign key on [Directors_PersonId] in table 'DirectorVideo'
+ALTER TABLE [DirectorVideo]
+ADD CONSTRAINT [FK_DirectorVideo_Director]
+    FOREIGN KEY ([Directors_PersonId])
+    REFERENCES [People_Director]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Videos_MediaId] in table 'DirectorVideo'
+ALTER TABLE [DirectorVideo]
+ADD CONSTRAINT [FK_DirectorVideo_Video]
+    FOREIGN KEY ([Videos_MediaId])
+    REFERENCES [Media_Video]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DirectorVideo_Video'
+CREATE INDEX [IX_FK_DirectorVideo_Video]
+ON [DirectorVideo]
+    ([Videos_MediaId]);
+GO
+
+-- Creating foreign key on [PersonId] in table 'People_Borrower'
+ALTER TABLE [People_Borrower]
+ADD CONSTRAINT [FK_Borrower_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PersonId] in table 'People_Author'
+ALTER TABLE [People_Author]
+ADD CONSTRAINT [FK_Author_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [MediaId] in table 'Media_Book'
+ALTER TABLE [Media_Book]
+ADD CONSTRAINT [FK_Book_inherits_Media]
+    FOREIGN KEY ([MediaId])
+    REFERENCES [Media]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [MediaId] in table 'Media_Video'
+ALTER TABLE [Media_Video]
+ADD CONSTRAINT [FK_Video_inherits_Media]
+    FOREIGN KEY ([MediaId])
+    REFERENCES [Media]
+        ([MediaId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PersonId] in table 'People_Producer'
+ALTER TABLE [People_Producer]
+ADD CONSTRAINT [FK_Producer_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PersonId] in table 'People_Director'
+ALTER TABLE [People_Director]
+ADD CONSTRAINT [FK_Director_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PersonId] in table 'People_User'
+ALTER TABLE [People_User]
+ADD CONSTRAINT [FK_User_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------
