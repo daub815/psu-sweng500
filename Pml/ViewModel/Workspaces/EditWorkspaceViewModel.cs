@@ -6,16 +6,16 @@
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
-    /// Provides a workspace to add/edit a media element
+    /// Provides a workspace to add/edit an element
     /// </summary>
     public class EditWorkspaceViewModel : WorkspaceViewModel
     {
         #region Statics
 
         /// <summary>
-        /// Property name for the MediaToEdit property
+        /// Property name for the ItemToEdit property
         /// </summary>
-        public const string MediaToEditPropertyName = "MediaToEdit";
+        public const string ItemToEditPropertyName = "ItemToEdit";
 
         /// <summary>
         /// Class logger
@@ -27,9 +27,9 @@
         #region Fields
 
         /// <summary>
-        /// Backing field for the MediaToEdit property
+        /// Backing field for the ItemToEdit property
         /// </summary>
-        private Media mMediaToEdit = null;
+        private object mItemToEdit = null;
 
         #endregion Fields
 
@@ -49,14 +49,14 @@
 
                         try
                         {
-                            if (null == this.MediaToEdit.EntityKey)
+                            if (null == ((Media)this.ItemToEdit).EntityKey)
                             {
-                                this.MediaToEdit = crudService.Add(this.MediaToEdit);
-                                DataStore.Instance.MediaCollection.Add(this.MediaToEdit);
+                                this.ItemToEdit = crudService.Add((Media)this.ItemToEdit);
+                                DataStore.Instance.MediaCollection.Add((Media)this.ItemToEdit);
                             }
                             else
                             {
-                                this.MediaToEdit = crudService.Update(this.MediaToEdit);
+                                this.ItemToEdit = crudService.Update((Media)this.ItemToEdit);
                             }
                         }
                         catch (Exception e)
@@ -68,27 +68,27 @@
             this.ResetCommand = new RelayCommand(
                 () =>
                     {
-                        if (null != this.MediaToEdit.EntityKey)
+                        if (null != ((Media)this.ItemToEdit).EntityKey)
                         {
-                            int index = DataStore.Instance.MediaCollection.IndexOf(this.MediaToEdit);
+                            int index = DataStore.Instance.MediaCollection.IndexOf((Media)this.ItemToEdit);
                             if (-1 != index)
                             {
-                                this.MediaToEdit = DataStore.Instance.MediaCollection[index];
+                                this.ItemToEdit = DataStore.Instance.MediaCollection[index];
 
-                                //// TODO: Raise string.Empty for all properties of MediaToEdit
+                                //// TODO: Raise string.Empty for all properties of ItemToEdit
                             }
                         }
                     },
                 () =>
                     {
-                        return 
-                            null != this.MediaToEdit.EntityKey;
+                        return
+                            null != ((Media)this.ItemToEdit).EntityKey;
                     });
 
             this.AddPersonCommand = new RelayCommand<Person>(
                 (person) =>
                     {
-                        if (false == this.MediaToEdit.AddPerson(person))
+                        if (false == ((Media)this.ItemToEdit).AddPerson(person))
                         {
                             throw new ArgumentException("Unable to remove the person");
                         }
@@ -97,13 +97,13 @@
                     {
                         return 
                             null != person &&
-                            !this.MediaToEdit.ContainsPerson(person);
+                            !((Media)this.ItemToEdit).ContainsPerson(person);
                     });
 
             this.RemovePersonCommand = new RelayCommand<Person>(
                 (person) =>
                     {
-                        if (false == this.MediaToEdit.RemovePerson(person))
+                        if (false == ((Media)this.ItemToEdit).RemovePerson(person))
                         {
                             throw new ArgumentException("Unable to remove the person");
                         }
@@ -112,7 +112,7 @@
                     {
                         return 
                             null != person &&
-                            this.MediaToEdit.ContainsPerson(person);
+                            ((Media)this.ItemToEdit).ContainsPerson(person);
                     });
         }
 
@@ -126,10 +126,10 @@
             switch (mediaType)
             {
                 case MediaTypes.Book:
-                    this.MediaToEdit = new Book();
+                    this.ItemToEdit = new Book();
                     break;
                 case MediaTypes.Video:
-                    this.MediaToEdit = new Video();
+                    this.ItemToEdit = new Video();
                     break;
                 default:
                     throw new ArgumentException("Invalid MediaType");
@@ -139,11 +139,33 @@
         /// <summary>
         /// Initializes a new instance of the EditWorkspaceViewModel class
         /// </summary>
-        /// <param name="mediaToEdit">The element to be edited</param>
-        public EditWorkspaceViewModel(Media mediaToEdit)
-            : this("Edit " + mediaToEdit.GetType().Name + " " + mediaToEdit.MediaId)
+        /// <param name="personType">The type of person to edit</param>
+        public EditWorkspaceViewModel(PersonTypes personType)
         {
-            this.MediaToEdit = mediaToEdit;
+            switch (personType)
+            {
+                case PersonTypes.Author:
+                    this.ItemToEdit = new Author();
+                    break;
+                case PersonTypes.Director:
+                    this.ItemToEdit = new Director();
+                    break;
+                case PersonTypes.Producer:
+                    this.ItemToEdit = new Producer();
+                    break;
+                default:
+                    throw new ArgumentException("Invalid PersonType");
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the EditWorkspaceViewModel class
+        /// </summary>
+        /// <param name="ItemToEdit">The element to be edited</param>
+        public EditWorkspaceViewModel(Media itemToEdit)
+            : this("Edit " + itemToEdit.GetType().Name + " " + itemToEdit.MediaId)
+        {
+            this.ItemToEdit = itemToEdit;
         }
 
         #endregion Constructors
@@ -153,19 +175,19 @@
         /// <summary>
         /// Gets or sets the media to edit
         /// </summary>
-        public Media MediaToEdit
+        public object ItemToEdit
         {
             get
             {
-                return this.mMediaToEdit;
+                return this.mItemToEdit;
             }
 
             protected set
             {
-                if (this.MediaToEdit != value)
+                if (this.ItemToEdit != value)
                 {
-                    this.mMediaToEdit = value;
-                    this.RaisePropertyChanged(MediaToEditPropertyName);
+                    this.mItemToEdit = value;
+                    this.RaisePropertyChanged(ItemToEditPropertyName);
                     this.RaisePropertyChanged(SelectedMediaPropertyName);
                 }
             }
@@ -178,7 +200,7 @@
         {
             get
             {
-                return this.MediaToEdit;
+                return (Media)this.ItemToEdit;
             }
         }
 

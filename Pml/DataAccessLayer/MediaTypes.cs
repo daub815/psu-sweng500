@@ -15,4 +15,25 @@
         /// </summary>
         Video
     }
+
+    /// <summary>
+    /// Defines the person types supported by PML
+    /// </summary>
+    public enum PersonTypes
+    {
+        /// <summary>
+        /// Definition of Author
+        /// </summary>
+        Author,
+
+        /// <summary>
+        /// Definition of Director
+        /// </summary>
+        Director,
+
+        /// <summary>
+        /// Definition of Producer
+        /// </summary>
+        Producer
+    }
 }

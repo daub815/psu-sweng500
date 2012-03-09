@@ -49,6 +49,12 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\External\CommonServiceLocator\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Shell">
+      <HintPath>..\..\External\MicrosoftRibbonForWpf\V3.5\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="RibbonControlsLibrary">
+      <HintPath>..\..\External\MicrosoftRibbonForWpf\V4.0\RibbonControlsLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity">
@@ -131,6 +137,31 @@
     <None Include="..\DataAccessLayer\App.Config">
       <Link>App.Config</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\External\Images\CrystalClearIcons\png\32x32\actions\edit_add.png">
+      <Link>Images\edit_add.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\External\Images\CrystalClearIcons\png\32x32\actions\button_cancel.png">
+      <Link>Images\button_cancel.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\External\Images\CrystalClearIcons\png\32x32\actions\edit.png">
+      <Link>Images\edit.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\External\Images\CrystalClearIcons\png\32x32\devices\dvd_unmount.png">
+      <Link>Images\dvd_unmount.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\External\Images\OpenIconLibrary\icons\png\32x32\others\book.png">
+      <Link>Images\book.png</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)External\StyleCop\StyleCop.targets" />

@@ -18,6 +18,11 @@
         public const string AddMediaItemCommandPropertyName = "AddMediaItemCommand";
 
         /// <summary>
+        /// Property name for the AddPersonCommand property
+        /// </summary>
+        public const string AddPersonCommandPropertyName = "AdddPersonCommand";
+
+        /// <summary>
         /// Property name for the EditMediaItemCommand property
         /// </summary>
         public const string EditMediaItemCommandPropertyName = "EditMediaItemCommand";
@@ -45,6 +50,11 @@
         /// Backing field for the AddMediaItemCommand property
         /// </summary>
         private RelayCommand<MediaTypes> mAddMediaItemCommand;
+
+        /// <summary>
+        /// Backing field for the AddPersonCommand property
+        /// </summary>
+        private RelayCommand<PersonTypes> mAddPersonCommand;
 
         /// <summary>
         /// Backing field for the EditMediaItemCommand property
@@ -112,6 +122,27 @@
                 {
                     this.mAddMediaItemCommand = value;
                     this.RaisePropertyChanged(AddMediaItemCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to add a person
+        /// </summary>
+        public RelayCommand<PersonTypes> AddPersonCommand
+        {
+            get
+            {
+                return this.mAddPersonCommand;
+            }
+
+            set
+            {
+                if (null == this.AddPersonCommand &&
+                    null != value)
+                {
+                    this.mAddPersonCommand = value;
+                    this.RaisePropertyChanged(AddPersonCommandPropertyName);
                 }
             }
         }
