@@ -1,0 +1,26 @@
+﻿<ribbon:RibbonWindow x:Class="Sweng500.Pml.Client.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:wrksp="clr-namespace:Sweng500.Pml.ViewModel.Workspaces;assembly=Sweng500.Pml.ViewModel"
+                     xmlns:view="clr-namespace:Sweng500.Pml.Client.Views"
+                     xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
+                     Title="{Binding Name, Mode=OneWay}"
+                     Height="350"
+                     Width="525"
+                     x:Name="mWindow">
+    <ribbon:RibbonWindow.Resources>
+        <DataTemplate DataType="{x:Type wrksp:MainWorkspaceViewModel}">
+            <view:MainWorkspaceView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type wrksp:EditWorkspaceViewModel}">
+            <view:EditWorkspaceView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type wrksp:InventoryWorkspaceViewModel}">
+            <view:InventoryWorkspaceView />
+        </DataTemplate>
+    </ribbon:RibbonWindow.Resources>
+
+    <ContentControl Content="{Binding ElementName=mWindow, Path=DataContext, Mode=OneWay}" />
+</ribbon:RibbonWindow>
