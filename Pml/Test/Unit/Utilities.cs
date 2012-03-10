@@ -1,4 +1,4 @@
-﻿namespace Sweng500.Pml.Test.Unit
+namespace Sweng500.Pml.Test.Unit
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,20 +19,27 @@
             try
             {
                 context = new MasterEntities();
+
+                foreach (var person in context.People)
+                {
+                    context.People.DeleteObject(person);
+                }
                
                 foreach (var media in context.Media)
                 {
                     if (media is Book)
                     {
+                        // clear the Authors for the book explicitly.
                         Book book = (Book)media;
-                        book.Authors.Clear();
+                        book.AuthorBookAssociations.Clear();
                     }
 
                     if (media is Video)
                     {
+                        // clear the directors and producers
                         Video video = (Video)media;
-                        video.Directors.Clear();
-                        video.Producers.Clear();
+                        video.DirectorAssociations.Clear();
+                        video.ProducerAssociations.Clear();
                     }
 
                     context.Media.DeleteObject(media);

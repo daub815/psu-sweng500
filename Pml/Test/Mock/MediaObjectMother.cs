@@ -87,11 +87,13 @@
             ////            book2.Published = new System.DateTime(1995, 1, 1);
             book2.Publisher = "Random House Inc";
             book2.Title = "Streching for Dummies";
-            book2.Authors.Add(new Author 
+            Author jimbutcher = new Author();
+            jimbutcher.FirstName = "jim";
+            jimbutcher.LastName = "butcher";
+            if (!book2.ContainsPerson(jimbutcher))
             {
-                FirstName = "Jim",
-                LastName = "Butcher"
-            });
+                book2.AddPerson(jimbutcher);
+            }           
 
             books.Add(book1);
             books.Add(book2);

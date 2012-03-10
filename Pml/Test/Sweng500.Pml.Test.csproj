@@ -76,6 +76,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntTest\IntTest1.cs" />
     <Compile Include="InventoryWorkspaceViewModelTest.cs" />
     <Compile Include="Unit\SearchMediaTest.cs" />
     <Compile Include="Unit\MainWorkspaceViewModelTest.cs" />

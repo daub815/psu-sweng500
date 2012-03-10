@@ -28,11 +28,25 @@
 
             if (person is Director)
             {
-                rtn = this.Directors.Contains((Director)person);
+                var directorassoc = this.DirectorAssociations;
+                foreach (DirectorAssociation assoc in directorassoc)
+                {
+                    if (assoc.DirectorPersonId == person.PersonId)
+                    {
+                        rtn = true;
+                    }
+                }
             }
             else if (person is Producer)
             {
-                rtn = this.Producers.Contains((Producer)person);
+                var producerassoc = this.ProducerAssociations;
+                foreach (ProducerAssociation assoc in producerassoc)
+                {
+                    if (assoc.ProducerPersonId == person.PersonId)
+                    {
+                        rtn = true;
+                    }
+                }
             }
 
             return rtn;
@@ -52,12 +66,20 @@
             {
                 if (person is Producer)
                 {
-                    this.Producers.Add((Producer)person);
+                    ProducerAssociation assoc = new ProducerAssociation();
+                    assoc.ProducerPersonId = person.PersonId;
+                    assoc.VideoMediaId = this.MediaId;
+
+                    this.ProducerAssociations.Add(assoc);
                     rtn = true;
                 }
                 else if (person is Director)
                 {
-                    this.Directors.Add((Director)person);
+                    DirectorAssociation assoc = new DirectorAssociation();
+                    assoc.DirectorPersonId = person.PersonId;
+                    assoc.VideoMediaId = this.MediaId;
+
+                    this.DirectorAssociations.Add(assoc);
                     rtn = true;
                 }
             }
@@ -78,15 +100,52 @@
             {
                 if (person is Producer)
                 {
-                    rtn = this.Producers.Remove((Producer)person);
+                    ProducerAssociation assocremoval = null;
+                    var producerassoc = this.ProducerAssociations;
+                    foreach (ProducerAssociation assoc in producerassoc)
+                    {
+                        if (assoc.ProducerPersonId == person.PersonId)
+                        {
+                            assocremoval = assoc;
+                            rtn = true;
+                        }
+                    }
+
+                    if (true == rtn)
+                    {
+                        this.ProducerAssociations.Remove(assocremoval);
+                    }
                 }
                 else if (person is Director)
                 {
-                    rtn = this.Directors.Remove((Director)person);
+                    DirectorAssociation assocremoval = null;
+                    var directorassociations = this.DirectorAssociations;
+                    foreach (DirectorAssociation assoc in directorassociations)
+                    {
+                        if (assoc.DirectorPersonId == person.PersonId)
+                        {
+                            assocremoval = assoc;
+                            rtn = true;
+                        }
+                    }
+
+                    if (true == rtn)
+                    {
+                        this.DirectorAssociations.Remove(assocremoval);
+                    }
                 }
             }
 
             return rtn;
+        }
+
+        /// <summary>
+        /// Override the string representation
+        /// </summary>
+        /// <returns>A value representing the book state</returns>
+        public override string ToString()
+        {
+            return string.Format("Title: {0}  Description: {1} Comment: {2}  Id: {3}", this.Title, this.Description, this.Comment, this.MediaId);
         }
     }
 }

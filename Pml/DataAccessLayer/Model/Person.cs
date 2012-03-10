@@ -34,5 +34,14 @@
                 return this.PersonId * 401;
             }
         }
+
+        /// <summary>
+        /// Override the string representation
+        /// </summary>
+        /// <returns>A value representing the book state</returns>
+        public override string ToString()
+        {
+            return string.Format("First: {0}  Last: {1}  Id: {2}", this.FirstName, this.LastName, this.PersonId);
+        }
     }
 }

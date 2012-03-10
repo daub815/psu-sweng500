@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 02/29/2012 20:57:02
--- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
+-- Date Created: 03/05/2012 19:15:14
+-- Generated from EDMX file: C:\Users\Bob\Documents\Visual Studio 2010\Projects\copy_0304_psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
 
@@ -18,6 +18,37 @@ GO
 GO
     ALTER TABLE [BorrowedMedias] DROP CONSTRAINT [FK_MediaBorrowedMedia];
 GO
+    ALTER TABLE [AuthorBookAssociations] DROP CONSTRAINT [FK_BookAuthorBookAssociation];
+GO
+    ALTER TABLE [AuthorBookAssociations] DROP CONSTRAINT [FK_AuthorAuthorBookAssociation];
+GO
+    ALTER TABLE [DirectorAssociations] DROP CONSTRAINT [FK_VideoDirectorAssociation];
+GO
+    ALTER TABLE [DirectorAssociations] DROP CONSTRAINT [FK_DirectorDirectorAssociation];
+GO
+    ALTER TABLE [ProducerAssociations] DROP CONSTRAINT [FK_ProducerProducerAssociation];
+GO
+    ALTER TABLE [ProducerAssociations] DROP CONSTRAINT [FK_VideoProducerAssociation];
+GO
+    ALTER TABLE [People_Borrower] DROP CONSTRAINT [FK_Borrower_inherits_Person];
+GO
+    ALTER TABLE [Media_Book] DROP CONSTRAINT [FK_Book_inherits_Media];
+GO
+    ALTER TABLE [People_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
+GO
+    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
+GO
+    ALTER TABLE [People_Director] DROP CONSTRAINT [FK_Director_inherits_Person];
+GO
+    ALTER TABLE [People_Producer] DROP CONSTRAINT [FK_Producer_inherits_Person];
+GO
+    ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
+GO
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints for old tablesa
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
     ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Author];
 GO
     ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Book];
@@ -30,56 +61,48 @@ GO
 GO
     ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Video];
 GO
-    ALTER TABLE [People_Borrower] DROP CONSTRAINT [FK_Borrower_inherits_Person];
-GO
-    ALTER TABLE [People_Author] DROP CONSTRAINT [FK_Author_inherits_Person];
-GO
-    ALTER TABLE [Media_Book] DROP CONSTRAINT [FK_Book_inherits_Media];
-GO
-    ALTER TABLE [Media_Video] DROP CONSTRAINT [FK_Video_inherits_Media];
-GO
-    ALTER TABLE [People_Producer] DROP CONSTRAINT [FK_Producer_inherits_Person];
-GO
-    ALTER TABLE [People_Director] DROP CONSTRAINT [FK_Director_inherits_Person];
-GO
-    ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- NOTE: if the table does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
-
-    DROP TABLE [People];
-GO
-    DROP TABLE [CodeTypes];
-GO
-    DROP TABLE [Codes];
-GO
-    DROP TABLE [Media];
-GO
-    DROP TABLE [BorrowedMedias];
-GO
-    DROP TABLE [People_Borrower];
-GO
-    DROP TABLE [People_Author];
-GO
-    DROP TABLE [Media_Book];
-GO
-    DROP TABLE [Media_Video];
-GO
-    DROP TABLE [People_Producer];
-GO
-    DROP TABLE [People_Director];
-GO
-    DROP TABLE [People_User];
-GO
     DROP TABLE [AuthorBook];
-GO
-    DROP TABLE [VideoProducer];
 GO
     DROP TABLE [DirectorVideo];
 GO
+    DROP TABLE [VideoProducer];
+GO
+    DROP TABLE [People_User];
+GO
+    DROP TABLE [People_Director];
+GO
+    DROP TABLE [People_Producer];
+GO
+    DROP TABLE [People_Author];
+GO
+    DROP TABLE [People_Borrower];
+GO
+    DROP TABLE [Media_Video];
+Go
+    DROP TABLE [Media_Book];
+GO
+    DROP TABLE [BorrowedMedias];
+Go
+    DROP TABLE [DirectorAssociations];
+GO
+    DROP TABLE [ProducerAssociations];
+Go
+    DROP TABLE [AuthorBookAssociations];
+GO
+    DROP TABLE [Media];
+GO
+    DROP TABLE [Codes];
+GO
+    DROP TABLE [CodeTypes];
+GO
+    DROP TABLE [People];
+GO
+
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -135,15 +158,33 @@ CREATE TABLE [BorrowedMedias] (
 );
 GO
 
--- Creating table 'People_Borrower'
-CREATE TABLE [People_Borrower] (
-    [CanBorrow] bit  NULL,
-    [PersonId] int  NOT NULL
+-- Creating table 'AuthorBookAssociations'
+CREATE TABLE [AuthorBookAssociations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [BookMediaId] int  NOT NULL,
+    [AuthorPersonId] int  NOT NULL
 );
 GO
 
--- Creating table 'People_Author'
-CREATE TABLE [People_Author] (
+-- Creating table 'DirectorAssociations'
+CREATE TABLE [DirectorAssociations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [VideoMediaId] int  NOT NULL,
+    [DirectorPersonId] int  NOT NULL
+);
+GO
+
+-- Creating table 'ProducerAssociations'
+CREATE TABLE [ProducerAssociations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ProducerPersonId] int  NOT NULL,
+    [VideoMediaId] int  NOT NULL
+);
+GO
+
+-- Creating table 'People_Borrower'
+CREATE TABLE [People_Borrower] (
+    [CanBorrow] bit  NULL,
     [PersonId] int  NOT NULL
 );
 GO
@@ -157,6 +198,12 @@ CREATE TABLE [Media_Book] (
 );
 GO
 
+-- Creating table 'People_Author'
+CREATE TABLE [People_Author] (
+    [PersonId] int  NOT NULL
+);
+GO
+
 -- Creating table 'Media_Video'
 CREATE TABLE [Media_Video] (
     [UPC] nvarchar(15)  NULL,
@@ -166,14 +213,14 @@ CREATE TABLE [Media_Video] (
 );
 GO
 
--- Creating table 'People_Producer'
-CREATE TABLE [People_Producer] (
+-- Creating table 'People_Director'
+CREATE TABLE [People_Director] (
     [PersonId] int  NOT NULL
 );
 GO
 
--- Creating table 'People_Director'
-CREATE TABLE [People_Director] (
+-- Creating table 'People_Producer'
+CREATE TABLE [People_Producer] (
     [PersonId] int  NOT NULL
 );
 GO
@@ -184,27 +231,6 @@ CREATE TABLE [People_User] (
     [Password] varbinary(8000)  NOT NULL,
     [LastLogin] datetime  NOT NULL,
     [PersonId] int  NOT NULL
-);
-GO
-
--- Creating table 'AuthorBook'
-CREATE TABLE [AuthorBook] (
-    [Authors_PersonId] int  NOT NULL,
-    [Books_MediaId] int  NOT NULL
-);
-GO
-
--- Creating table 'VideoProducer'
-CREATE TABLE [VideoProducer] (
-    [Videos_MediaId] int  NOT NULL,
-    [Producers_PersonId] int  NOT NULL
-);
-GO
-
--- Creating table 'DirectorVideo'
-CREATE TABLE [DirectorVideo] (
-    [Directors_PersonId] int  NOT NULL,
-    [Videos_MediaId] int  NOT NULL
 );
 GO
 
@@ -242,15 +268,27 @@ ADD CONSTRAINT [PK_BorrowedMedias]
     PRIMARY KEY ([BorrowedMediaId] );
 GO
 
+-- Creating primary key on [Id] in table 'AuthorBookAssociations'
+ALTER TABLE [AuthorBookAssociations]
+ADD CONSTRAINT [PK_AuthorBookAssociations]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'DirectorAssociations'
+ALTER TABLE [DirectorAssociations]
+ADD CONSTRAINT [PK_DirectorAssociations]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'ProducerAssociations'
+ALTER TABLE [ProducerAssociations]
+ADD CONSTRAINT [PK_ProducerAssociations]
+    PRIMARY KEY ([Id] );
+GO
+
 -- Creating primary key on [PersonId] in table 'People_Borrower'
 ALTER TABLE [People_Borrower]
 ADD CONSTRAINT [PK_People_Borrower]
-    PRIMARY KEY ([PersonId] );
-GO
-
--- Creating primary key on [PersonId] in table 'People_Author'
-ALTER TABLE [People_Author]
-ADD CONSTRAINT [PK_People_Author]
     PRIMARY KEY ([PersonId] );
 GO
 
@@ -260,16 +298,16 @@ ADD CONSTRAINT [PK_Media_Book]
     PRIMARY KEY ([MediaId] );
 GO
 
+-- Creating primary key on [PersonId] in table 'People_Author'
+ALTER TABLE [People_Author]
+ADD CONSTRAINT [PK_People_Author]
+    PRIMARY KEY ([PersonId] );
+GO
+
 -- Creating primary key on [MediaId] in table 'Media_Video'
 ALTER TABLE [Media_Video]
 ADD CONSTRAINT [PK_Media_Video]
     PRIMARY KEY ([MediaId] );
-GO
-
--- Creating primary key on [PersonId] in table 'People_Producer'
-ALTER TABLE [People_Producer]
-ADD CONSTRAINT [PK_People_Producer]
-    PRIMARY KEY ([PersonId] );
 GO
 
 -- Creating primary key on [PersonId] in table 'People_Director'
@@ -278,28 +316,16 @@ ADD CONSTRAINT [PK_People_Director]
     PRIMARY KEY ([PersonId] );
 GO
 
+-- Creating primary key on [PersonId] in table 'People_Producer'
+ALTER TABLE [People_Producer]
+ADD CONSTRAINT [PK_People_Producer]
+    PRIMARY KEY ([PersonId] );
+GO
+
 -- Creating primary key on [PersonId] in table 'People_User'
 ALTER TABLE [People_User]
 ADD CONSTRAINT [PK_People_User]
     PRIMARY KEY ([PersonId] );
-GO
-
--- Creating primary key on [Authors_PersonId], [Books_MediaId] in table 'AuthorBook'
-ALTER TABLE [AuthorBook]
-ADD CONSTRAINT [PK_AuthorBook]
-    PRIMARY KEY ([Authors_PersonId], [Books_MediaId] );
-GO
-
--- Creating primary key on [Videos_MediaId], [Producers_PersonId] in table 'VideoProducer'
-ALTER TABLE [VideoProducer]
-ADD CONSTRAINT [PK_VideoProducer]
-    PRIMARY KEY ([Videos_MediaId], [Producers_PersonId] );
-GO
-
--- Creating primary key on [Directors_PersonId], [Videos_MediaId] in table 'DirectorVideo'
-ALTER TABLE [DirectorVideo]
-ADD CONSTRAINT [PK_DirectorVideo]
-    PRIMARY KEY ([Directors_PersonId], [Videos_MediaId] );
 GO
 
 -- --------------------------------------------------
@@ -313,6 +339,7 @@ ADD CONSTRAINT [FK_CodeTypeCode]
     REFERENCES [CodeTypes]
         ([CodeTypeId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CodeTypeCode'
 CREATE INDEX [IX_FK_CodeTypeCode]
@@ -327,6 +354,7 @@ ADD CONSTRAINT [FK_BorrowerBorrowedMedia]
     REFERENCES [People_Borrower]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BorrowerBorrowedMedia'
 CREATE INDEX [IX_FK_BorrowerBorrowedMedia]
@@ -341,6 +369,7 @@ ADD CONSTRAINT [FK_MediaBorrowedMedia]
     REFERENCES [Media]
         ([MediaId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_MediaBorrowedMedia'
 CREATE INDEX [IX_FK_MediaBorrowedMedia]
@@ -348,87 +377,99 @@ ON [BorrowedMedias]
     ([MediaMediaId]);
 GO
 
--- Creating foreign key on [Authors_PersonId] in table 'AuthorBook'
-ALTER TABLE [AuthorBook]
-ADD CONSTRAINT [FK_AuthorBook_Author]
-    FOREIGN KEY ([Authors_PersonId])
+-- Creating foreign key on [BookMediaId] in table 'AuthorBookAssociations'
+ALTER TABLE [AuthorBookAssociations]
+ADD CONSTRAINT [FK_BookAuthorBookAssociation]
+    FOREIGN KEY ([BookMediaId])
+    REFERENCES [Media_Book]
+        ([MediaId])
+    ON DELETE CASCADE ON UPDATE CASCADE;
+Go
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BookAuthorBookAssociation'
+CREATE INDEX [IX_FK_BookAuthorBookAssociation]
+ON [AuthorBookAssociations]
+    ([BookMediaId]);
+GO
+
+-- Creating foreign key on [AuthorPersonId] in table 'AuthorBookAssociations'
+ALTER TABLE [AuthorBookAssociations]
+ADD CONSTRAINT [FK_AuthorAuthorBookAssociation]
+    FOREIGN KEY ([AuthorPersonId])
     REFERENCES [People_Author]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+Go
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AuthorAuthorBookAssociation'
+CREATE INDEX [IX_FK_AuthorAuthorBookAssociation]
+ON [AuthorBookAssociations]
+    ([AuthorPersonId]);
 GO
 
--- Creating foreign key on [Books_MediaId] in table 'AuthorBook'
-ALTER TABLE [AuthorBook]
-ADD CONSTRAINT [FK_AuthorBook_Book]
-    FOREIGN KEY ([Books_MediaId])
-    REFERENCES [Media_Book]
-        ([MediaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AuthorBook_Book'
-CREATE INDEX [IX_FK_AuthorBook_Book]
-ON [AuthorBook]
-    ([Books_MediaId]);
-GO
-
--- Creating foreign key on [Videos_MediaId] in table 'VideoProducer'
-ALTER TABLE [VideoProducer]
-ADD CONSTRAINT [FK_VideoProducer_Video]
-    FOREIGN KEY ([Videos_MediaId])
+-- Creating foreign key on [VideoMediaId] in table 'DirectorAssociations'
+ALTER TABLE [DirectorAssociations]
+ADD CONSTRAINT [FK_VideoDirectorAssociation]
+    FOREIGN KEY ([VideoMediaId])
     REFERENCES [Media_Video]
         ([MediaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+Go
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_VideoDirectorAssociation'
+CREATE INDEX [IX_FK_VideoDirectorAssociation]
+ON [DirectorAssociations]
+    ([VideoMediaId]);
 GO
 
--- Creating foreign key on [Producers_PersonId] in table 'VideoProducer'
-ALTER TABLE [VideoProducer]
-ADD CONSTRAINT [FK_VideoProducer_Producer]
-    FOREIGN KEY ([Producers_PersonId])
-    REFERENCES [People_Producer]
-        ([PersonId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_VideoProducer_Producer'
-CREATE INDEX [IX_FK_VideoProducer_Producer]
-ON [VideoProducer]
-    ([Producers_PersonId]);
-GO
-
--- Creating foreign key on [Directors_PersonId] in table 'DirectorVideo'
-ALTER TABLE [DirectorVideo]
-ADD CONSTRAINT [FK_DirectorVideo_Director]
-    FOREIGN KEY ([Directors_PersonId])
+-- Creating foreign key on [DirectorPersonId] in table 'DirectorAssociations'
+ALTER TABLE [DirectorAssociations]
+ADD CONSTRAINT [FK_DirectorDirectorAssociation]
+    FOREIGN KEY ([DirectorPersonId])
     REFERENCES [People_Director]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+Go
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DirectorDirectorAssociation'
+CREATE INDEX [IX_FK_DirectorDirectorAssociation]
+ON [DirectorAssociations]
+    ([DirectorPersonId]);
 GO
 
--- Creating foreign key on [Videos_MediaId] in table 'DirectorVideo'
-ALTER TABLE [DirectorVideo]
-ADD CONSTRAINT [FK_DirectorVideo_Video]
-    FOREIGN KEY ([Videos_MediaId])
+-- Creating foreign key on [ProducerPersonId] in table 'ProducerAssociations'
+ALTER TABLE [ProducerAssociations]
+ADD CONSTRAINT [FK_ProducerProducerAssociation]
+    FOREIGN KEY ([ProducerPersonId])
+    REFERENCES [People_Producer]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProducerProducerAssociation'
+CREATE INDEX [IX_FK_ProducerProducerAssociation]
+ON [ProducerAssociations]
+    ([ProducerPersonId]);
+GO
+
+-- Creating foreign key on [VideoMediaId] in table 'ProducerAssociations'
+ALTER TABLE [ProducerAssociations]
+ADD CONSTRAINT [FK_VideoProducerAssociation]
+    FOREIGN KEY ([VideoMediaId])
     REFERENCES [Media_Video]
         ([MediaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_DirectorVideo_Video'
-CREATE INDEX [IX_FK_DirectorVideo_Video]
-ON [DirectorVideo]
-    ([Videos_MediaId]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_VideoProducerAssociation'
+CREATE INDEX [IX_FK_VideoProducerAssociation]
+ON [ProducerAssociations]
+    ([VideoMediaId]);
 GO
 
 -- Creating foreign key on [PersonId] in table 'People_Borrower'
 ALTER TABLE [People_Borrower]
 ADD CONSTRAINT [FK_Borrower_inherits_Person]
-    FOREIGN KEY ([PersonId])
-    REFERENCES [People]
-        ([PersonId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [PersonId] in table 'People_Author'
-ALTER TABLE [People_Author]
-ADD CONSTRAINT [FK_Author_inherits_Person]
     FOREIGN KEY ([PersonId])
     REFERENCES [People]
         ([PersonId])
@@ -444,6 +485,15 @@ ADD CONSTRAINT [FK_Book_inherits_Media]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
+-- Creating foreign key on [PersonId] in table 'People_Author'
+ALTER TABLE [People_Author]
+ADD CONSTRAINT [FK_Author_inherits_Person]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [People]
+        ([PersonId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
 -- Creating foreign key on [MediaId] in table 'Media_Video'
 ALTER TABLE [Media_Video]
 ADD CONSTRAINT [FK_Video_inherits_Media]
@@ -453,18 +503,18 @@ ADD CONSTRAINT [FK_Video_inherits_Media]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [PersonId] in table 'People_Producer'
-ALTER TABLE [People_Producer]
-ADD CONSTRAINT [FK_Producer_inherits_Person]
+-- Creating foreign key on [PersonId] in table 'People_Director'
+ALTER TABLE [People_Director]
+ADD CONSTRAINT [FK_Director_inherits_Person]
     FOREIGN KEY ([PersonId])
     REFERENCES [People]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [PersonId] in table 'People_Director'
-ALTER TABLE [People_Director]
-ADD CONSTRAINT [FK_Director_inherits_Person]
+-- Creating foreign key on [PersonId] in table 'People_Producer'
+ALTER TABLE [People_Producer]
+ADD CONSTRAINT [FK_Producer_inherits_Person]
     FOREIGN KEY ([PersonId])
     REFERENCES [People]
         ([PersonId])
