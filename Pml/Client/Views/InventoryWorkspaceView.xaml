@@ -21,16 +21,16 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="_Edit"
-                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditMediaItemCommand, Mode=OneWay}"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditItemCommand, Mode=OneWay}"
                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
                     <MenuItem Header="_Delete"
-                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteMediaItemCommand, Mode=OneWay}"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteItemCommand, Mode=OneWay}"
                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditMediaItemCommand, Mode=OneWay}"
+                    <i:InvokeCommandAction Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditItemCommand, Mode=OneWay}"
                                            CommandParameter="{Binding ElementName=InventoryDataGrid, Path=SelectedItem, Mode=OneWay}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

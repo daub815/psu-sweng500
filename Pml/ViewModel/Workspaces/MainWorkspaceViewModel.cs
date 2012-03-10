@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Data.Objects.DataClasses;
     using System.Linq;
     using System.Windows.Data;
     using log4net;
@@ -88,7 +89,7 @@
                 mediaType =>
                     {
                         // Create and add the new workspace
-                        var workspace = new EditWorkspaceViewModel(mediaType);
+                        var workspace = new EditMediaWorkspaceViewModel(mediaType);
                         workspace.IsOpen = true;
                         this.mWorkspaces.Add(workspace);
 
@@ -96,10 +97,35 @@
                         GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
                     });
 
-            GlobalCommands.Instance.EditMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<Media>(
-                media => 
+            GlobalCommands.Instance.AddPersonCommand = new GalaSoft.MvvmLight.Command.RelayCommand<PersonTypes>(
+                personType =>
                     {
-                        var workspace = new EditWorkspaceViewModel(media);
+                        // Create and add the new workspace
+                        var workspace = new EditPersonWorkspaceViewModel(personType);
+                        workspace.IsOpen = true;
+                        this.mWorkspaces.Add(workspace);
+
+                        // Make the workspace selected
+                        GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
+                    });
+
+            GlobalCommands.Instance.EditItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<object>(
+                obj => 
+                    {
+                        WorkspaceViewModel workspace = null;
+
+                        if (obj is Media)
+                        {
+                            workspace = new EditMediaWorkspaceViewModel((Media)obj);
+                        }
+                        else if (obj is Person)
+                        {
+                            workspace = new EditPersonWorkspaceViewModel((Person)obj);
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Invalid item to edit");
+                        }
 
                         // Add the workspace if it's not already in the list
                         if (false == this.mWorkspaces.Any(w => w.Name == workspace.Name))
@@ -118,26 +144,40 @@
                             false == (this.SelectedWorkspace is EditWorkspaceViewModel);
                     });
 
-            GlobalCommands.Instance.DeleteMediaItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<Media>(
-                media =>
+            GlobalCommands.Instance.DeleteItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<object>(
+                obj =>
                     {
                         var crudService = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
 
                         try
                         {
-                            crudService.Delete(media);
-                            DataStore.Instance.MediaCollection.Remove(media);
+                            if (obj is Media)
+                            {
+                                crudService.Delete((Media)obj);
+                                DataStore.Instance.MediaCollection.Remove((Media)obj);
+                            }
+                            else if (obj is Person)
+                            {
+                                //// TODO: Add delete of a person
+                                //// crudService.Delete((Person)obj);
+                                DataStore.Instance.PersonCollection.Remove((Person)obj);
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Invalid item to edit");
+                            }
                         }
                         catch (Exception e)
                         {
                             log.Error("Unable to delete the media", e);
                         }
                     },
-                media =>
+                obj =>
                     {
-                        return 
-                            null != media &&
-                            null != media.EntityKey;
+                        return
+                            null != obj &&
+                            obj is EntityObject &&
+                            null != ((EntityObject)obj).EntityKey;
                     });
 
             GlobalCommands.Instance.SelectWorkspaceCommand = new GalaSoft.MvvmLight.Command.RelayCommand<WorkspaceViewModel>(
