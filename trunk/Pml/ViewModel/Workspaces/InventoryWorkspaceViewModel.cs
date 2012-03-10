@@ -3,7 +3,6 @@
     using System.ComponentModel;
     using System.Windows.Data;
     using log4net;
-    using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
     /// Provides the inventory functionality
@@ -28,7 +27,7 @@
             : base("Inventory")
         {
             this.Media = new ListCollectionView(DataStore.Instance.MediaCollection);
-            this.Media.CurrentChanged += (obj, args) => this.RaisePropertyChanged(SelectedMediaPropertyName);
+            this.Media.CurrentChanged += (obj, args) => this.RaisePropertyChanged(SelectedItemPropertyName);
         }
 
         #endregion Constructors
@@ -47,11 +46,11 @@
         /// <summary>
         /// Gets the selected media, which is just the currently selected on in the collectionview
         /// </summary>
-        public override Media SelectedMedia
+        public override object SelectedItem
         {
             get
             {
-                return (Media)this.Media.CurrentItem;
+                return this.Media.CurrentItem;
             }
         }
 

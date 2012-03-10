@@ -36,7 +36,7 @@
 
             // Verify commands are set
             Assert.IsNotNull(GlobalCommands.Instance.AddMediaItemCommand);
-            Assert.IsNotNull(GlobalCommands.Instance.EditMediaItemCommand);
+            Assert.IsNotNull(GlobalCommands.Instance.EditItemCommand);
         }
 
         /// <summary>

@@ -28,9 +28,9 @@
         public const string IsOpenPropertyName = "IsOpen";
 
         /// <summary>
-        /// The property name of the SelectedMedia property
+        /// The property name of the SelectedItem property
         /// </summary>
-        public const string SelectedMediaPropertyName = "SelectedMedia";
+        public const string SelectedItemPropertyName = "SelectedItem";
 
         #endregion Statics
 
@@ -130,7 +130,7 @@
                 {
                     this.mIsSelected = value;
                     this.RaisePropertyChanged(IsSelectedPropertyName);
-                    this.RaisePropertyChanged(SelectedMediaPropertyName);
+                    this.RaisePropertyChanged(SelectedItemPropertyName);
                 }
             }
         }
@@ -158,8 +158,7 @@
         /// <summary>
         /// Gets the selected media for this workspace
         /// </summary>
-        /// <remarks>There's probably a better way to this (ie interface or something), but this gets it done :)</remarks>
-        public virtual Media SelectedMedia
+        public virtual object SelectedItem
         {
             get
             {

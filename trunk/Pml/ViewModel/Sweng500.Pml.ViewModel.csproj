@@ -73,6 +73,8 @@
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
+    <Compile Include="Workspaces\EditMediaWorkspaceViewModel.cs" />
+    <Compile Include="Workspaces\EditPersonWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\EditWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\InventoryWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\MainWorkspaceViewModel.cs" />
