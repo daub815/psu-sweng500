@@ -15,6 +15,12 @@
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        /// <summary>
+        /// context used when interfacing with MasterEntities
+        /// The service will use a single context throughout its lifetime and dispose if the context when the service is disposed of.
+        /// </summary>
+        private MasterEntities context = null;
+
         #region ICrudService
 
         /// <summary>
@@ -24,21 +30,33 @@
         public IEnumerable<Media> GetMediaItems()
         {
             IList<Media> mediaitems = new List<Media>();
-            MasterEntities context = null; 
+            MasterEntities context = this.GetContext(); 
 
             try
             {
-                context = new MasterEntities();
-                context.ContextOptions.LazyLoadingEnabled = false;
                 foreach (var item in context.Media)
                 {
+                    if (item.IsBorrowable && !item.BorrowedMedias.IsLoaded)
+                    {
+                        item.BorrowedMedias.Load();
+                    }
+
                     if (item is Book)
                     {
-                        // Load the Authors for the book explicitly.
+                        // Load the associations and the Authors for the book explicitly including 
                         Book book = (Book)item;
-                        if (!book.Authors.IsLoaded)
+                        if (!book.AuthorBookAssociations.IsLoaded)
                         {
-                            book.Authors.Load();
+                            book.AuthorBookAssociations.Load();
+                        }
+
+                        var assoociations = book.AuthorBookAssociations;
+                        foreach (AuthorBookAssociation assoc in assoociations)
+                        {
+                            if (!assoc.AuthorReference.IsLoaded)
+                            {
+                                assoc.AuthorReference.Load();
+                            }
                         }
 
                         mediaitems.Add(book);
@@ -46,15 +64,34 @@
 
                     if (item is Video)
                     {
+                        // Load the associations and the Directors and Producers for the video explicitly.
                         Video video = (Video)item;
-                        if (!video.Directors.IsLoaded)
+                        if (!video.DirectorAssociations.IsLoaded)
                         {
-                            video.Directors.Load();
+                            video.DirectorAssociations.Load();
                         }
 
-                        if (!video.Producers.IsLoaded)
+                        var associations = video.DirectorAssociations;
+                        foreach (DirectorAssociation assoc in associations)
                         {
-                            video.Producers.Load();
+                            if (!assoc.DirectorReference.IsLoaded)
+                            {
+                                assoc.DirectorReference.Load();
+                            }
+                        }
+
+                        if (!video.ProducerAssociations.IsLoaded)
+                        {
+                            video.ProducerAssociations.Load();
+                        }
+
+                        var producerassociations = video.ProducerAssociations;
+                        foreach (ProducerAssociation assoc in producerassociations)
+                        {
+                            if (!assoc.ProducerReference.IsLoaded)
+                            {
+                                assoc.ProducerReference.Load();
+                            }
                         }
 
                         mediaitems.Add(video);
@@ -65,13 +102,6 @@
             {
                 log.Error("unable to getMediaItems.  received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
 
             return mediaitems;
@@ -90,12 +120,15 @@
                 throw new ArgumentNullException("null argument sent to Update");
             }
 
-            MasterEntities context = null;
+            MasterEntities context = this.GetContext();
 
             try
             {
-                context = new MasterEntities();
-                context.Attach(media);
+                if (System.Data.EntityState.Detached == media.EntityState
+                    || System.Data.EntityState.Unchanged == media.EntityState)
+                {
+                    context.Attach(media);
+                }
 
                 // Update the state of the object to modified
                 context.ObjectStateManager.ChangeObjectState(media, System.Data.EntityState.Modified);
@@ -106,13 +139,6 @@
             {
                 log.Error("unable to update a media item.  received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
 
             return media;
@@ -132,17 +158,36 @@
                 throw new ArgumentNullException("null argument sent to Add");
             }
 
+            MasterEntities context = this.GetContext();
+
             if (media is Video)
             {
-                Video videoItem = (Video)media; 
+                Video videoItem = (Video)media;
+                context.Media.AddObject(videoItem);
             }
 
-            MasterEntities context = null;
+            if (media is Book)
+            {
+                Book bookitem = (Book)media;
+                foreach (Person aperson in bookitem.PeopleToAdd)
+                {
+                    if (aperson.LastName.Length > 0
+                        && aperson.FirstName.Length > 0)
+                    {
+                        context.People.AddObject(aperson);
+                        context.SaveChanges();
+                        AuthorBookAssociation association = new AuthorBookAssociation();
+                        association.AuthorPersonId = aperson.PersonId;
+                        association.BookMediaId = media.MediaId;
+                        bookitem.AuthorBookAssociations.Add(association);
+                    }
+                }
 
+                context.Media.AddObject(bookitem);
+            }
+ 
             try
             {
-                context = new MasterEntities();
-                context.Media.AddObject(media);
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -150,13 +195,6 @@
                 Console.WriteLine("unable to add a media item.  received exception: " + e.ToString());
                 log.Error("unable to add a media item.  received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
 
             return media;
@@ -180,12 +218,23 @@
                 throw new ArgumentException("media item sent to add that does not have entity key");
             }
 
-            MasterEntities context = null;
+            MasterEntities context = this.GetContext();
 
             try
             {
-                context = new MasterEntities();
-                context.Media.Attach(media);
+
+                if (System.Data.EntityState.Detached == media.EntityState
+                    || System.Data.EntityState.Unchanged == media.EntityState)
+                {
+                    context.Attach(media);
+                } 
+                
+                if (media is Book)
+                {
+                    var associations = context.AuthorBookAssociations;
+                    Book book = (Book)media;
+                }
+
                 context.Media.DeleteObject(media);
                 context.SaveChanges();
             }
@@ -193,13 +242,6 @@
             {
                 log.Error("unable to delete the media item.  received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
         }
 
@@ -210,7 +252,7 @@
         public IDictionary<int, string> GetGenres()
         {
             IDictionary<int, string> genreDictionary = new Dictionary<int, string>();
-            var context = new MasterEntities();
+            MasterEntities context = this.GetContext();
             var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.Genre select c;
             var genres = query.ToList();
             foreach (var item in genres)
@@ -228,7 +270,7 @@
         public IDictionary<int, string> GetFormats()
         {
             IDictionary<int, string> formatDictionary = new Dictionary<int, string>();
-            var context = new MasterEntities();
+            MasterEntities context = this.GetContext();
             var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.Format select c;
             var formats = query.ToList();
             foreach (var formatitem in formats)
@@ -246,7 +288,7 @@
         public IDictionary<int, string> GetBoardRatings()
         {
             IDictionary<int, string> ratingDictionary = new Dictionary<int, string>();
-            var context = new MasterEntities();
+            MasterEntities context = this.GetContext();
             var query = from c in context.Codes where c.CodeTypeId == (int)DropDownTypes.BoardRating select c;
             var ratings = query.ToList();
             foreach (var item in ratings)
@@ -263,7 +305,7 @@
         /// <returns>Gets a list of people defined in any way</returns>
         public IEnumerable<Person> GetPeople()
         {
-            var context = new MasterEntities();
+            MasterEntities context = this.GetContext();
             var query = from c in context.People select c;
             return query.ToList<Person>();
         }
@@ -274,7 +316,7 @@
         /// <returns>Gets a list of people defined as authors</returns>
         public IEnumerable<Person> GetAuthors()
         {
-            var context = new MasterEntities();
+            MasterEntities context = this.GetContext();
             var query = from p in context.People.OfType<Author>() select p;
             return query.ToList<Person>();
         }
@@ -292,11 +334,10 @@
                 throw new ArgumentNullException("null argument sent to Update");
             }
 
-            MasterEntities context = null;
+            MasterEntities context = this.GetContext();
 
             try
             {
-                context = new MasterEntities();
                 context.Attach(person);
 
                 // Update the state of the object to modified
@@ -308,13 +349,6 @@
             {
                 log.Error("unable to update a person, received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
 
             return person;
@@ -333,11 +367,10 @@
                 throw new ArgumentNullException("null argument sent to Add");
             }
 
-            MasterEntities context = null;
+            MasterEntities context = this.GetContext();
 
             try
             {
-                context = new MasterEntities();
                 context.People.AddObject(person);
                 context.SaveChanges();
             }
@@ -346,13 +379,6 @@
                 Console.WriteLine("unable to add a person, received exception: " + e.ToString());
                 log.Error("unable to add a person, received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
 
             return person;
@@ -363,6 +389,26 @@
         /// </summary>
         public void Dispose()
         {
+            if (null != this.context)
+            {
+                this.context.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// get a new context only when it has not been previously valued
+        /// otherwise returns the existing context.
+        /// </summary>
+        /// <returns>the cuurent context</returns>
+        internal MasterEntities GetContext()
+        {
+            if (null == this.context)
+            {
+                this.context = new MasterEntities();
+                this.context.ContextOptions.LazyLoadingEnabled = false;
+            }
+
+            return this.context;
         }
 
         #endregion ICrudService

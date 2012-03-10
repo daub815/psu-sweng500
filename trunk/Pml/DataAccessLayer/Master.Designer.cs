@@ -21,9 +21,12 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "CodeTypeCode", "CodeType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.CodeType), "Code", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Code), true)]
 [assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "BorrowerBorrowedMedia", "Borrower", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Borrower), "BorrowedMedia", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.BorrowedMedia), true)]
 [assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "MediaBorrowedMedia", "Media", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Media), "BorrowedMedia", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.BorrowedMedia), true)]
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "AuthorBook", "Author", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Author), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Book))]
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducer", "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Video), "Producer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Producer))]
-[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "DirectorVideo", "Director", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Director), "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.Video))]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "BookAuthorBookAssociation", "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Book), "AuthorBookAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.AuthorBookAssociation), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "AuthorAuthorBookAssociation", "Author", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Author), "AuthorBookAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.AuthorBookAssociation), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "VideoDirectorAssociation", "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Video), "DirectorAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.DirectorAssociation), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "DirectorDirectorAssociation", "Director", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Director), "DirectorAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.DirectorAssociation), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "ProducerProducerAssociation", "Producer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Producer), "ProducerAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.ProducerAssociation), true)]
+[assembly: EdmRelationshipAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducerAssociation", "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sweng500.Pml.DataAccessLayer.Video), "ProducerAssociation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sweng500.Pml.DataAccessLayer.ProducerAssociation), true)]
 
 #endregion
 
@@ -154,6 +157,54 @@ namespace Sweng500.Pml.DataAccessLayer
             }
         }
         private ObjectSet<BorrowedMedia> _BorrowedMedias;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AuthorBookAssociation> AuthorBookAssociations
+        {
+            get
+            {
+                if ((_AuthorBookAssociations == null))
+                {
+                    _AuthorBookAssociations = base.CreateObjectSet<AuthorBookAssociation>("AuthorBookAssociations");
+                }
+                return _AuthorBookAssociations;
+            }
+        }
+        private ObjectSet<AuthorBookAssociation> _AuthorBookAssociations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DirectorAssociation> DirectorAssociations
+        {
+            get
+            {
+                if ((_DirectorAssociations == null))
+                {
+                    _DirectorAssociations = base.CreateObjectSet<DirectorAssociation>("DirectorAssociations");
+                }
+                return _DirectorAssociations;
+            }
+        }
+        private ObjectSet<DirectorAssociation> _DirectorAssociations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProducerAssociation> ProducerAssociations
+        {
+            get
+            {
+                if ((_ProducerAssociations == null))
+                {
+                    _ProducerAssociations = base.CreateObjectSet<ProducerAssociation>("ProducerAssociations");
+                }
+                return _ProducerAssociations;
+            }
+        }
+        private ObjectSet<ProducerAssociation> _ProducerAssociations;
 
         #endregion
         #region AddTo Methods
@@ -197,6 +248,30 @@ namespace Sweng500.Pml.DataAccessLayer
         {
             base.AddObject("BorrowedMedias", borrowedMedia);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AuthorBookAssociations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuthorBookAssociations(AuthorBookAssociation authorBookAssociation)
+        {
+            base.AddObject("AuthorBookAssociations", authorBookAssociation);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DirectorAssociations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDirectorAssociations(DirectorAssociation directorAssociation)
+        {
+            base.AddObject("DirectorAssociations", directorAssociation);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProducerAssociations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProducerAssociations(ProducerAssociation producerAssociation)
+        {
+            base.AddObject("ProducerAssociations", producerAssociation);
+        }
 
         #endregion
     }
@@ -239,18 +314,204 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "AuthorBook", "Book")]
-        public EntityCollection<Book> Books
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "AuthorAuthorBookAssociation", "AuthorBookAssociation")]
+        public EntityCollection<AuthorBookAssociation> AuthorBookAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("Sweng500.Pml.DataAccessLayer.AuthorBook", "Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorBookAssociation>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "AuthorBookAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("Sweng500.Pml.DataAccessLayer.AuthorBook", "Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorBookAssociation>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "AuthorBookAssociation", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="AuthorBookAssociation")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AuthorBookAssociation : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AuthorBookAssociation object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="bookMediaId">Initial value of the BookMediaId property.</param>
+        /// <param name="authorPersonId">Initial value of the AuthorPersonId property.</param>
+        public static AuthorBookAssociation CreateAuthorBookAssociation(global::System.Int32 id, global::System.Int32 bookMediaId, global::System.Int32 authorPersonId)
+        {
+            AuthorBookAssociation authorBookAssociation = new AuthorBookAssociation();
+            authorBookAssociation.Id = id;
+            authorBookAssociation.BookMediaId = bookMediaId;
+            authorBookAssociation.AuthorPersonId = authorPersonId;
+            return authorBookAssociation;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BookMediaId
+        {
+            get
+            {
+                return _BookMediaId;
+            }
+            set
+            {
+                OnBookMediaIdChanging(value);
+                ReportPropertyChanging("BookMediaId");
+                _BookMediaId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BookMediaId");
+                OnBookMediaIdChanged();
+            }
+        }
+        private global::System.Int32 _BookMediaId;
+        partial void OnBookMediaIdChanging(global::System.Int32 value);
+        partial void OnBookMediaIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AuthorPersonId
+        {
+            get
+            {
+                return _AuthorPersonId;
+            }
+            set
+            {
+                OnAuthorPersonIdChanging(value);
+                ReportPropertyChanging("AuthorPersonId");
+                _AuthorPersonId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AuthorPersonId");
+                OnAuthorPersonIdChanged();
+            }
+        }
+        private global::System.Int32 _AuthorPersonId;
+        partial void OnAuthorPersonIdChanging(global::System.Int32 value);
+        partial void OnAuthorPersonIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "BookAuthorBookAssociation", "Book")]
+        public Book Book
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "Book").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "Book").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Book> BookReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Book>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "Book");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Book>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "Book", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "AuthorAuthorBookAssociation", "Author")]
+        public Author Author
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Author>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "Author").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Author>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "Author").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Author> AuthorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Author>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "Author");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Author>("Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation", "Author", value);
                 }
             }
         }
@@ -372,18 +633,18 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "AuthorBook", "Author")]
-        public EntityCollection<Author> Authors
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "BookAuthorBookAssociation", "AuthorBookAssociation")]
+        public EntityCollection<AuthorBookAssociation> AuthorBookAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Author>("Sweng500.Pml.DataAccessLayer.AuthorBook", "Author");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorBookAssociation>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "AuthorBookAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Author>("Sweng500.Pml.DataAccessLayer.AuthorBook", "Author", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorBookAssociation>("Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation", "AuthorBookAssociation", value);
                 }
             }
         }
@@ -993,18 +1254,204 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "DirectorVideo", "Video")]
-        public EntityCollection<Video> Videos
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "DirectorDirectorAssociation", "DirectorAssociation")]
+        public EntityCollection<DirectorAssociation> DirectorAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Video>("Sweng500.Pml.DataAccessLayer.DirectorVideo", "Video");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DirectorAssociation>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "DirectorAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Video>("Sweng500.Pml.DataAccessLayer.DirectorVideo", "Video", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DirectorAssociation>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "DirectorAssociation", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="DirectorAssociation")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DirectorAssociation : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DirectorAssociation object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="videoMediaId">Initial value of the VideoMediaId property.</param>
+        /// <param name="directorPersonId">Initial value of the DirectorPersonId property.</param>
+        public static DirectorAssociation CreateDirectorAssociation(global::System.Int32 id, global::System.Int32 videoMediaId, global::System.Int32 directorPersonId)
+        {
+            DirectorAssociation directorAssociation = new DirectorAssociation();
+            directorAssociation.Id = id;
+            directorAssociation.VideoMediaId = videoMediaId;
+            directorAssociation.DirectorPersonId = directorPersonId;
+            return directorAssociation;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 VideoMediaId
+        {
+            get
+            {
+                return _VideoMediaId;
+            }
+            set
+            {
+                OnVideoMediaIdChanging(value);
+                ReportPropertyChanging("VideoMediaId");
+                _VideoMediaId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VideoMediaId");
+                OnVideoMediaIdChanged();
+            }
+        }
+        private global::System.Int32 _VideoMediaId;
+        partial void OnVideoMediaIdChanging(global::System.Int32 value);
+        partial void OnVideoMediaIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DirectorPersonId
+        {
+            get
+            {
+                return _DirectorPersonId;
+            }
+            set
+            {
+                OnDirectorPersonIdChanging(value);
+                ReportPropertyChanging("DirectorPersonId");
+                _DirectorPersonId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DirectorPersonId");
+                OnDirectorPersonIdChanged();
+            }
+        }
+        private global::System.Int32 _DirectorPersonId;
+        partial void OnDirectorPersonIdChanging(global::System.Int32 value);
+        partial void OnDirectorPersonIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoDirectorAssociation", "Video")]
+        public Video Video
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "Video").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "Video").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Video> VideoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "Video");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "Video", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "DirectorDirectorAssociation", "Director")]
+        public Director Director
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Director>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "Director").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Director>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "Director").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Director> DirectorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Director>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "Director");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Director>("Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation", "Director", value);
                 }
             }
         }
@@ -1256,8 +1703,8 @@ namespace Sweng500.Pml.DataAccessLayer
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(Borrower))]
     [KnownTypeAttribute(typeof(Author))]
-    [KnownTypeAttribute(typeof(Producer))]
     [KnownTypeAttribute(typeof(Director))]
+    [KnownTypeAttribute(typeof(Producer))]
     [KnownTypeAttribute(typeof(User))]
     public abstract partial class Person : EntityObject
     {
@@ -1471,18 +1918,204 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducer", "Video")]
-        public EntityCollection<Video> Videos
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "ProducerProducerAssociation", "ProducerAssociation")]
+        public EntityCollection<ProducerAssociation> ProducerAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Video>("Sweng500.Pml.DataAccessLayer.VideoProducer", "Video");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProducerAssociation>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "ProducerAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Video>("Sweng500.Pml.DataAccessLayer.VideoProducer", "Video", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProducerAssociation>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "ProducerAssociation", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Sweng500.Pml.DataAccessLayer", Name="ProducerAssociation")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProducerAssociation : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProducerAssociation object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="producerPersonId">Initial value of the ProducerPersonId property.</param>
+        /// <param name="videoMediaId">Initial value of the VideoMediaId property.</param>
+        public static ProducerAssociation CreateProducerAssociation(global::System.Int32 id, global::System.Int32 producerPersonId, global::System.Int32 videoMediaId)
+        {
+            ProducerAssociation producerAssociation = new ProducerAssociation();
+            producerAssociation.Id = id;
+            producerAssociation.ProducerPersonId = producerPersonId;
+            producerAssociation.VideoMediaId = videoMediaId;
+            return producerAssociation;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProducerPersonId
+        {
+            get
+            {
+                return _ProducerPersonId;
+            }
+            set
+            {
+                OnProducerPersonIdChanging(value);
+                ReportPropertyChanging("ProducerPersonId");
+                _ProducerPersonId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProducerPersonId");
+                OnProducerPersonIdChanged();
+            }
+        }
+        private global::System.Int32 _ProducerPersonId;
+        partial void OnProducerPersonIdChanging(global::System.Int32 value);
+        partial void OnProducerPersonIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 VideoMediaId
+        {
+            get
+            {
+                return _VideoMediaId;
+            }
+            set
+            {
+                OnVideoMediaIdChanging(value);
+                ReportPropertyChanging("VideoMediaId");
+                _VideoMediaId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VideoMediaId");
+                OnVideoMediaIdChanged();
+            }
+        }
+        private global::System.Int32 _VideoMediaId;
+        partial void OnVideoMediaIdChanging(global::System.Int32 value);
+        partial void OnVideoMediaIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "ProducerProducerAssociation", "Producer")]
+        public Producer Producer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Producer>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "Producer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Producer>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "Producer").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Producer> ProducerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Producer>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "Producer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Producer>("Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation", "Producer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducerAssociation", "Video")]
+        public Video Video
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "Video").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "Video").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Video> VideoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "Video");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Video>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "Video", value);
                 }
             }
         }
@@ -1712,18 +2345,18 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducer", "Producer")]
-        public EntityCollection<Producer> Producers
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoDirectorAssociation", "DirectorAssociation")]
+        public EntityCollection<DirectorAssociation> DirectorAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Producer>("Sweng500.Pml.DataAccessLayer.VideoProducer", "Producer");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DirectorAssociation>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "DirectorAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Producer>("Sweng500.Pml.DataAccessLayer.VideoProducer", "Producer", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DirectorAssociation>("Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation", "DirectorAssociation", value);
                 }
             }
         }
@@ -1734,18 +2367,18 @@ namespace Sweng500.Pml.DataAccessLayer
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "DirectorVideo", "Director")]
-        public EntityCollection<Director> Directors
+        [EdmRelationshipNavigationPropertyAttribute("Sweng500.Pml.DataAccessLayer", "VideoProducerAssociation", "ProducerAssociation")]
+        public EntityCollection<ProducerAssociation> ProducerAssociations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Director>("Sweng500.Pml.DataAccessLayer.DirectorVideo", "Director");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProducerAssociation>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "ProducerAssociation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Director>("Sweng500.Pml.DataAccessLayer.DirectorVideo", "Director", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProducerAssociation>("Sweng500.Pml.DataAccessLayer.VideoProducerAssociation", "ProducerAssociation", value);
                 }
             }
         }

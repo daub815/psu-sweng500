@@ -87,7 +87,7 @@
             var mediaitems = service.GetMediaItems();
             foreach (Media item in mediaitems)
             {
-                Console.WriteLine("item {0}", item);
+                Console.WriteLine("media item: {0}", item);
             }
         }
 
@@ -133,6 +133,43 @@
             // Add the list of books to get
             var expected = new List<Book>();
             foreach (var book in Mock.MediaObjectMother.CreateNewBooks())
+            {
+                var bookAdded = service.Add(book);
+                Assert.IsNotNull(bookAdded);
+
+                expected.Add((Book)bookAdded);
+            }
+
+            var mediaItems = service.GetMediaItems();
+            int mediaCount = 0;
+            foreach (var item in mediaItems)
+            {
+                mediaCount++;
+            }
+
+            Assert.IsTrue(mediaCount == expected.Count);
+
+            // Delete the books
+            foreach (Book item in expected)
+            {
+                service.Delete(item);
+            }
+
+            IEnumerable<Media> items = service.GetMediaItems();
+            Assert.IsTrue(items.Count() == 0);
+        }
+
+        /// <summary>
+        /// A test for Delete
+        /// </summary>
+        [TestMethod]
+        public void DeleteTest_Authors()
+        {
+            var service = new EntityCrudService();
+
+            // Add the list of books to get
+            var expected = new List<Book>();
+            foreach (var book in Mock.MediaObjectMother.CreateNewBooks_Authors())
             {
                 var bookAdded = service.Add(book);
                 Assert.IsNotNull(bookAdded);
