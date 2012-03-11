@@ -14,6 +14,11 @@
         private IList<Person> peopletoadd = new List<Person>();
 
         /// <summary>
+        /// a list of authors associated with a book so external does not have to naviagte AuthorBookAssociations
+        /// </summary>
+        private IList<Author> authors = new List<Author>();
+
+        /// <summary>
         /// Initializes a new instance of the Book class.
         /// Defines default DateTime values
         /// </summary>
@@ -138,27 +143,21 @@
         }
 
         /// <summary>
-        /// gets the people associated with the book
-        /// </summary>
-        /// <returns> an IEnumerable of people</returns>
-        public IEnumerable<Person> Authors()
-        {
-            IList<Person> people = new List<Person>();
-            foreach (AuthorBookAssociation assoc in this.AuthorBookAssociations)
-            {
-                people.Add(assoc.Author);
-            }
-
-            return people;
-        }
-
-        /// <summary>
         /// Override the string representation
         /// </summary>
         /// <returns>A value representing the book state</returns>
         public override string ToString()
         {
             return string.Format("Title: {0}  Description: {1} Comment: {2} Id: {3} ISBN: {4} ", this.Title, this.Description, this.Comment, this.MediaId, this.ISBN);
+        }
+
+        /// <summary>
+        /// Gets or sets a property to hold Authors associated with a book
+        /// </summary>
+        public IList<Author> Authors
+        {
+            get { return this.authors; }
+            set { this.authors = value; }
         }
 
         /// <summary>
