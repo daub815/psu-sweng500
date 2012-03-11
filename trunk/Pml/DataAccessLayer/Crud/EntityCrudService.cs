@@ -136,6 +136,27 @@
                 // Update the state of the object to modified
                 context.ObjectStateManager.ChangeObjectState(media, System.Data.EntityState.Modified);
 
+                if (media is Book)
+                {
+                    Book bookitem = (Book)media;
+                    foreach (Person aperson in bookitem.PeopleToAdd)
+                    {
+                        if (aperson.LastName.Length > 0
+                            && aperson.FirstName.Length > 0)
+                        {
+                            context.People.AddObject(aperson);
+                            context.SaveChanges();
+                            AuthorBookAssociation association = new AuthorBookAssociation();
+                            association.AuthorPersonId = aperson.PersonId;
+                            association.BookMediaId = media.MediaId;
+                            bookitem.AuthorBookAssociations.Add(association);
+                        }
+                    }
+
+                    bookitem.Authors = this.Authors(bookitem);
+                }
+
+
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -192,6 +213,12 @@
             try
             {
                 context.SaveChanges();
+                if (media is Book)
+                {
+                    Book bookitem = (Book)media;
+                    bookitem.Authors = this.Authors(bookitem);
+                }
+
             }
             catch (Exception e)
             {
@@ -217,8 +244,11 @@
 
             if (null == media.EntityKey)
             {
-                log.Warn("media item sent to add that does not have entity key");
-                throw new ArgumentException("media item sent to add that does not have entity key");
+                if (log.IsWarnEnabled)
+                {
+                    log.Warn("media item sent to add that does not have entity key");
+                    throw new ArgumentException("media item sent to add that does not have entity key");
+                }
             }
 
             MasterEntities context = this.GetContext();
@@ -239,6 +269,10 @@
 
                 context.Media.DeleteObject(media);
                 context.SaveChanges();
+                if (log.IsInfoEnabled) 
+                {
+                    log.InfoFormat("Deleting media item: {0}", media);
+                }
             }
             catch (Exception e)
             {
@@ -402,13 +436,22 @@
         /// <summary>
         /// gets a list of authors associated with the book
         /// </summary>
-        /// <param name="book"></param>
+        /// <param name="book"> the book to obtain authors from</param>
         /// <returns> a IList of Author</returns>
         public IList<Author> Authors(Book book)
         {
             IList<Author> authors = new List<Author>();
+            if (!book.AuthorBookAssociations.IsLoaded)
+            {
+                book.AuthorBookAssociations.Load();
+            }
+
             foreach (AuthorBookAssociation assoc in book.AuthorBookAssociations)
             {
+                if (!assoc.AuthorReference.IsLoaded)
+                {
+                    assoc.AuthorReference.Load();
+                }
                 authors.Add(assoc.Author);
             }
 
@@ -431,5 +474,4 @@
             return this.context;
         }
     }
-
 }
