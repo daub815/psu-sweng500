@@ -60,13 +60,26 @@ using Sweng500.Pml.DataAccessLayer;
         public void TestMethod1()
         {
             var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
-            Author johnsmith = new Author();
-            johnsmith.FirstName = "John";
-            johnsmith.LastName = "March10_A";
+
+            Author book1author = null;
+            var authors = crud.GetAuthors();
+            foreach (Author anauthor in authors)
+            {
+                book1author = anauthor;
+            }
+
+
+            Person authortest = new Author();
+            authortest.FirstName = "test";
+            authortest.LastName = "March11A_lastname";
+            crud.Add(authortest);
+
+
+           
             Book book1 = new Book();
-            book1.Title = "March 10A First Book";
+            book1.Title = "March 11A First Book";
             book1.ISBN = "2";
-            book1.AddPerson(johnsmith);
+            book1.AddPerson(book1author);
             crud.Add(book1);
 
             Book book2 = new Book();
@@ -75,7 +88,7 @@ using Sweng500.Pml.DataAccessLayer;
             crud.Add(book2);
 
             var mediaitems = crud.GetMediaItems();
-            var authors = crud.GetAuthors();
+           authors = crud.GetAuthors();
             var persons = crud.GetPeople();
 
             foreach (Person person in persons)

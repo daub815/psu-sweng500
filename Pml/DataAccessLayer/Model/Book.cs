@@ -74,7 +74,8 @@
         {
             bool rtn = false;
             
-            if (false == this.ContainsPerson(person))
+            if (person is Author 
+                && false == this.ContainsPerson(person))
             {
                 if (person.PersonId == 0)
                 {
@@ -89,6 +90,7 @@
                     this.AuthorBookAssociations.Add(assoc);
                     rtn = true;
                 }
+                authors.Add((Author)person);
             }
             
             return rtn;
@@ -103,6 +105,7 @@
         {
             bool rtn = false;
             AuthorBookAssociation assocremoval = null;
+            IList<Author> remaining = new List<Author>();
 
             if (null != person &&
                 true == this.ContainsPerson(person))
@@ -129,13 +132,19 @@
                         {
                             assocremoval = assoc;
                             rtn = true;
+                        } else 
+                        {
+                            remaining.Add(assoc.Author);
                         }
                     }
 
                     if (true == rtn)
                     {
                         this.AuthorBookAssociations.Remove(assocremoval);
+                        this.authors = remaining;
                     }
+                  
+
                 }
             }
 
@@ -161,13 +170,12 @@
         }
 
         /// <summary>
-        /// Gets or Sets property to add peiople.  The add is not done until the book is saved
+        /// Gets or sets property to add peiople.  The add is not done until the book is saved
         /// </summary>
         internal IList<Person> PeopleToAdd
         {
             get { return this.peopletoadd; }
             set { this.peopletoadd = value; }
         }
-
     }
 }
