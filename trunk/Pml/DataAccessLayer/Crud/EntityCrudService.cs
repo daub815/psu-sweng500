@@ -1,6 +1,7 @@
 ﻿namespace Sweng500.Pml.DataAccessLayer
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using log4net;
@@ -58,6 +59,8 @@
                                 assoc.AuthorReference.Load();
                             }
                         }
+
+                        book.Authors = this.Authors(book);
 
                         mediaitems.Add(book);
                     }
@@ -222,7 +225,6 @@
 
             try
             {
-
                 if (System.Data.EntityState.Detached == media.EntityState
                     || System.Data.EntityState.Unchanged == media.EntityState)
                 {
@@ -395,6 +397,24 @@
             }
         }
 
+        #endregion ICrudService
+
+        /// <summary>
+        /// gets a list of authors associated with the book
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns> a IList of Author</returns>
+        public IList<Author> Authors(Book book)
+        {
+            IList<Author> authors = new List<Author>();
+            foreach (AuthorBookAssociation assoc in book.AuthorBookAssociations)
+            {
+                authors.Add(assoc.Author);
+            }
+
+            return authors;
+        }
+
         /// <summary>
         /// get a new context only when it has not been previously valued
         /// otherwise returns the existing context.
@@ -410,7 +430,6 @@
 
             return this.context;
         }
-
-        #endregion ICrudService
     }
+
 }

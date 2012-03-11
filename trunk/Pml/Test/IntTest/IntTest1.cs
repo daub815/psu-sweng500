@@ -99,7 +99,7 @@ using Sweng500.Pml.DataAccessLayer;
                 if (item is Book)
                 {
                     Book book = (Book)item;
-                    var bookauthors = book.Authors();
+                    var bookauthors = book.Authors;
                     foreach (Author anauthor in bookauthors)
                     {
                         string name = anauthor.FirstName + " " + anauthor.LastName;
