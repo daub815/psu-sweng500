@@ -24,10 +24,5 @@
         /// </summary>
         /// <returns>The list of media items that have been borrowed</returns>
         IEnumerable<Media> GetBorrowedMediaItems();
-
-        /// <summary>
-        /// Disposes of the service
-        /// </summary>
-        void Dispose();
     }
 }
