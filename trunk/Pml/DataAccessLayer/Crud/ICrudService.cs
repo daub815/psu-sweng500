@@ -71,10 +71,5 @@
         /// <param name="person">The person to add</param>
         /// <returns>The added person with the key generated from the service</returns>
         Person Add(Person person);
-
-        /// <summary>
-        /// Dispose of this service
-        /// </summary>
-        void Dispose();
     }
 }

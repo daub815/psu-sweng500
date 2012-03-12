@@ -139,29 +139,15 @@
                 if (media is Book)
                 {
                     Book bookitem = (Book)media;
-                    foreach (Person aperson in bookitem.PeopleToAdd)
-                    {
-                        if (aperson.LastName.Length > 0
-                            && aperson.FirstName.Length > 0)
-                        {
-                            context.People.AddObject(aperson);
-                            context.SaveChanges();
-                            AuthorBookAssociation association = new AuthorBookAssociation();
-                            association.AuthorPersonId = aperson.PersonId;
-                            association.BookMediaId = media.MediaId;
-                            bookitem.AuthorBookAssociations.Add(association);
-                        }
-                    }
-
                     bookitem.Authors = this.Authors(bookitem);
                 }
-
 
                 context.SaveChanges();
             }
             catch (Exception e)
             {
-                log.Error("unable to update a media item.  received exception: ", e);
+                string message = string.Format("unable to update a media item.  received exception: {0} ", e);
+                log.Error(message);
                 throw;
             }
 
@@ -193,20 +179,6 @@
             if (media is Book)
             {
                 Book bookitem = (Book)media;
-                foreach (Person aperson in bookitem.PeopleToAdd)
-                {
-                    if (aperson.LastName.Length > 0
-                        && aperson.FirstName.Length > 0)
-                    {
-                        context.People.AddObject(aperson);
-                        context.SaveChanges();
-                        AuthorBookAssociation association = new AuthorBookAssociation();
-                        association.AuthorPersonId = aperson.PersonId;
-                        association.BookMediaId = media.MediaId;
-                        bookitem.AuthorBookAssociations.Add(association);
-                    }
-                }
-
                 context.Media.AddObject(bookitem);
             }
  
@@ -218,12 +190,12 @@
                     Book bookitem = (Book)media;
                     bookitem.Authors = this.Authors(bookitem);
                 }
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("unable to add a media item.  received exception: " + e.ToString());
-                log.Error("unable to add a media item.  received exception: ", e);
+                string message = string.Format("unable to add a media item.  received exception: {0}", e);
+                Console.WriteLine(message);
+                log.Error(message);
                 throw;
             }
 
@@ -452,6 +424,7 @@
                 {
                     assoc.AuthorReference.Load();
                 }
+
                 authors.Add(assoc.Author);
             }
 

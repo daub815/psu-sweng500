@@ -9,11 +9,6 @@
     public partial class Book : Media
     {
         /// <summary>
-        /// a list of people to add who do not have an id defined in the database
-        /// </summary>
-        private IList<Person> peopletoadd = new List<Person>();
-
-        /// <summary>
         /// a list of authors associated with a book so external does not have to naviagte AuthorBookAssociations
         /// </summary>
         private IList<Author> authors = new List<Author>();
@@ -26,6 +21,15 @@
         {
             this.Acquired = DateTime.Now;
             this.Published = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Gets or sets a property to hold Authors associated with a book
+        /// </summary>
+        public IList<Author> Authors
+        {
+            get { return this.authors; }
+            set { this.authors = value; }
         }
 
         /// <summary>
@@ -49,19 +53,6 @@
                 }
             }
 
-            if (rtn == false 
-                && person.PersonId == 0)
-            {
-                foreach (Person aperson in this.peopletoadd)
-                {
-                    if (person.LastName.Equals(aperson.LastName) 
-                        && person.FirstName.Equals(aperson.FirstName))
-                    {
-                        rtn = true;
-                    }
-                }
-            }
-
             return rtn;
         }
 
@@ -77,20 +68,12 @@
             if (person is Author 
                 && false == this.ContainsPerson(person))
             {
-                if (person.PersonId == 0)
-                {
-                    this.peopletoadd.Add(person);
-                    rtn = true;
-                }
-                else
-                {
-                    AuthorBookAssociation assoc = new AuthorBookAssociation();
-                    assoc.AuthorPersonId = person.PersonId;
-                    assoc.BookMediaId = this.MediaId;
-                    this.AuthorBookAssociations.Add(assoc);
-                    rtn = true;
-                }
-                authors.Add((Author)person);
+                AuthorBookAssociation assoc = new AuthorBookAssociation();
+                assoc.AuthorPersonId = person.PersonId;
+                assoc.BookMediaId = this.MediaId;
+                this.AuthorBookAssociations.Add(assoc);
+                rtn = true;
+                this.authors.Add((Author)person);
             }
             
             return rtn;
@@ -110,41 +93,24 @@
             if (null != person &&
                 true == this.ContainsPerson(person))
             {
-                if (0 == person.PersonId)
+                var authorassoc = this.AuthorBookAssociations;
+                foreach (AuthorBookAssociation assoc in authorassoc)
                 {
-                        foreach (Person aperson in this.peopletoadd)
-                        {
-                            if (person.LastName.Equals(aperson.LastName)
-                                && person.FirstName.Equals(aperson.FirstName))
-                            {
-                                aperson.LastName = string.Empty;
-                                aperson.FirstName = string.Empty;
-                                rtn = true;
-                            }
-                        }
+                    if (assoc.AuthorPersonId == person.PersonId)
+                    {
+                        assocremoval = assoc;
+                        rtn = true;
+                    } 
+                    else 
+                    {
+                        remaining.Add(assoc.Author);
+                    }
                 }
-                else
+
+                if (true == rtn)
                 {
-                    var authorassoc = this.AuthorBookAssociations;
-                    foreach (AuthorBookAssociation assoc in authorassoc)
-                    {
-                        if (assoc.AuthorPersonId == person.PersonId)
-                        {
-                            assocremoval = assoc;
-                            rtn = true;
-                        } else 
-                        {
-                            remaining.Add(assoc.Author);
-                        }
-                    }
-
-                    if (true == rtn)
-                    {
-                        this.AuthorBookAssociations.Remove(assocremoval);
-                        this.authors = remaining;
-                    }
-                  
-
+                    this.AuthorBookAssociations.Remove(assocremoval);
+                    this.authors = remaining;
                 }
             }
 
@@ -158,24 +124,6 @@
         public override string ToString()
         {
             return string.Format("Title: {0}  Description: {1} Comment: {2} Id: {3} ISBN: {4} ", this.Title, this.Description, this.Comment, this.MediaId, this.ISBN);
-        }
-
-        /// <summary>
-        /// Gets or sets a property to hold Authors associated with a book
-        /// </summary>
-        public IList<Author> Authors
-        {
-            get { return this.authors; }
-            set { this.authors = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets property to add peiople.  The add is not done until the book is saved
-        /// </summary>
-        internal IList<Person> PeopleToAdd
-        {
-            get { return this.peopletoadd; }
-            set { this.peopletoadd = value; }
         }
     }
 }
