@@ -31,8 +31,8 @@
             var kernel = new StandardKernel();
 
             // Add the various concrete services
-            kernel.Bind<ICrudService>().To<EntityCrudService>();
-            kernel.Bind<ISearchMediaService>().To<SearchMediaService>();
+            kernel.Bind<ICrudService>().To<EntityCrudService>().InSingletonScope();
+            kernel.Bind<ISearchMediaService>().To<SearchMediaService>().InSingletonScope();
 
             // Create the concrete locator
             var locator = new CommonServiceLocator.NinjectAdapter.NinjectServiceLocator(kernel);
