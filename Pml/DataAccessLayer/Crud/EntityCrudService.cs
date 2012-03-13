@@ -60,8 +60,6 @@
                             }
                         }
 
-                        book.Authors = this.Authors(book);
-
                         mediaitems.Add(book);
                     }
 
@@ -135,13 +133,6 @@
 
                 // Update the state of the object to modified
                 context.ObjectStateManager.ChangeObjectState(media, System.Data.EntityState.Modified);
-
-                if (media is Book)
-                {
-                    Book bookitem = (Book)media;
-                    bookitem.Authors = this.Authors(bookitem);
-                }
-
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -185,11 +176,6 @@
             try
             {
                 context.SaveChanges();
-                if (media is Book)
-                {
-                    Book bookitem = (Book)media;
-                    bookitem.Authors = this.Authors(bookitem);
-                }
             }
             catch (Exception e)
             {
@@ -404,32 +390,6 @@
         }
 
         #endregion ICrudService
-
-        /// <summary>
-        /// gets a list of authors associated with the book
-        /// </summary>
-        /// <param name="book"> the book to obtain authors from</param>
-        /// <returns> a IList of Author</returns>
-        public IList<Author> Authors(Book book)
-        {
-            IList<Author> authors = new List<Author>();
-            if (!book.AuthorBookAssociations.IsLoaded)
-            {
-                book.AuthorBookAssociations.Load();
-            }
-
-            foreach (AuthorBookAssociation assoc in book.AuthorBookAssociations)
-            {
-                if (!assoc.AuthorReference.IsLoaded)
-                {
-                    assoc.AuthorReference.Load();
-                }
-
-                authors.Add(assoc.Author);
-            }
-
-            return authors;
-        }
 
         /// <summary>
         /// get a new context only when it has not been previously valued

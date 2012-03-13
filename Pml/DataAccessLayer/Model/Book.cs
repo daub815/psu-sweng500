@@ -2,34 +2,46 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// This is the overridden Book class
     /// </summary>
     public partial class Book : Media
     {
+        #region Statics
+
         /// <summary>
-        /// a list of authors associated with a book so external does not have to naviagte AuthorBookAssociations
+        /// The property name for the Authors property
         /// </summary>
-        private IList<Author> authors = new List<Author>();
+        public const string AuthorsPropertyName = "Authors";
+
+        #endregion Statics
 
         /// <summary>
         /// Initializes a new instance of the Book class.
-        /// Defines default DateTime values
         /// </summary>
         public Book()
         {
             this.Acquired = DateTime.Now;
             this.Published = DateTime.Now;
+
+            // Raise the associated Authors property when the associations change
+            this.AuthorBookAssociations.AssociationChanged += (obj, args) =>
+                {
+                    this.OnPropertyChanged(AuthorsPropertyName);
+                };
         }
 
         /// <summary>
-        /// Gets or sets a property to hold Authors associated with a book
+        /// Gets a property to hold Authors associated with a book
         /// </summary>
         public IList<Author> Authors
         {
-            get { return this.authors; }
-            set { this.authors = value; }
+            get
+            {
+                return this.AuthorBookAssociations.Select(a => a.Author).ToList();
+            }
         }
 
         /// <summary>
@@ -73,7 +85,6 @@
                 assoc.BookMediaId = this.MediaId;
                 this.AuthorBookAssociations.Add(assoc);
                 rtn = true;
-                this.authors.Add((Author)person);
             }
             
             return rtn;
@@ -88,7 +99,6 @@
         {
             bool rtn = false;
             AuthorBookAssociation assocremoval = null;
-            IList<Author> remaining = new List<Author>();
 
             if (null != person &&
                 true == this.ContainsPerson(person))
@@ -100,17 +110,12 @@
                     {
                         assocremoval = assoc;
                         rtn = true;
-                    } 
-                    else 
-                    {
-                        remaining.Add(assoc.Author);
                     }
                 }
 
                 if (true == rtn)
                 {
                     this.AuthorBookAssociations.Remove(assocremoval);
-                    this.authors = remaining;
                 }
             }
 
