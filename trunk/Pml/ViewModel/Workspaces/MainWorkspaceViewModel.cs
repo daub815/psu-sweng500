@@ -141,7 +141,7 @@
                     {
                         return
                             null != media &&
-                            false == (this.SelectedWorkspace is EditWorkspaceViewModel);
+                            this.SelectedItem != media;
                     });
 
             GlobalCommands.Instance.DeleteItemCommand = new GalaSoft.MvvmLight.Command.RelayCommand<object>(
