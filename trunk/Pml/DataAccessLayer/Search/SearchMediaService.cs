@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using log4net;
+    using Sweng500.Awse.CommerceService;
 
     /// <summary>
     /// Implementation of the ISearchMedia interface 
@@ -63,6 +64,47 @@
         }
 
         /// <summary>
+        /// does a search using an amazon web service
+        /// </summary>
+        /// <param name="mediatype"> the type of media to search for</param>
+        /// <param name="title"> words in the title to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        public IEnumerable<Media> SearchRemote(MediaTypes mediatype, string title, string keywords)
+        {
+            IList<Media> values = new List<Media>();
+            bool booksearch = false;
+            string searchindex = string.Empty;
+            if (MediaTypes.Book == mediatype)
+            {
+                searchindex = "Books";
+                booksearch = true;
+            }
+            else
+            {
+                searchindex = "DVDs";
+            }
+
+            AWSECommerceService ecs = new AWSECommerceService();
+            IList<ItemResponse> searchresponse = ecs.ItemSearch(searchindex, title, keywords);
+            foreach (ItemResponse itemresponse in searchresponse)
+            {
+                if (booksearch)
+                {
+                    Book abookresponse = this.CreateBookFromSearch(itemresponse);
+                    values.Add(abookresponse);
+                }
+                else
+                {
+                    Video avideoresponse = this.CreateVideoFromSearch(itemresponse);
+                    values.Add(avideoresponse);
+                }
+            }
+
+            return values;
+        }
+
+        /// <summary>
         /// Disposes of the service
         /// </summary>
         public void Dispose()
@@ -70,5 +112,78 @@
         }
 
         #endregion ISearchMedia
+
+        /// <summary>
+        /// create a book from the search response
+        /// </summary>
+        /// <param name="itemresponse"> an item returned from the search</param>
+        /// <returns> a new book with fields populated</returns>
+        private Book CreateBookFromSearch(ItemResponse itemresponse)
+        {
+            Book searchbook = new Book();
+            if (itemresponse.Isbn != null) 
+            {
+                searchbook.ISBN = itemresponse.Isbn;
+            }
+            else
+            {
+                string[] eisbn = itemresponse.Eisbn;
+                if (eisbn != null && eisbn.Length > 0)
+                {
+                    searchbook.ISBN = eisbn[0];
+                }
+            }
+
+            searchbook.Title = itemresponse.Title;
+            searchbook.Comment = itemresponse.Imageurl;
+            searchbook.Description = string.Empty;
+            searchbook.LibraryLocation = string.Empty;
+            searchbook.Published = itemresponse.Publicationdate;
+            searchbook.Publisher = itemresponse.Publisher;
+
+            if (itemresponse.Authorsname != null)
+            {
+                IList<Author> bookauthors = new List<Author>();
+                foreach (ItemName name in itemresponse.Authorsname)
+                {
+                    Author anauthor = new Author();
+                    anauthor.FirstName = name.First;
+                    anauthor.LastName = name.Last;
+                    bookauthors.Add(anauthor);
+                    var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+                    crud.GetAuthors().Where(a => a.LastName == name.Last && a.FirstName == name.First);
+
+                    var matched = (from person in crud.GetAuthors()
+                                  where person.FirstName == name.First &&
+                                        person.LastName == name.Last
+                                  select person as Author).ToList();
+
+                    matched.ForEach(a => searchbook.AddPerson(a));
+                }
+            }
+                          
+            return searchbook;
+        }
+
+        /// <summary>
+        /// create a video from the search response
+        /// </summary>
+        /// <param name="itemresponse"> an item returned from the search</param>
+        /// <returns> a new video with fields populated</returns>
+        private Video CreateVideoFromSearch(ItemResponse itemresponse)
+        {
+            Video searchvideo = new Video();
+            searchvideo.Title = itemresponse.Title;
+            searchvideo.Comment = itemresponse.Imageurl;
+            searchvideo.Description = string.Empty;
+            searchvideo.Publisher = itemresponse.Publisher;
+            searchvideo.Released = itemresponse.Releasedate;
+            if (itemresponse.Upc != null) 
+            {
+                searchvideo.UPC = itemresponse.Upc;
+            }
+           
+            return searchvideo;
+        }
     }
 }

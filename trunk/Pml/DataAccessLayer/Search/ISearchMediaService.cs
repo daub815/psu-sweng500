@@ -24,5 +24,14 @@
         /// </summary>
         /// <returns>The list of media items that have been borrowed</returns>
         IEnumerable<Media> GetBorrowedMediaItems();
+
+        /// <summary>
+        /// does a search using an amazon web service
+        /// </summary>
+        /// <param name="mediatype"> the type of media to search for</param>
+        /// <param name="title"> words in the title to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        IEnumerable<Media> SearchRemote(MediaTypes mediatype, string title, string keywords);
     }
 }
