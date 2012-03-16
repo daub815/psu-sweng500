@@ -54,17 +54,30 @@
     <Compile Include="CommerceService\AmazonHeader.cs" />
     <Compile Include="CommerceService\AmazonSigningEndpointBehavior.cs" />
     <Compile Include="CommerceService\AmazonSigningMessageInspector.cs" />
+    <Compile Include="CommerceService\AWSECommerceService.cs" />
+    <Compile Include="CommerceService\ItemName.cs" />
+    <Compile Include="CommerceService\ItemResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\CommerceService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Sweng500.Awse.Clients.config" />
     <None Include="Service References\CommerceService\AWSECommerceService.wsdl" />
     <None Include="Service References\CommerceService\Sweng500.Awse.CommerceService.BrowseNodeLookupResponse.datasource">

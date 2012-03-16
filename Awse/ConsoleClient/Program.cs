@@ -1,6 +1,7 @@
 ﻿namespace Sweng500.Awse.ConsoleClient
 {
     using System;
+    using System.Collections.Generic;
     using log4net;
     using Sweng500.Awse.CommerceService;
 
@@ -32,10 +33,11 @@
                     new ItemSearchRequest
                     {
                         SearchIndex = "Books",
-                        Title = "Software Engineering",
+                        Title = "Stars Wars",
                         ResponseGroup = new string[]
                         {
-                            "Small"
+                        // "ItemAttributes"
+                        "Medium"
                         }
                     }
                 },
@@ -50,11 +52,94 @@
             try
             {
                 var response = client.ItemSearch(search);
-                foreach (var item in response.Items)
+
+                Items info = response.Items[0];
+                Item[] items = info.Item;
+
+                for (int i = 0; i < items.Length; i++)
                 {
-                    foreach (var i in item.Item)
+                    Item item = items[i];
+                    string imageurl = string.Empty;
+                    Image mediumImage = null;
+                    if (item.MediumImage != null)
                     {
-                        Console.WriteLine(i.ItemAttributes.Title);
+                       imageurl = item.MediumImage.URL;
+                       mediumImage = item.MediumImage;
+                    }
+
+                    Console.WriteLine(item.ItemAttributes.Title);
+                    string title = item.ItemAttributes.Title;
+                    string pub = item.ItemAttributes.Publisher;
+                   string isbn  = string.Empty;
+                    if (item.ItemAttributes.ISBN == null)
+                    {
+                        if (null != item.ItemAttributes.EISBN)
+                        {
+                            isbn = item.ItemAttributes.EISBN[0];
+                        } 
+                        else
+                        {
+                            if (null != item.ItemAttributes.EAN)
+                            {
+                                isbn = item.ItemAttributes.EAN;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        isbn = item.ItemAttributes.ISBN;
+                    }
+                    
+                    string pubdate = item.ItemAttributes.PublicationDate;
+                    string upc = item.ItemAttributes.UPC;
+                    string genre = item.ItemAttributes.Genre;
+                    string productgroup = item.ItemAttributes.ProductGroup;
+                    string releasedate = item.ItemAttributes.ReleaseDate;
+                    ItemAttributesCreator[] creators = item.ItemAttributes.Creator;
+                    if (creators != null 
+                        && creators.Length > 0)
+                    {
+                    foreach (ItemAttributesCreator creator in creators)
+                    {
+                        string creatorrole = string.Empty;
+                        string creatorvalue = string.Empty;
+                        if (creator.Role != null)
+                        {
+                            creatorrole = creator.Role;
+                        }
+
+                        if (creator.Value != null)
+                        {
+                            creatorvalue = creator.Value;
+                        }
+                       
+                        Console.WriteLine("creatorrole: {0}   creatorvalue: {1}", creatorrole, creatorvalue);
+                        creator.ToString();
+                    }
+                    }
+
+                    string[] authors = item.ItemAttributes.Author;
+                    string[] directors = item.ItemAttributes.Director;
+                    string[] formats = item.ItemAttributes.Format;
+                             
+                        Console.WriteLine("Authors: {0}", authors);
+                        Console.WriteLine("Title: {0}", title);
+                        Console.WriteLine("ISBN: {0}", isbn);
+                        Console.WriteLine("Pub Date: {0}", pubdate);
+                        Console.WriteLine("Publisher: {0}", pub);
+                        Console.WriteLine("Director: {0}", directors);
+                        Console.WriteLine("Genre: {0}", genre);
+                        Console.WriteLine("ProductGroup: {0}", productgroup);
+                        Console.WriteLine("ImageUrl: {0}", imageurl);
+                }
+
+                if (response.Items.Length > 1)
+                {
+                    Items infoimage = response.Items[1];
+                    Item[] itemsimage = infoimage.Item;
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        Item item = items[i];
                     }
                 }
             }

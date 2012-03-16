@@ -5,59 +5,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
-    /// Summary description for UnitTest1
+    /// A test class used to exercise the personal media library
     /// </summary>
     [TestClass]
     public class IntTest1
     {
-        private TestContext testContextInstance;
-
         /// <summary>
-        /// a blank constructor
+        /// Initializes a new instance of the IntTest1 class
         /// </summary>
         public IntTest1()
         {
         }
 
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
+        /// <summary>
+        /// Gets or sets the test context
+        /// </summary>
         public TestContext TestContext
         {
-            get
-            {
-                return this.testContextInstance;
-            }
-            set
-            {
-               this.testContextInstance = value;
-            }
+            get;
+            set;
         }
 
         #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
+
         #endregion
 
+        /// <summary>
+        /// A test for going through calls made to the data access layer
+        /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void TestDataAccessLayer()
         {
             var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
 
@@ -68,13 +45,10 @@ using Sweng500.Pml.DataAccessLayer;
                 book1author = anauthor;
             }
 
-
             Person authortest = new Author();
             authortest.FirstName = "test";
             authortest.LastName = "March11A_lastname";
             crud.Add(authortest);
-
-
            
             Book book1 = new Book();
             book1.Title = "March 11A First Book";
@@ -128,6 +102,7 @@ using Sweng500.Pml.DataAccessLayer;
 
                         string last = association.Author.LastName;
                    }
+
                     Console.WriteLine("book title isbn {0} {1} ", title, book.ISBN);
                 }
             }
@@ -144,6 +119,7 @@ using Sweng500.Pml.DataAccessLayer;
                 {
                     Assert.IsTrue(item.Description.Equals(desc));
                 }
+
                 count++;
             }
 
@@ -161,7 +137,7 @@ using Sweng500.Pml.DataAccessLayer;
             var updatedItems = crud.GetMediaItems();
             foreach (Media uitems in updatedItems)
             {
-                string myString = uitems.ToString();
+                string debugstring = uitems.ToString();
             }
         }
     }

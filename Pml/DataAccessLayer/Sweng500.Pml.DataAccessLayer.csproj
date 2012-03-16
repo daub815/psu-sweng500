@@ -84,6 +84,12 @@
     </EntityDeploy>
     <None Include="Master.edmx.sqlce" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Awse\Sweng500.Awse.csproj">
+      <Project>{0DBC29C6-4B85-4787-8CFD-067458708C53}</Project>
+      <Name>Sweng500.Awse</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)External\StyleCop\StyleCop.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
