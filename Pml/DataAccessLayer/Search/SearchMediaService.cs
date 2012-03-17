@@ -120,8 +120,16 @@
         /// <returns> a new book with fields populated</returns>
         private Book CreateBookFromSearch(ItemResponse itemresponse)
         {
+            var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+
             Book searchbook = new Book();
-            if (itemresponse.Isbn != null) 
+            searchbook.Title = itemresponse.Title;
+            searchbook.Comment = string.Empty;
+            searchbook.Description = string.Empty;
+            searchbook.ImageUrl = itemresponse.Imageurl;
+            searchbook.IsBorrowable = false;
+
+            if (itemresponse.Isbn != null)
             {
                 searchbook.ISBN = itemresponse.Isbn;
             }
@@ -134,23 +142,14 @@
                 }
             }
 
-            searchbook.Title = itemresponse.Title;
-            searchbook.Comment = itemresponse.Imageurl;
-            searchbook.Description = string.Empty;
             searchbook.LibraryLocation = string.Empty;
             searchbook.Published = itemresponse.Publicationdate;
             searchbook.Publisher = itemresponse.Publisher;
 
             if (itemresponse.Authorsname != null)
             {
-                IList<Author> bookauthors = new List<Author>();
                 foreach (ItemName name in itemresponse.Authorsname)
                 {
-                    Author anauthor = new Author();
-                    anauthor.FirstName = name.First;
-                    anauthor.LastName = name.Last;
-                    bookauthors.Add(anauthor);
-                    var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
                     crud.GetAuthors().Where(a => a.LastName == name.Last && a.FirstName == name.First);
 
                     var matched = (from person in crud.GetAuthors()
@@ -174,8 +173,10 @@
         {
             Video searchvideo = new Video();
             searchvideo.Title = itemresponse.Title;
-            searchvideo.Comment = itemresponse.Imageurl;
+            searchvideo.Comment = string.Empty;
             searchvideo.Description = string.Empty;
+            searchvideo.IsBorrowable = false;
+            searchvideo.ImageUrl = itemresponse.Imageurl;
             searchvideo.Publisher = itemresponse.Publisher;
             searchvideo.Released = itemresponse.Releasedate;
             if (itemresponse.Upc != null) 

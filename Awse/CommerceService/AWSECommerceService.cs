@@ -65,6 +65,23 @@ using System.Linq;
         }
 
         /// <summary>
+        /// convert the datestring into a DateTime
+        /// if the input is null, a default time is returned.
+        /// </summary>
+        /// <param name="datestring"> the string </param>
+        /// <returns> a DateTime</returns>
+        public DateTime GetDateTime(string datestring)
+        {
+            DateTime convertedDate = new DateTime(1970, 1, 1);
+            if (null != datestring)
+            {
+                convertedDate = DateTime.Parse(datestring);
+            }
+
+            return convertedDate;
+        }
+
+        /// <summary>
         /// builds a response for the item supplied
         /// </summary>
         /// <param name="suppliedItem"> the Item returned by the search</param>
@@ -82,9 +99,9 @@ using System.Linq;
             itemresponse.Releasedate = this.GetDateTime(suppliedItem.ItemAttributes.ReleaseDate);
             itemresponse.Title = suppliedItem.ItemAttributes.Title;
             itemresponse.Upc = suppliedItem.ItemAttributes.UPC;
-            if (suppliedItem.MediumImage != null)
+            if (suppliedItem.LargeImage != null)
             {
-                itemresponse.Imageurl = suppliedItem.MediumImage.URL;
+                itemresponse.Imageurl = suppliedItem.LargeImage.URL;
             }
 
             itemresponse.Authorsname = this.GetAuthors(suppliedItem);
@@ -92,22 +109,6 @@ using System.Linq;
             itemresponse.Producersname = this.GetProducers(suppliedItem);
            
             return itemresponse;
-        }
-
-        /// <summary>
-        /// convert the datestring into a DateTime
-        /// </summary>
-        /// <param name="datestring"> the string </param>
-        /// <returns> a DateTime</returns>
-        private DateTime GetDateTime(string datestring)
-        {
-            DateTime convertedDate = new DateTime(1970, 1, 1);
-            if (null != datestring)
-            {
-                convertedDate = DateTime.Parse(datestring);
-            }
-
-            return convertedDate;
         }
 
         /// <summary>
