@@ -127,10 +127,10 @@
                                Grid.Row="5"
                                Margin="5"
                                Content="Number of Stars" />
-                        <TextBox Grid.Column="1"
-                                 Grid.Row="5"
-                                 Margin="5"
-                                 Text="{Binding ItemToEdit.NumberOfStars}" />
+                        <ctrl:RatingsControl Grid.Column="1"
+                                             Grid.Row="5"
+                                             Margin="5"
+                                             NumberOfStars="{Binding ItemToEdit.NumberOfStars}" />
                     </Grid>
                 </GroupBox>
                 
@@ -368,10 +368,10 @@
                                Grid.Row="5"
                                Margin="5"
                                Content="Number of Stars" />
-                        <TextBox Grid.Column="1"
-                                 Grid.Row="5"
-                                 Margin="5"
-                                 Text="{Binding ItemToEdit.NumberOfStars}" />
+                        <ctrl:RatingsControl Grid.Column="1"
+                                             Grid.Row="5"
+                                             Margin="5"
+                                             NumberOfStars="{Binding ItemToEdit.NumberOfStars}" />
                     </Grid>
                 </GroupBox>
 
