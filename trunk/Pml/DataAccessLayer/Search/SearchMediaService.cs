@@ -82,7 +82,7 @@
             }
             else
             {
-                searchindex = "DVDs";
+                searchindex = "DVD";
             }
 
             AWSECommerceService ecs = new AWSECommerceService();
