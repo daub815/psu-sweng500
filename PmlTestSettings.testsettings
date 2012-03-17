@@ -3,6 +3,8 @@
   <Description>These are default test settings for a local test run.</Description>
   <Deployment>
     <DeploymentItem filename="Pml\Database\Master.sdf" />
+    <DeploymentItem filename="Awse\Sweng500.Awse.Bindings.config" />
+    <DeploymentItem filename="Awse\Sweng500.Awse.Clients.config" />
   </Deployment>
   <Execution>
     <TestTypeSpecific>
