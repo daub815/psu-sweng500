@@ -32,8 +32,9 @@
                 {
                     new ItemSearchRequest
                     {
-                        SearchIndex = "Books",
-                        Title = "Stars Wars",
+                        SearchIndex = "DVD",
+                        Title = "Stars War",
+                        Keywords = "Jedi",
                         ResponseGroup = new string[]
                         {
                         // "ItemAttributes"
@@ -61,13 +62,13 @@
                     Item item = items[i];
                     string imageurl = string.Empty;
                     Image mediumImage = null;
-                    if (item.MediumImage != null)
+                    
+                    if (item.LargeImage != null)
                     {
-                       imageurl = item.MediumImage.URL;
-                       mediumImage = item.MediumImage;
+                        imageurl = item.LargeImage.URL;
+                        mediumImage = item.LargeImage;
                     }
 
-                    Console.WriteLine(item.ItemAttributes.Title);
                     string title = item.ItemAttributes.Title;
                     string pub = item.ItemAttributes.Publisher;
                    string isbn  = string.Empty;
@@ -126,9 +127,11 @@
                         Console.WriteLine("Title: {0}", title);
                         Console.WriteLine("ISBN: {0}", isbn);
                         Console.WriteLine("Pub Date: {0}", pubdate);
+                        Console.WriteLine("Release Date: {0}", releasedate);
                         Console.WriteLine("Publisher: {0}", pub);
                         Console.WriteLine("Director: {0}", directors);
                         Console.WriteLine("Genre: {0}", genre);
+                        Console.WriteLine("Formats: {0}", formats);
                         Console.WriteLine("ProductGroup: {0}", productgroup);
                         Console.WriteLine("ImageUrl: {0}", imageurl);
                 }
