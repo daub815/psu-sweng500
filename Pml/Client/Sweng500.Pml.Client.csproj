@@ -78,6 +78,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\DropDownButton.cs" />
+    <Compile Include="Controls\RatingsControl.xaml.cs">
+      <DependentUpon>RatingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StarControl.xaml.cs">
+      <DependentUpon>StarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
     <Compile Include="Views\EditWorkspaceView.xaml.cs">
       <DependentUpon>EditWorkspaceView.xaml</DependentUpon>
@@ -88,6 +94,14 @@
     <Compile Include="Views\MainWorkspaceView.xaml.cs">
       <DependentUpon>MainWorkspaceView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\RatingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
