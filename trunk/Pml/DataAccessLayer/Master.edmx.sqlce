@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 03/17/2012 14:28:14
+-- Date Created: 03/17/2012 15:21:47
 -- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
@@ -122,7 +122,7 @@ CREATE TABLE [Media] (
     [Comment] nvarchar(4000)  NULL,
     [Description] nvarchar(4000)  NULL,
     [IsBorrowable] bit  NOT NULL,
-    [ImageUrl] nvarchar(4000)  NOT NULL
+    [ImageUrl] nvarchar(4000)  NULL
 );
 GO
 

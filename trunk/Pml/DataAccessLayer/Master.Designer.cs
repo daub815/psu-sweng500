@@ -536,16 +536,14 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="acquired">Initial value of the Acquired property.</param>
         /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
-        /// <param name="imageUrl">Initial value of the ImageUrl property.</param>
         /// <param name="published">Initial value of the Published property.</param>
-        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.String imageUrl, global::System.DateTime published)
+        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.DateTime published)
         {
             Book book = new Book();
             book.MediaId = mediaId;
             book.Title = title;
             book.Acquired = acquired;
             book.IsBorrowable = isBorrowable;
-            book.ImageUrl = imageUrl;
             book.Published = published;
             return book;
         }
@@ -1671,7 +1669,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ImageUrl
         {
@@ -1683,7 +1681,7 @@ namespace Sweng500.Pml.DataAccessLayer
             {
                 OnImageUrlChanging(value);
                 ReportPropertyChanging("ImageUrl");
-                _ImageUrl = StructuralObject.SetValidValue(value, false);
+                _ImageUrl = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ImageUrl");
                 OnImageUrlChanged();
             }
@@ -2274,16 +2272,14 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="acquired">Initial value of the Acquired property.</param>
         /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
-        /// <param name="imageUrl">Initial value of the ImageUrl property.</param>
         /// <param name="released">Initial value of the Released property.</param>
-        public static Video CreateVideo(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.String imageUrl, global::System.DateTime released)
+        public static Video CreateVideo(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.DateTime released)
         {
             Video video = new Video();
             video.MediaId = mediaId;
             video.Title = title;
             video.Acquired = acquired;
             video.IsBorrowable = isBorrowable;
-            video.ImageUrl = imageUrl;
             video.Released = released;
             return video;
         }

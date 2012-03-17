@@ -122,7 +122,7 @@
     <Property Name="Comment" Type="nvarchar" Nullable="true" />
     <Property Name="Description" Type="nvarchar" Nullable="true" />
     <Property Name="IsBorrowable" Type="bit" Nullable="false" />
-	<Property Name="ImageUrl" Type="nvarchar" Nullable="true" />
+    <Property Name="ImageUrl" Type="nvarchar" Nullable="true" />
   </EntityType>
   <EntityType Name="BorrowedMedias">
     <Key>
@@ -510,7 +510,7 @@
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="IsBorrowable" Nullable="false" />
           <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" FromRole="Media" ToRole="BorrowedMedia" />
-          <Property Type="String" Name="ImageUrl" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
         </EntityType>
         <EntityType Name="BorrowedMedia">
           <Key>
@@ -756,6 +756,7 @@
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Book)">
