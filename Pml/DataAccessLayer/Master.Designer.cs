@@ -1575,7 +1575,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> NumberOfStars
+        public Nullable<global::System.Double> NumberOfStars
         {
             get
             {
@@ -1590,8 +1590,8 @@ namespace Sweng500.Pml.DataAccessLayer
                 OnNumberOfStarsChanged();
             }
         }
-        private Nullable<global::System.Decimal> _NumberOfStars;
-        partial void OnNumberOfStarsChanging(Nullable<global::System.Decimal> value);
+        private Nullable<global::System.Double> _NumberOfStars;
+        partial void OnNumberOfStarsChanging(Nullable<global::System.Double> value);
         partial void OnNumberOfStarsChanged();
     
         /// <summary>

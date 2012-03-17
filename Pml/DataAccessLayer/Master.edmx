@@ -118,7 +118,7 @@
     <Property Name="Title" Type="nvarchar" Nullable="false" />
     <Property Name="Publisher" Type="nvarchar" Nullable="true" />
     <Property Name="Acquired" Type="datetime" Nullable="false" />
-    <Property Name="NumberOfStars" Type="decimal" Nullable="true" />
+    <Property Name="NumberOfStars" Type="float" Nullable="true" />
     <Property Name="Comment" Type="nvarchar" Nullable="true" />
     <Property Name="Description" Type="nvarchar" Nullable="true" />
     <Property Name="IsBorrowable" Type="bit" Nullable="false" />
@@ -505,7 +505,7 @@
           <Property Type="String" Name="Title" Nullable="false" />
           <Property Type="String" Name="Publisher" Nullable="true" />
           <Property Type="DateTime" Name="Acquired" Nullable="false" />
-          <Property Type="Decimal" Name="NumberOfStars" Nullable="true" />
+          <Property Type="Double" Name="NumberOfStars" Nullable="true" />
           <Property Type="String" Name="Comment" Nullable="true" />
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="IsBorrowable" Nullable="false" />
