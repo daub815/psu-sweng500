@@ -122,6 +122,7 @@
     <Property Name="Comment" Type="nvarchar" Nullable="true" />
     <Property Name="Description" Type="nvarchar" Nullable="true" />
     <Property Name="IsBorrowable" Type="bit" Nullable="false" />
+	<Property Name="ImageUrl" Type="nvarchar" Nullable="true" />
   </EntityType>
   <EntityType Name="BorrowedMedias">
     <Key>
@@ -509,6 +510,7 @@
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="Boolean" Name="IsBorrowable" Nullable="false" />
           <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" FromRole="Media" ToRole="BorrowedMedia" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowedMedia">
           <Key>
@@ -844,7 +846,7 @@
           <ConnectorPoint PointX="4" PointY="0.78125" />
           <ConnectorPoint PointX="6.75" PointY="0.78125" />
         </InheritanceConnector>
-        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="0.625" PointY="11" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="0.625" PointY="11" Height="2.9417936197916656" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.BorrowedMedia" Width="1.5" PointX="7" PointY="5.125" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Video" Width="1.5" PointX="4" PointY="8.25" Height="1.9802864583333335" />
         <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Video" ManuallyRouted="false" >
@@ -874,8 +876,8 @@
           <ConnectorPoint PointX="7.9375" PointY="5.125" />
         </AssociationConnector>
         <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.125" PointY="12.37474609375" />
-          <ConnectorPoint PointX="7.75" PointY="12.37474609375" />
+          <ConnectorPoint PointX="2.125" PointY="12.470896809895834" />
+          <ConnectorPoint PointX="7.75" PointY="12.470896809895834" />
           <ConnectorPoint PointX="7.75" PointY="7.4898893229166656" />
         </AssociationConnector>
         <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.AuthorBookAssociation" Width="1.5" PointX="0.5" PointY="5.125" Height="1.9802864583333326" />

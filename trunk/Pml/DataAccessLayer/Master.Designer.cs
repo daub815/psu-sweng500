@@ -46,7 +46,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities() : base("name=MasterEntities", "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = false;
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
@@ -55,7 +55,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities(string connectionString) : base(connectionString, "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = false;
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
@@ -64,7 +64,7 @@ namespace Sweng500.Pml.DataAccessLayer
         /// </summary>
         public MasterEntities(EntityConnection connection) : base(connection, "MasterEntities")
         {
-            this.ContextOptions.LazyLoadingEnabled = false;
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
@@ -536,14 +536,16 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="acquired">Initial value of the Acquired property.</param>
         /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
+        /// <param name="imageUrl">Initial value of the ImageUrl property.</param>
         /// <param name="published">Initial value of the Published property.</param>
-        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.DateTime published)
+        public static Book CreateBook(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.String imageUrl, global::System.DateTime published)
         {
             Book book = new Book();
             book.MediaId = mediaId;
             book.Title = title;
             book.Acquired = acquired;
             book.IsBorrowable = isBorrowable;
+            book.ImageUrl = imageUrl;
             book.Published = published;
             return book;
         }
@@ -1665,6 +1667,30 @@ namespace Sweng500.Pml.DataAccessLayer
         private global::System.Boolean _IsBorrowable;
         partial void OnIsBorrowableChanging(global::System.Boolean value);
         partial void OnIsBorrowableChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ImageUrl
+        {
+            get
+            {
+                return _ImageUrl;
+            }
+            set
+            {
+                OnImageUrlChanging(value);
+                ReportPropertyChanging("ImageUrl");
+                _ImageUrl = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ImageUrl");
+                OnImageUrlChanged();
+            }
+        }
+        private global::System.String _ImageUrl;
+        partial void OnImageUrlChanging(global::System.String value);
+        partial void OnImageUrlChanged();
 
         #endregion
     
@@ -2248,14 +2274,16 @@ namespace Sweng500.Pml.DataAccessLayer
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="acquired">Initial value of the Acquired property.</param>
         /// <param name="isBorrowable">Initial value of the IsBorrowable property.</param>
+        /// <param name="imageUrl">Initial value of the ImageUrl property.</param>
         /// <param name="released">Initial value of the Released property.</param>
-        public static Video CreateVideo(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.DateTime released)
+        public static Video CreateVideo(global::System.Int32 mediaId, global::System.String title, global::System.DateTime acquired, global::System.Boolean isBorrowable, global::System.String imageUrl, global::System.DateTime released)
         {
             Video video = new Video();
             video.MediaId = mediaId;
             video.Title = title;
             video.Acquired = acquired;
             video.IsBorrowable = isBorrowable;
+            video.ImageUrl = imageUrl;
             video.Released = released;
             return video;
         }

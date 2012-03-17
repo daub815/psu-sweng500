@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 03/05/2012 19:15:14
--- Generated from EDMX file: C:\Users\Bob\Documents\Visual Studio 2010\Projects\copy_0304_psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
+-- Date Created: 03/17/2012 14:28:14
+-- Generated from EDMX file: C:\Users\Kevin\Documents\Visual Studio 2010\Projects\psu-sweng500\trunk\Pml\DataAccessLayer\Master.edmx
 -- --------------------------------------------------
 
 
@@ -44,65 +44,42 @@ GO
 GO
     ALTER TABLE [People_User] DROP CONSTRAINT [FK_User_inherits_Person];
 GO
--- --------------------------------------------------
--- Dropping existing FOREIGN KEY constraints for old tablesa
--- NOTE: if the constraint does not exist, an ignorable error will be reported.
--- --------------------------------------------------
-
-    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Author];
-GO
-    ALTER TABLE [AuthorBook] DROP CONSTRAINT [FK_AuthorBook_Book];
-GO
-    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Video];
-GO
-    ALTER TABLE [VideoProducer] DROP CONSTRAINT [FK_VideoProducer_Producer];
-GO
-    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Director];
-GO
-    ALTER TABLE [DirectorVideo] DROP CONSTRAINT [FK_DirectorVideo_Video];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- NOTE: if the table does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
-    DROP TABLE [AuthorBook];
+
+    DROP TABLE [People];
 GO
-    DROP TABLE [DirectorVideo];
+    DROP TABLE [CodeTypes];
 GO
-    DROP TABLE [VideoProducer];
+    DROP TABLE [Codes];
 GO
-    DROP TABLE [People_User];
+    DROP TABLE [Media];
+GO
+    DROP TABLE [BorrowedMedias];
+GO
+    DROP TABLE [AuthorBookAssociations];
+GO
+    DROP TABLE [DirectorAssociations];
+GO
+    DROP TABLE [ProducerAssociations];
+GO
+    DROP TABLE [People_Borrower];
+GO
+    DROP TABLE [Media_Book];
+GO
+    DROP TABLE [People_Author];
+GO
+    DROP TABLE [Media_Video];
 GO
     DROP TABLE [People_Director];
 GO
     DROP TABLE [People_Producer];
 GO
-    DROP TABLE [People_Author];
+    DROP TABLE [People_User];
 GO
-    DROP TABLE [People_Borrower];
-GO
-    DROP TABLE [Media_Video];
-Go
-    DROP TABLE [Media_Book];
-GO
-    DROP TABLE [BorrowedMedias];
-Go
-    DROP TABLE [DirectorAssociations];
-GO
-    DROP TABLE [ProducerAssociations];
-Go
-    DROP TABLE [AuthorBookAssociations];
-GO
-    DROP TABLE [Media];
-GO
-    DROP TABLE [Codes];
-GO
-    DROP TABLE [CodeTypes];
-GO
-    DROP TABLE [People];
-GO
-
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -144,7 +121,8 @@ CREATE TABLE [Media] (
     [NumberOfStars] decimal(18,0)  NULL,
     [Comment] nvarchar(4000)  NULL,
     [Description] nvarchar(4000)  NULL,
-    [IsBorrowable] bit  NOT NULL
+    [IsBorrowable] bit  NOT NULL,
+    [ImageUrl] nvarchar(4000)  NOT NULL
 );
 GO
 
@@ -339,7 +317,6 @@ ADD CONSTRAINT [FK_CodeTypeCode]
     REFERENCES [CodeTypes]
         ([CodeTypeId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CodeTypeCode'
 CREATE INDEX [IX_FK_CodeTypeCode]
@@ -354,7 +331,6 @@ ADD CONSTRAINT [FK_BorrowerBorrowedMedia]
     REFERENCES [People_Borrower]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BorrowerBorrowedMedia'
 CREATE INDEX [IX_FK_BorrowerBorrowedMedia]
@@ -369,7 +345,6 @@ ADD CONSTRAINT [FK_MediaBorrowedMedia]
     REFERENCES [Media]
         ([MediaId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_MediaBorrowedMedia'
 CREATE INDEX [IX_FK_MediaBorrowedMedia]
@@ -383,8 +358,7 @@ ADD CONSTRAINT [FK_BookAuthorBookAssociation]
     FOREIGN KEY ([BookMediaId])
     REFERENCES [Media_Book]
         ([MediaId])
-    ON DELETE CASCADE ON UPDATE CASCADE;
-Go
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BookAuthorBookAssociation'
 CREATE INDEX [IX_FK_BookAuthorBookAssociation]
@@ -399,7 +373,6 @@ ADD CONSTRAINT [FK_AuthorAuthorBookAssociation]
     REFERENCES [People_Author]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AuthorAuthorBookAssociation'
 CREATE INDEX [IX_FK_AuthorAuthorBookAssociation]
@@ -413,8 +386,7 @@ ADD CONSTRAINT [FK_VideoDirectorAssociation]
     FOREIGN KEY ([VideoMediaId])
     REFERENCES [Media_Video]
         ([MediaId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-Go
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_VideoDirectorAssociation'
 CREATE INDEX [IX_FK_VideoDirectorAssociation]
@@ -429,7 +401,6 @@ ADD CONSTRAINT [FK_DirectorDirectorAssociation]
     REFERENCES [People_Director]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-Go
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_DirectorDirectorAssociation'
 CREATE INDEX [IX_FK_DirectorDirectorAssociation]
@@ -444,7 +415,6 @@ ADD CONSTRAINT [FK_ProducerProducerAssociation]
     REFERENCES [People_Producer]
         ([PersonId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProducerProducerAssociation'
 CREATE INDEX [IX_FK_ProducerProducerAssociation]
@@ -458,8 +428,7 @@ ADD CONSTRAINT [FK_VideoProducerAssociation]
     FOREIGN KEY ([VideoMediaId])
     REFERENCES [Media_Video]
         ([MediaId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_VideoProducerAssociation'
 CREATE INDEX [IX_FK_VideoProducerAssociation]
