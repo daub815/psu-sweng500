@@ -21,7 +21,7 @@
             book1.Acquired = new System.DateTime(2004, 6, 5);
             book1.Comment = "A sample thesaurus";
             book1.ISBN = "0679780092";
-            book1.NumberOfStars = new decimal(3);
+            book1.NumberOfStars = 3.0;
             book1.IsBorrowable = true;
             book1.LibraryLocation = string.Empty;
             book1.Description = "Authororitative and comprehensive, yet easy to use and portable";
@@ -37,7 +37,7 @@
             book2.Acquired = new System.DateTime(2008, 7, 13);
             book2.Comment = "To help me stretch";
             book2.ISBN = "9780470067413";
-            book2.NumberOfStars = new decimal(2);
+            book2.NumberOfStars = 2.0;
             book2.IsBorrowable = false;
             book2.LibraryLocation = "Home";
             book2.Description = "The fun and easy way to increase flexibility, improve athletic performance, and decrease stress";
@@ -64,7 +64,7 @@
             book1.Acquired = new System.DateTime(2004, 6, 5);
             book1.Comment = "A sample thesaurus";
             book1.ISBN = "0679780092";
-            book1.NumberOfStars = new decimal(3);
+            book1.NumberOfStars = 3.0;
             book1.IsBorrowable = true;
             book1.LibraryLocation = string.Empty;
             book1.Description = "Authororitative and comprehensive, yet easy to use and portable";
@@ -80,7 +80,7 @@
             book2.Acquired = new System.DateTime(2008, 7, 13);
             book2.Comment = "To help me stretch";
             book2.ISBN = "9780470067413";
-            book2.NumberOfStars = new decimal(2);
+            book2.NumberOfStars = 2.0;
             book2.IsBorrowable = false;
             book2.LibraryLocation = "Home";
             book2.Description = "The fun and easy way to increase flexibility, improve athletic performance, and decrease stress";
@@ -115,7 +115,7 @@
             
 ////            video1.BoardRatingId =
             video1.Comment = "Great Series";
-            video1.NumberOfStars = new decimal(3);
+            video1.NumberOfStars = 3.0;
             video1.IsBorrowable = false;
             video1.Description = "The Complete First Season";
 ////            video1.Price = new decimal(9.99);
