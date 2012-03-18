@@ -269,5 +269,19 @@
             actual = target.Upc;
             Assert.AreEqual(expected, actual);
         }
+
+        /// <summary>
+        /// A test for Description
+        /// </summary>
+        [TestMethod]
+        public void DescriptionTest()
+        {
+            ItemResponse target = new ItemResponse();
+            string expected = "<DIV><DIV>Now for the first time ever, J.K. Rowling’s seven bestselling Harry Potter books are available in a stunning paperback boxed set! The Harry Potter series has been hailed as “one for the ages” by Stephen King and “a spellbinding saga’ by USA Today. And most recently, <i>The New York Times</i> called <i>Harry Potter and the Deathly Hallows</i> the “fastest selling book in history.” This is the ultimate Harry Potter collection for Harry Potter fans of all ages!</DIV></div>";
+            string actual;
+            target.Description = expected;
+            actual = target.Description;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

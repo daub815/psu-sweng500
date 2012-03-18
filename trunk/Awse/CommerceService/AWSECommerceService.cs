@@ -89,6 +89,7 @@ using System.Linq;
         private ItemResponse BuildItemResponse(Item suppliedItem)
         {
             ItemResponse itemresponse = new ItemResponse();
+            itemresponse.Description = this.GetDescription(suppliedItem);
             itemresponse.Eisbn = suppliedItem.ItemAttributes.EISBN;
             itemresponse.Formats = suppliedItem.ItemAttributes.Format;
             itemresponse.Genre = suppliedItem.ItemAttributes.Genre;
@@ -183,6 +184,31 @@ using System.Linq;
             }
 
             return producers.ToArray<ItemName>();
+        }
+
+        /// <summary>
+        /// gets the description of the item from an Editorial Review item.
+        /// Empty if no description found
+        /// </summary>
+        /// <param name="suppliedItem"> the item returned by the search</param>
+        /// <returns> a description of the item which may be empty</returns>
+        private string GetDescription(Item suppliedItem)
+        {
+            string description = string.Empty;
+            EditorialReview[] reviews = suppliedItem.EditorialReviews;
+            if (reviews != null
+                && reviews.Length > 0)
+            {
+                foreach (EditorialReview review in reviews)
+                {
+                    if ("Product Description".Equals(review.Source, StringComparison.OrdinalIgnoreCase))
+                    {
+                        description = review.Content;
+                    }
+                }
+            }
+
+            return description;
         }
     }
 }

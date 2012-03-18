@@ -150,12 +150,23 @@
             {
                 foreach (ItemName name in itemresponse.Authorsname)
                 {
-                    crud.GetAuthors().Where(a => a.LastName == name.Last && a.FirstName == name.First);
-
-                    var matched = (from person in crud.GetAuthors()
+                    List<Person> matched = (from person in crud.GetPeople()
                                   where person.FirstName == name.First &&
                                         person.LastName == name.Last
-                                  select person as Author).ToList();
+                                  select person as Person).ToList();
+
+                    if (0 == matched.Count)
+                    {
+                        Person author = new Author();
+                        author.FirstName = name.First;
+                        author.LastName = name.Last;
+                        author = crud.Add(author);
+                        matched = (from person in crud.GetPeople()
+                                                where person.FirstName == name.First &&
+                                                      person.LastName == name.Last
+                                                select person as Person).ToList();
+
+                    }
 
                     matched.ForEach(a => searchbook.AddPerson(a));
                 }
@@ -171,6 +182,8 @@
         /// <returns> a new video with fields populated</returns>
         private Video CreateVideoFromSearch(ItemResponse itemresponse)
         {
+            var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+
             Video searchvideo = new Video();
             searchvideo.Title = itemresponse.Title;
             searchvideo.Comment = string.Empty;

@@ -8,6 +8,15 @@
     public class ItemResponse
     {
         /// <summary>
+        /// Gets or sets the description based on the content
+        /// </summary>
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the title
         /// </summary>
         public string Title
