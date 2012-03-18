@@ -150,10 +150,7 @@
             {
                 foreach (ItemName name in itemresponse.Authorsname)
                 {
-                    List<Person> matched = (from person in crud.GetPeople()
-                                  where person.FirstName == name.First &&
-                                        person.LastName == name.Last
-                                  select person as Person).ToList();
+                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
 
                     if (0 == matched.Count)
                     {
@@ -161,11 +158,7 @@
                         author.FirstName = name.First;
                         author.LastName = name.Last;
                         author = crud.Add(author);
-                        matched = (from person in crud.GetPeople()
-                                                where person.FirstName == name.First &&
-                                                      person.LastName == name.Last
-                                                select person as Person).ToList();
-
+                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
                     }
 
                     matched.ForEach(a => searchbook.AddPerson(a));
@@ -173,6 +166,15 @@
             }
                           
             return searchbook;
+        }
+
+        List<Person> GetMatchedPeople(ICrudService crudservice, string firstname, string lastname)
+        {
+            List<Person> matched = (from person in crudservice.GetPeople()
+                                    where person.FirstName == firstname &&
+                                        person.LastName == lastname
+                                  select person as Person).ToList();
+            return matched;
         }
 
         /// <summary>
@@ -196,7 +198,44 @@
             {
                 searchvideo.UPC = itemresponse.Upc;
             }
-           
+
+            if (itemresponse.Directorsname != null)
+            {
+                foreach (ItemName name in itemresponse.Directorsname)
+                {
+                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
+
+                    if (0 == matched.Count)
+                    {
+                        Person director = new Director();
+                        director.FirstName = name.First;
+                        director.LastName = name.Last;
+                        director = crud.Add(director);
+                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                    }
+
+                    matched.ForEach(dir => searchvideo.AddPerson(dir));
+                }
+            }
+
+            if (itemresponse.Producersname != null)
+            {
+                foreach (ItemName name in itemresponse.Producersname)
+                {
+                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
+
+                    if (0 == matched.Count)
+                    {
+                        Person producer = new Director();
+                        producer.FirstName = name.First;
+                        producer.LastName = name.Last;
+                        producer = crud.Add(producer);
+                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                    }
+
+                    matched.ForEach(prod => searchvideo.AddPerson(prod));
+                }
+            }
             return searchvideo;
         }
     }
