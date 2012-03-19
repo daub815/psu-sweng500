@@ -85,8 +85,8 @@
                 searchindex = "DVD";
             }
 
-            AWSECommerceService ecs = new AWSECommerceService();
-            IList<ItemResponse> searchresponse = ecs.ItemSearch(searchindex, title, keywords);
+            IList<ItemResponse> searchresponse = this.GetSearchResponses(searchindex, title, keywords);
+
             foreach (ItemResponse itemresponse in searchresponse)
             {
                 if (booksearch)
@@ -114,14 +114,63 @@
         #endregion ISearchMedia
 
         /// <summary>
+        /// method extracted to make it easier to test
+        /// </summary>
+        /// <param name="crud"> the crud service</param>
+        /// <param name="person"> the person to add</param>
+        /// <returns> the person added which should have a person id</returns>
+        protected Person AddPerson(ICrudService crud, Person person)
+        {
+            return crud.Add(person);
+        }
+
+        /// <summary>
+        /// define a method to return the crud service
+        /// </summary>
+        /// <returns> an instance of the crudService</returns>
+        protected ICrudService GetCrudService()
+        {
+            return Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+        }
+
+        /// <summary>
+        /// method extracted to make testing easier
+        /// </summary>
+        /// <param name="searchindex"> search index</param>
+        /// <param name="title"> portion of title to search </param>
+        /// <param name="keywords"> keywords to search</param>
+        /// <returns> a list of item responses</returns>
+        protected IList<ItemResponse> GetSearchResponses(string searchindex, string title, string keywords)
+        {
+            AWSECommerceService ecs = new AWSECommerceService();
+            IList<ItemResponse> searchresponse = ecs.ItemSearch(searchindex, title, keywords);
+            return searchresponse;
+        }
+
+        /// <summary>
+        /// method to get a list of people who match the first name and last name
+        /// </summary>
+        /// <param name="crudservice"> the service used to retrieve the people</param>
+        /// <param name="firstname"> first name to match</param>
+        /// <param name="lastname">last name to match</param>
+        /// <returns>a list of people whose first name and last name match the input values</returns>
+        protected List<Person> GetMatchedPeople(ICrudService crudservice, string firstname, string lastname)
+        {
+            List<Person> matched = (from person in crudservice.GetPeople()
+                                    where person.FirstName == firstname &&
+                                        person.LastName == lastname
+                                  select person as Person).ToList();
+            return matched;
+        }
+
+        /// <summary>
         /// create a book from the search response
         /// </summary>
         /// <param name="itemresponse"> an item returned from the search</param>
         /// <returns> a new book with fields populated</returns>
         private Book CreateBookFromSearch(ItemResponse itemresponse)
         {
-            var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
-
+            var crud = this.GetCrudService();
             Book searchbook = new Book();
             searchbook.Title = itemresponse.Title;
             searchbook.Comment = string.Empty;
@@ -157,24 +206,15 @@
                         Person author = new Author();
                         author.FirstName = name.First;
                         author.LastName = name.Last;
-                        author = crud.Add(author);
+                        author = this.AddPerson(crud, author);
                         matched = this.GetMatchedPeople(crud, name.First, name.Last);
                     }
 
                     matched.ForEach(a => searchbook.AddPerson(a));
                 }
             }
-                          
-            return searchbook;
-        }
 
-        List<Person> GetMatchedPeople(ICrudService crudservice, string firstname, string lastname)
-        {
-            List<Person> matched = (from person in crudservice.GetPeople()
-                                    where person.FirstName == firstname &&
-                                        person.LastName == lastname
-                                  select person as Person).ToList();
-            return matched;
+            return searchbook;
         }
 
         /// <summary>
@@ -184,7 +224,7 @@
         /// <returns> a new video with fields populated</returns>
         private Video CreateVideoFromSearch(ItemResponse itemresponse)
         {
-            var crud = Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+            var crud = this.GetCrudService();
 
             Video searchvideo = new Video();
             searchvideo.Title = itemresponse.Title;
@@ -210,7 +250,7 @@
                         Person director = new Director();
                         director.FirstName = name.First;
                         director.LastName = name.Last;
-                        director = crud.Add(director);
+                        director = this.AddPerson(crud, director);
                         matched = this.GetMatchedPeople(crud, name.First, name.Last);
                     }
 
@@ -229,13 +269,14 @@
                         Person producer = new Director();
                         producer.FirstName = name.First;
                         producer.LastName = name.Last;
-                        producer = crud.Add(producer);
+                        producer = this.AddPerson(crud, producer);
                         matched = this.GetMatchedPeople(crud, name.First, name.Last);
                     }
 
                     matched.ForEach(prod => searchvideo.AddPerson(prod));
                 }
             }
+
             return searchvideo;
         }
     }
