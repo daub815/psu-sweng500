@@ -7,7 +7,7 @@ using System.Linq;
     /// <summary>
     /// class is used to do an Item search using the Amazon webservice for Product Advertising
     /// </summary>
-    public class AWSECommerceService
+    public class AWSECommerceService : Sweng500.Awse.CommerceService.IAWSECommerceService
     {
         /// <summary>
         /// perform an item search

@@ -55,6 +55,7 @@
     <Compile Include="CommerceService\AmazonSigningEndpointBehavior.cs" />
     <Compile Include="CommerceService\AmazonSigningMessageInspector.cs" />
     <Compile Include="CommerceService\AWSECommerceService.cs" />
+    <Compile Include="CommerceService\IAWSECommerceService.cs" />
     <Compile Include="CommerceService\ItemName.cs" />
     <Compile Include="CommerceService\ItemResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
