@@ -1,12 +1,28 @@
 ﻿namespace Sweng500.Pml.DataAccessLayer
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// This is the overridden Video class
     /// </summary>
     public partial class Video : Media
-    {        
+    {
+        #region Statics
+
+        /// <summary>
+        /// The property name for the Directors property
+        /// </summary>
+        public const string DirectorsPropertyName = "Directors";
+
+        /// <summary>
+        /// The property name for the Producers property
+        /// </summary>
+        public const string ProducersPropertyName = "Producers";
+
+        #endregion Statics
+
         /// <summary>
         /// Initializes a new instance of the Video class.
         /// Defines default DateTime values
@@ -15,6 +31,40 @@
         {
             this.Acquired = DateTime.Now;
             this.Released = DateTime.Now;
+
+            // Raise the associated Directors property when the associations change
+            this.DirectorAssociations.AssociationChanged += (obj, args) =>
+            {
+                this.OnPropertyChanged(DirectorsPropertyName);
+            };
+
+            // Raise the associated Producers property when the associations change
+            this.ProducerAssociations.AssociationChanged += (obj, args) =>
+            {
+                this.OnPropertyChanged(ProducersPropertyName);
+            };
+        }
+
+        /// <summary>
+        /// Gets a property to hold Directors associated with a video
+        /// </summary>
+        public IList<Director> Directors
+        {
+            get
+            {
+                return this.DirectorAssociations.Select(a => a.Director).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Gets a property to hold Producers associated with a video
+        /// </summary>
+        public IList<Producer> Producers
+        {
+            get
+            {
+                return this.ProducerAssociations.Select(a => a.Producer).ToList();
+            }
         }
 
         /// <summary>
