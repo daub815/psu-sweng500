@@ -5,8 +5,8 @@
                      xmlns:view="clr-namespace:Sweng500.Pml.Client.Views"
                      xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
                      Title="{Binding Name, Mode=OneWay}"
-                     Height="350"
-                     Width="525"
+                     Height="650"
+                     Width="1050"
                      x:Name="mWindow">
     <ribbon:RibbonWindow.Resources>
         <DataTemplate DataType="{x:Type wrksp:MainWorkspaceViewModel}">
