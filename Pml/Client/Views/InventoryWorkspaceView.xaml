@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:vm="clr-namespace:Sweng500.Pml.ViewModel;assembly=Sweng500.Pml.ViewModel"
+             xmlns:dal="clr-namespace:Sweng500.Pml.DataAccessLayer;assembly=Sweng500.Pml.DataAccessLayer"
              Margin="5"
              mc:Ignorable="d" 
              d:DesignHeight="300" 
@@ -17,7 +18,58 @@
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
                   CanUserAddRows="False"
-                  CanUserDeleteRows="False">
+                  CanUserDeleteRows="False"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <DataTemplate DataType="{x:Type dal:Book}">
+                                    <Image Source="Images/book.png" 
+                                           Height="12" />
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type dal:Video}">
+                                    <Image Source="Images/dvd_unmount.png"
+                                           Height="12" />
+                                </DataTemplate>
+                            </DataTemplate.Resources>
+                            <ContentControl Content="{Binding Path=., Mode=OneWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding MediaId, Mode=OneWay}" />
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding Title, Mode=OneWay}" />
+                <DataGridTextColumn Header="Description"
+                                    Binding="{Binding Description, Mode=OneWay}"
+                                    Width="250">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="WordEllipsis" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Comment"
+                                    Binding="{Binding Comment, Mode=OneWay}"
+                                    Width="250">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="WordEllipsis" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Acquired"
+                                    Binding="{Binding Acquired, Mode=OneWay}" />
+            </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="_Edit"
