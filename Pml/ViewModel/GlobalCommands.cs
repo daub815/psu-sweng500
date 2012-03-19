@@ -38,6 +38,21 @@
         public const string SelectWorkspaceCommandPropertyName = "SelectWorkspaceCommand";
 
         /// <summary>
+        /// Property name for the SearchInventoryCommand property
+        /// </summary>
+        public const string SearchInventoryCommandPropertyName = "SearchInventoryCommand";
+
+        /// <summary>
+        /// Property name for the SearchRemoteUsingTitleCommand property
+        /// </summary>
+        public const string SearchRemoteUsingTitleCommandPropertyName = "SearchRemoteUsingTitleCommand";
+
+        /// <summary>
+        /// Property name for the SearchRemoteUsingKeywordsCommand property
+        /// </summary>
+        public const string SearchRemoteUsingKeywordsCommandPropertyName = "SearchRemoteUsingKeywordsCommand";
+
+        /// <summary>
         /// The singleton instance
         /// </summary>
         private static readonly GlobalCommands StaticInstance = new GlobalCommands();
@@ -70,6 +85,21 @@
         /// Backing field for the SelectWorkspaceCommand property
         /// </summary>
         private RelayCommand<WorkspaceViewModel> mSelectWorkspaceCommand;
+
+        /// <summary>
+        /// Backing field for the SearchInventoryCommand property
+        /// </summary>
+        private RelayCommand<string> mSearchInventoryCommand;
+
+        /// <summary>
+        /// Backing field for the SearchRemoteUsingTitleCommand property
+        /// </summary>
+        private RelayCommand<string> mSearchRemoteUsingTitleCommand;
+
+        /// <summary>
+        /// Backing field for the SearchRemoteUsingKeywordsCommand property
+        /// </summary>
+        private RelayCommand<string> mSearchRemoteUsingKeywordsCommand;
 
         #endregion Fields
 
@@ -206,6 +236,69 @@
                 {
                     this.mSelectWorkspaceCommand = value;
                     this.RaisePropertyChanged(SelectWorkspaceCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to search the inventory
+        /// </summary>
+        public RelayCommand<string> SearchInventoryCommand
+        {
+            get
+            {
+                return this.mSearchInventoryCommand;
+            }
+
+            set
+            {
+                if (null == this.SearchInventoryCommand &&
+                    null != value)
+                {
+                    this.mSearchInventoryCommand = value;
+                    this.RaisePropertyChanged(SearchInventoryCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to search remotely by title
+        /// </summary>
+        public RelayCommand<string> SearchRemoteUsingTitleCommand
+        {
+            get
+            {
+                return this.mSearchRemoteUsingTitleCommand;
+            }
+
+            set
+            {
+                if (null == this.SearchRemoteUsingTitleCommand &&
+                    null != value)
+                {
+                    this.mSearchRemoteUsingTitleCommand = value;
+                    this.RaisePropertyChanged(SearchRemoteUsingTitleCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to search remotely by keywords
+        /// </summary>
+        public RelayCommand<string> SearchRemoteUsingKeywordsCommand
+        {
+            get
+            {
+                return this.mSearchRemoteUsingKeywordsCommand;
+            }
+
+            set
+            {
+                if (null == this.SearchRemoteUsingKeywordsCommand &&
+                    null != value)
+                {
+                    this.mSearchRemoteUsingKeywordsCommand = value;
+                    this.RaisePropertyChanged(SearchRemoteUsingKeywordsCommandPropertyName);
                 }
             }
         }

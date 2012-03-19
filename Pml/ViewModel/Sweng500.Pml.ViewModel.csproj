@@ -78,6 +78,7 @@
     <Compile Include="Workspaces\EditWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\InventoryWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\MainWorkspaceViewModel.cs" />
+    <Compile Include="Workspaces\SearchWorkspaceViewModel.cs" />
     <Compile Include="Workspaces\WorkspaceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
