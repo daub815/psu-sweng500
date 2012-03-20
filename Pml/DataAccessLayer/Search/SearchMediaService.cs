@@ -26,30 +26,21 @@
         /// <returns>The list of media items orded by the full media title</returns>
         public IEnumerable<Media> GetMediaItemsContaining(string partialTitle)
         {
-            IList<Media> mediaitems = new List<Media>();
-            MasterEntities context = null;
+            ICrudService crudservice = this.GetCrudService();
 
             try
             {
-                context = new MasterEntities();
-                var mediaQuery =
-                    from media in context.Media
-                    where media.Title.Contains(partialTitle)
-                    orderby media.Title
-                    select media;
-                return mediaQuery.ToList<Media>();
+                List<Media> matched = (from media in crudservice.GetMediaItems()
+                                       where media.Title.Contains(partialTitle)
+                                       select media as Media).ToList();
+
+                matched.Sort(this.CompareMediaByTitle);
+                return matched;
             }
             catch (Exception e)
             {
                 log.Error("unable to GetMediaItemsContaining.  received exception: ", e);
                 throw;
-            }
-            finally
-            {
-                if (null != context)
-                {
-                    context.Dispose();
-                }
             }
         }
 
@@ -80,7 +71,7 @@
                 searchindex = "Books";
                 booksearch = true;
             }
-            else
+            else if (MediaTypes.Video == mediatype)
             {
                 searchindex = "DVD";
             }
@@ -278,6 +269,39 @@
             }
 
             return searchvideo;
+        }
+        /// <summary>
+        /// used for sorting media by title
+        /// </summary>
+        /// <param name="x">a media item</param>
+        /// <param name="y"> the other media item</param>
+        /// <returns> -1, 0, 1</returns>
+        private int CompareMediaByTitle(Media x, Media y)
+        {
+            if (x.Title == null)
+            {
+                if (y.Title == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    // If x is null and y is not null, y
+                    // is greater. 
+                    return -1;
+                }
+            }
+            else
+            {
+                if (y.Title == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return x.Title.CompareTo(y.Title);
+                }
+            }
         }
     }
 }
