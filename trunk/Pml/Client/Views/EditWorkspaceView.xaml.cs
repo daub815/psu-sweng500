@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The arguments of the event</param>
-        void Rating_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double?> e)
+        private void Rating_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double?> e)
         {
             // This normally can be done via binding, but the toolkit seems to not understand how to set the value
             var workspace = this.DataContext as EditMediaWorkspaceViewModel;

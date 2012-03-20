@@ -17,6 +17,9 @@
         {
             base.OnStartup(e);
 
+            // Initialize the dispatcher helper
+            GalaSoft.MvvmLight.Threading.DispatcherHelper.Initialize();
+
             // Create the main window and set the datacontext
             this.MainWindow = new MainWindow
             {

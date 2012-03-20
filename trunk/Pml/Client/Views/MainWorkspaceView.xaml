@@ -60,6 +60,12 @@
                                          Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteItemCommand, Mode=OneWay}"
                                          CommandParameter="{Binding Path=SelectedWorkspace.SelectedItem, Mode=OneWay}" />
                 </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Search">
+                    <ribbon:RibbonTextBox x:Name="TitleSearchTextBox" />
+                    <ribbon:RibbonButton Label="Search Inventory"
+                                         Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=SearchInventoryCommand, Mode=OneWay}"
+                                         CommandParameter="{Binding ElementName=TitleSearchTextBox, Path=Text, Mode=OneWay}"/>
+                </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
                

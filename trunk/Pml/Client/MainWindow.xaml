@@ -17,6 +17,10 @@
             <view:EditWorkspaceView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type wrksp:SearchWorkspaceViewModel}">
+            <view:SearchWorkspaceView />
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type wrksp:InventoryWorkspaceViewModel}">
             <view:InventoryWorkspaceView />
         </DataTemplate>

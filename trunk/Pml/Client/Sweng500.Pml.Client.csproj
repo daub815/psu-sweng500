@@ -95,6 +95,9 @@
     <Compile Include="Views\MainWorkspaceView.xaml.cs">
       <DependentUpon>MainWorkspaceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SearchWorkspaceView.xaml.cs">
+      <DependentUpon>SearchWorkspaceView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWorkspaceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchWorkspaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
