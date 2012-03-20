@@ -33,8 +33,8 @@
                     new ItemSearchRequest
                     {
                         SearchIndex = "DVD",
-                        Title = "Stars War",
-                        Keywords = "Jedi",
+                        Title = "Inglourious Basterds",
+                        Keywords = string.Empty,
                         ResponseGroup = new string[]
                         {
                         // "ItemAttributes"
@@ -62,7 +62,7 @@
                     Item item = items[i];
                     string imageurl = string.Empty;
                     Image mediumImage = null;
-                    
+                    Console.WriteLine("Medium Image: {0}", item.MediumImage.URL);
                     if (item.LargeImage != null)
                     {
                         imageurl = item.LargeImage.URL;
