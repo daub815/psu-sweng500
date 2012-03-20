@@ -193,6 +193,7 @@
                 title =>
                     {
                         var workspace = new SearchWorkspaceViewModel(title);
+                        workspace.IsOpen = true;
                         this.mWorkspaces.Add(workspace);
 
                         GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
