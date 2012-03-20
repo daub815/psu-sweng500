@@ -164,7 +164,7 @@
             Book searchbook = new Book();
             searchbook.Title = itemresponse.Title;
             searchbook.Comment = string.Empty;
-            searchbook.Description = string.Empty;
+            searchbook.Description = itemresponse.Description;
             searchbook.ImageUrl = itemresponse.Imageurl;
             searchbook.IsBorrowable = false;
 
