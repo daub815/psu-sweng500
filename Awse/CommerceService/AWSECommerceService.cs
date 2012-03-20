@@ -72,12 +72,12 @@ using System.Linq;
         /// <returns> a DateTime</returns>
         public DateTime GetDateTime(string datestring)
         {
-            DateTime convertedDate = new DateTime(1970, 1, 1);
-            if (null != datestring)
+            DateTime convertedDate = DateTime.MinValue;
+            if (false == DateTime.TryParse(datestring, out convertedDate))
             {
-                convertedDate = DateTime.Parse(datestring);
+                //// TODO: Log that the parsing failed
             }
-
+            
             return convertedDate;
         }
 
