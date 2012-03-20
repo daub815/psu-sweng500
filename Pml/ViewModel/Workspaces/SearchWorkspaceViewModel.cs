@@ -1,13 +1,15 @@
 ﻿namespace Sweng500.Pml.ViewModel.Workspaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Data;
+    using GalaSoft.MvvmLight.Threading;
     using log4net;
     using Sweng500.Pml.DataAccessLayer;
-using System;
 
     /// <summary>
     /// The workspace used to perform the search and display the results
@@ -49,24 +51,20 @@ using System;
         /// </summary>
         /// <param name="title">The title to search for</param>
         public SearchWorkspaceViewModel(string title)
-            : base("Search by title of " + title)
+            : base("Search by title of \"" + title + "\"")
         {
             this.Results = new ListCollectionView(this.mSearchResults);
+
+            // Kick off the search
+            this.PerformSearch(() =>
+                {
+                    var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
+
+                    // Return the results to another task to fill
+                    return mediaSearch.GetMediaItemsContaining(title).ToList();
+                });
         }
-
-        /// <summary>
-        /// Initializes a new instance of the SearchWorkspaceViewModel class
-        /// </summary>
-        /// <param name="keywords">The list of keywords to search for</param>
-        public SearchWorkspaceViewModel(IList<string> keywords)
-            : base("Search by keywords of ")
-        {
-            keywords.ToList().ForEach(k => this.Name += " " + k);
-            this.Name = this.Name.Trim();
-
-            this.Results = new ListCollectionView(this.mSearchResults);
-        }
-
+        
         #endregion Constructors
 
         #region Properties
@@ -101,5 +99,30 @@ using System;
         }
 
         #endregion Properties
+
+        /// <summary>
+        /// Performs the search and populates the results datagrid
+        /// </summary>
+        /// <param name="search"></param>
+        private void PerformSearch(Func<IList<Media>> search)
+        {
+            // Kick off a search that is performed asynchronously
+            Task<IList<Media>>.Factory.StartNew(() =>
+                {
+                    return search();
+                }).ContinueWith((task) =>
+                    {
+                        // Add all the search results
+                        foreach (var media in task.Result)
+                        {
+                            DispatcherHelper.UIDispatcher.Invoke(new Action(() =>
+                                {
+                                    this.mSearchResults.Add(media);
+                                }));
+                        }
+
+                        this.AwaitingResponse = false;
+                    });
+        }
     }
 }

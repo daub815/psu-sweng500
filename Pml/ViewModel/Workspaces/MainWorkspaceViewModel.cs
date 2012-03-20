@@ -189,6 +189,15 @@
                         }
                     });
 
+            GlobalCommands.Instance.SearchInventoryCommand = new GalaSoft.MvvmLight.Command.RelayCommand<string>(
+                title =>
+                    {
+                        var workspace = new SearchWorkspaceViewModel(title);
+                        this.mWorkspaces.Add(workspace);
+
+                        GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
+                    });
+
             // Add the inventory workspace
             var inventoryWorkspace = new InventoryWorkspaceViewModel
             {
