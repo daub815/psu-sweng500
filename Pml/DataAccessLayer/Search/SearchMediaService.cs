@@ -32,9 +32,8 @@
             {
                 List<Media> matched = (from media in crudservice.GetMediaItems()
                                        where media.Title.Contains(partialTitle)
+                                       orderby media.Title
                                        select media as Media).ToList();
-
-                matched.Sort(this.CompareMediaByTitle);
                 return matched;
             }
             catch (Exception e)

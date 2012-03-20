@@ -192,7 +192,17 @@
             GlobalCommands.Instance.SearchInventoryCommand = new GalaSoft.MvvmLight.Command.RelayCommand<string>(
                 title =>
                     {
-                        var workspace = new SearchWorkspaceViewModel(title);
+                        var workspace = new SearchWorkspaceViewModel(title, true);
+                        workspace.IsOpen = true;
+                        this.mWorkspaces.Add(workspace);
+
+                        GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
+                    });
+
+            GlobalCommands.Instance.SearchRemoteUsingTitleCommand = new GalaSoft.MvvmLight.Command.RelayCommand<string>(
+                title =>
+                    {
+                        var workspace = new SearchWorkspaceViewModel(title, false);
                         workspace.IsOpen = true;
                         this.mWorkspaces.Add(workspace);
 

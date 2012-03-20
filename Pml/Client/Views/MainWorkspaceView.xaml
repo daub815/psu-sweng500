@@ -65,6 +65,9 @@
                     <ribbon:RibbonButton Label="Search Inventory"
                                          Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=SearchInventoryCommand, Mode=OneWay}"
                                          CommandParameter="{Binding ElementName=TitleSearchTextBox, Path=Text, Mode=OneWay}"/>
+                    <ribbon:RibbonButton Label="Search Amazon"
+                                         Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=SearchRemoteUsingTitleCommand, Mode=OneWay}"
+                                         CommandParameter="{Binding ElementName=TitleSearchTextBox, Path=Text, Mode=OneWay}" />
                 </ribbon:RibbonGroup>
             </ribbon:RibbonTab>
         </ribbon:Ribbon>
