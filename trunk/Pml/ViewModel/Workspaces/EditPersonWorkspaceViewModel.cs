@@ -92,7 +92,7 @@
                         int index = DataStore.Instance.PersonCollection.IndexOf((Person)this.ItemToEdit);
                         if (-1 != index)
                         {
-                            this.ItemToEdit = DataStore.Instance.MediaCollection[index];
+                            this.ItemToEdit = DataStore.Instance.PersonCollection[index];
 
                             //// TODO: Raise string.Empty for all properties of ItemToEdit
                         }

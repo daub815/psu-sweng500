@@ -50,19 +50,34 @@
         /// Initializes a new instance of the SearchWorkspaceViewModel class
         /// </summary>
         /// <param name="title">The title to search for</param>
-        public SearchWorkspaceViewModel(string title)
+        public SearchWorkspaceViewModel(string title, bool inventory)
             : base("Search by title of \"" + title + "\"")
         {
             this.Results = new ListCollectionView(this.mSearchResults);
 
             // Kick off the search
-            this.PerformSearch(() =>
-                {
-                    var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
+            if (false == string.IsNullOrWhiteSpace(title) && 
+                true == inventory)
+            {
+                this.PerformSearch(() =>
+                    {
+                        var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
 
-                    // Return the results to another task to fill
-                    return mediaSearch.GetMediaItemsContaining(title).ToList();
-                });
+                        // Return the results to another task to fill
+                        return mediaSearch.GetMediaItemsContaining(title).ToList();
+                    });
+            }
+            else if (false == string.IsNullOrWhiteSpace(title) &&
+              false == inventory)
+            {
+                this.PerformSearch(() =>
+                    {
+                        var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
+
+                        //Return the results
+                        return mediaSearch.SearchRemote(MediaTypes.Book, title, string.Empty).ToList();
+                    });
+            }
         }
         
         #endregion Constructors

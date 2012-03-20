@@ -148,6 +148,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Awse\Sweng500.Awse.Bindings.config">
+      <Link>Sweng500.Awse.Bindings.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\Awse\Sweng500.Awse.Clients.config">
+      <Link>Sweng500.Awse.Clients.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\DataAccessLayer\App.Config">
       <Link>App.Config</Link>
     </None>
