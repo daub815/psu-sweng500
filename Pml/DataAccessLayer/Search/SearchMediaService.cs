@@ -16,6 +16,24 @@
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        /// <summary>
+        /// Gets or sets a mock ICrudService for testing only
+        /// </summary>
+        public ICrudService MockCrudService
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a mock IAWSECommerceService for testing only
+        /// </summary>
+        public IAWSECommerceService MockIAWSECommerceService
+        {
+            get;
+            set;
+        }
+
         #region ISearchMedia
         /// <summary>
         /// Gets the list of media items in the inventory that contain
@@ -65,6 +83,8 @@
             IList<Media> values = new List<Media>();
             bool booksearch = false;
             string searchindex = string.Empty;
+            string titlearg = string.Empty;
+            string keywordarg = string.Empty;
             if (MediaTypes.Book == mediatype)
             {
                 searchindex = "Books";
@@ -75,7 +95,17 @@
                 searchindex = "DVD";
             }
 
-            IList<ItemResponse> searchresponse = this.GetSearchResponses(searchindex, title, keywords);
+            if (null != title)
+            {
+                titlearg = title;
+            }
+
+            if (null != keywords)
+            {
+                keywordarg = keywords;
+            }
+
+            IList<ItemResponse> searchresponse = this.GetSearchResponses(searchindex, titlearg, keywordarg);
 
             foreach (ItemResponse itemresponse in searchresponse)
             {
@@ -89,6 +119,31 @@
                     Video avideoresponse = this.CreateVideoFromSearch(itemresponse);
                     values.Add(avideoresponse);
                 }
+            }
+
+            return values;
+        }
+
+        /// <summary>
+        /// does a search using an amazon web service.  Automatically search by both Book and Video
+        /// </summary>
+        /// <param name="title"> words in the title to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        public IEnumerable<Media> SearchRemote(string title, string keywords)
+        {
+            IList<Media> values = new List<Media>();
+            IEnumerable<Media> bookresponses = this.SearchRemote(MediaTypes.Book, title, keywords);
+            IEnumerable<Media> videoresponses = this.SearchRemote(MediaTypes.Video, title, keywords);
+            
+            foreach (Media bookitem in bookresponses)
+            {
+                values.Add(bookitem);
+            }
+
+            foreach (Media videoitem in videoresponses)
+            {
+                values.Add(videoitem);
             }
 
             return values;
@@ -116,11 +171,34 @@
 
         /// <summary>
         /// define a method to return the crud service
+        /// Return the mock crude service if it is not null else
+        /// use Repository to get an instance
         /// </summary>
         /// <returns> an instance of the crudService</returns>
         protected ICrudService GetCrudService()
         {
+            if (null != this.MockCrudService)
+            {
+                return this.MockCrudService;
+            }
+
             return Repository.Instance.ServiceLocator.GetInstance<ICrudService>();
+        }
+
+        /// <summary>
+        /// define a method to return the ECommerceService
+        /// Return the mock ecommerce service if it is not null else
+        /// return a new instance
+        /// </summary>
+        /// <returns> an instance of the crudService</returns>
+        protected IAWSECommerceService GetAWSECommerceService()
+        {
+            if (null != this.MockIAWSECommerceService)
+            {
+                return this.MockIAWSECommerceService;
+            }
+
+            return new AWSECommerceService();
         }
 
         /// <summary>
@@ -132,7 +210,7 @@
         /// <returns> a list of item responses</returns>
         protected IList<ItemResponse> GetSearchResponses(string searchindex, string title, string keywords)
         {
-            AWSECommerceService ecs = new AWSECommerceService();
+            IAWSECommerceService ecs = this.GetAWSECommerceService();
             IList<ItemResponse> searchresponse = ecs.ItemSearch(searchindex, title, keywords);
             return searchresponse;
         }
@@ -268,39 +346,6 @@
             }
 
             return searchvideo;
-        }
-        /// <summary>
-        /// used for sorting media by title
-        /// </summary>
-        /// <param name="x">a media item</param>
-        /// <param name="y"> the other media item</param>
-        /// <returns> -1, 0, 1</returns>
-        private int CompareMediaByTitle(Media x, Media y)
-        {
-            if (x.Title == null)
-            {
-                if (y.Title == null)
-                {
-                    return 0;
-                }
-                else
-                {
-                    // If x is null and y is not null, y
-                    // is greater. 
-                    return -1;
-                }
-            }
-            else
-            {
-                if (y.Title == null)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return x.Title.CompareTo(y.Title);
-                }
-            }
         }
     }
 }
