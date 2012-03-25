@@ -3,12 +3,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
     /// <summary>
     /// class is used to do an Item search using the Amazon webservice for Product Advertising
     /// </summary>
     public class AWSECommerceService : Sweng500.Awse.CommerceService.IAWSECommerceService
     {
+        /// <summary>
+        /// Class logger
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// perform an item search
         /// </summary>
@@ -46,19 +52,33 @@ using System.Linq;
             {
                 var response = client.ItemSearch(search);
 
-                Items info = response.Items[0];
-                Item[] items = info.Item;
+                bool goodresponse = this.CheckResponse(response);
 
-                for (int i = 0; i < items.Length; i++)
+                if (goodresponse)
                 {
-                    Item item = items[i];
-                    responses.Add(this.BuildItemResponse(items[i]));
+                    for (int i = 0; i < response.Items.Length; i++)
+                    {
+                        Items info = response.Items[i];
+                        string totalpages = info.TotalPages;
+                        string totalresults = info.TotalResults;
+                        log.InfoFormat("ItemSearch processes response.Items for searchindex: {0}  title: {1}, item: {2} total pages: {3} total results: {4}", searchIndex, title, i, totalpages, totalresults);
+                        Item[] items = info.Item;
+                        for (int itemindex = 0; itemindex < items.Length; itemindex++)
+                        {
+                            Item item = items[itemindex];
+                            responses.Add(this.BuildItemResponse(items[itemindex]));
+                        }
+                    }
+                }
+                else
+                {
+                    log.WarnFormat("ItemSearch did not get a good response.  Nothing returned");
                 }
             }
             catch (Exception e)
             {
-                //// TODO: Need Better Error Handling
-                Console.WriteLine(e);
+                log.ErrorFormat("unable to perform ItemSearch.  received exception: {0} ", e);
+                throw;
             }
 
             return responses;
@@ -73,12 +93,54 @@ using System.Linq;
         public DateTime GetDateTime(string datestring)
         {
             DateTime convertedDate = DateTime.MinValue;
+
+            if (null != datestring)
+            {
+                try
+                {
+                    string[] splitchars = { "-", " " };
+                    string[] datepieces = datestring.Split(splitchars, StringSplitOptions.RemoveEmptyEntries);
+                    if (1 == datepieces.Length
+                        && 4 == datepieces[0].Length)
+                    {
+                        DateTime yearonly = new DateTime(Convert.ToInt32(datepieces[0]), 1, 1);
+                        return yearonly;
+                    }
+                }
+                catch (Exception e)
+                {
+                    log.WarnFormat("GetDateTime Failed due to exception: {0}  Input String is {1}", e, datestring);
+                }
+            }
+
             if (false == DateTime.TryParse(datestring, out convertedDate))
             {
-                //// TODO: Log that the parsing failed
+                log.WarnFormat("GetDateTime Failed:  Input String is {0}", datestring);
             }
             
             return convertedDate;
+        }
+
+        /// <summary>
+        /// checks the response by looking for IsValud == "True"
+        /// </summary>
+        /// <param name="response"> the response from the webservice</param>
+        /// <returns>triue if IsValid  equals "True"</returns>
+        private bool CheckResponse(ItemSearchResponse response)
+        {
+            bool goodresponse = false;
+            if (null != response
+                    && response.Items.Length > 0)
+            {
+                string isvalid = response.Items[0].Request.IsValid;
+                if (null != isvalid &&
+                    "True".Equals(isvalid, StringComparison.OrdinalIgnoreCase))
+                {
+                    goodresponse = true;
+                }
+            }
+
+            return goodresponse;
         }
 
         /// <summary>

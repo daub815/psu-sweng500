@@ -33,5 +33,13 @@
         /// <param name="keywords"> keywords to search for</param>
         /// <returns> a list of media items build from the search responses</returns>
         IEnumerable<Media> SearchRemote(MediaTypes mediatype, string title, string keywords);
+
+        /// <summary>
+        /// does a search using an amazon web service. Automatically search fro both MediaTypes
+        /// </summary>
+        /// <param name="title"> words in the title to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        IEnumerable<Media> SearchRemote(string title, string keywords);
     }
 }

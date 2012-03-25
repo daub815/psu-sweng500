@@ -87,5 +87,38 @@
                 Console.WriteLine("the media returned is: {0}", media.ToString());
             }
         }
+
+        /// <summary>
+        /// A test for SearchRemote that uses both book and video
+        /// </summary>
+        [TestMethod]
+        public void SearchRemoteBothTest()
+        {
+            SearchMediaService target = new SearchMediaService(); // TODO: Initialize to an appropriate value
+            string title = "Star Wars"; // TODO: Initialize to an appropriate value
+            string keywords = string.Empty; // TODO: Initialize to an appropriate value
+            bool bookfound = false;
+            bool videofound = false;
+
+            IEnumerable<Media> actual;
+            actual = target.SearchRemote(title, keywords);
+            foreach (Media media in actual)
+            {
+                if (media is Book)
+                {
+                    bookfound = true;
+                }
+
+                if (media is Video)
+                {
+                    videofound = true;
+                }
+
+                Console.WriteLine("the media returned is: {0}", media.ToString());
+            }
+
+            Assert.IsTrue(bookfound, "Did not find a book");
+            Assert.IsTrue(videofound, "Did not find a video");
+        }
     }
 }
