@@ -334,7 +334,7 @@
 
                     if (0 == matched.Count)
                     {
-                        Person producer = new Director();
+                        Person producer = new Producer();
                         producer.FirstName = name.First;
                         producer.LastName = name.Last;
                         producer = this.AddPerson(crud, producer);
