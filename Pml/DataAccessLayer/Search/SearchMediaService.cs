@@ -45,18 +45,16 @@
         public IEnumerable<Media> GetMediaItemsContaining(string partialTitle)
         {
             ICrudService crudservice = this.GetCrudService();
+            string lowerCasePartial = partialTitle.ToLowerInvariant();
 
             try
             {
-                List<Media> matched = (from media in crudservice.GetMediaItems()
-                                       where media.Title.Contains(partialTitle)
-                                       orderby media.Title
-                                       select media as Media).ToList();
-                return matched;
+                return this.GetMatchingTitles(crudservice, lowerCasePartial);
+
             }
             catch (Exception e)
             {
-                log.Error("unable to GetMediaItemsContaining.  received exception: ", e);
+                log.ErrorFormat("unable to GetMediaItemsContaining {0}:  received exception: {1}", partialTitle, e);
                 throw;
             }
         }
@@ -229,6 +227,23 @@
                                         person.LastName == lastname
                                   select person as Person).ToList();
             return matched;
+        }
+
+        /// <summary>
+        /// gets a list of media whose title includes the supplied string.  The search is
+        /// case insensitive so the items are made lower case for comparision since by default
+        /// LINQ is case sensitive.
+        /// </summary>
+        /// <param name="crudservice"> an instance of the ICrudService interface</param>
+        /// <param name="lowerCasePartial"> the title supplied by the user moved to lower case</param>
+        /// <returns>a List of Media whose title contains the partialtile in a case insensitive compare</returns>
+        protected List<Media> GetMatchingTitles(ICrudService crudservice, string lowerCasePartial)
+        {
+            List<Media> items = (from media in crudservice.GetMediaItems()
+                                 where media.Title.ToLowerInvariant().Contains(lowerCasePartial)
+                                 orderby media.Title
+                                 select media as Media).ToList();
+            return items;
         }
 
         /// <summary>
