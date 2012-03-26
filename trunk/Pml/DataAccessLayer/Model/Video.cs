@@ -29,6 +29,7 @@
         /// </summary>
         public Video()
         {
+            this.MediaId = Media.GetNewMediaId();
             this.Acquired = DateTime.Now;
             this.Released = DateTime.Now;
 

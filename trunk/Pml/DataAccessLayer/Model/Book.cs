@@ -23,6 +23,7 @@
         /// </summary>
         public Book()
         {
+            this.MediaId = Media.GetNewMediaId();
             this.Acquired = DateTime.Now;
             this.Published = DateTime.Now;
 

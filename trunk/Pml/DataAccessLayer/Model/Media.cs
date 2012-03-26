@@ -6,6 +6,30 @@
     public partial class Media
     {
         /// <summary>
+        /// Static id used to provide a unique id for new items
+        /// </summary>
+        private static volatile int StaticId = 0;
+
+        /// <summary>
+        /// Static lock for the static id
+        /// </summary>
+        private static readonly object StaticIdLock = new object();
+
+        /// <summary>
+        /// Gets a new media id
+        /// </summary>
+        /// <returns>A new media id</returns>
+        protected static int GetNewMediaId()
+        {
+            lock (StaticIdLock)
+            {
+                --StaticId;
+            }
+
+            return StaticId;
+        }
+
+        /// <summary>
         /// Determines whether the media objects are the same
         /// </summary>
         /// <param name="obj">The other object</param>
