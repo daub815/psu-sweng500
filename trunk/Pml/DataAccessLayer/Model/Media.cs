@@ -6,28 +6,14 @@
     public partial class Media
     {
         /// <summary>
-        /// Static id used to provide a unique id for new items
-        /// </summary>
-        private static volatile int StaticId = 0;
-
-        /// <summary>
         /// Static lock for the static id
         /// </summary>
         private static readonly object StaticIdLock = new object();
 
         /// <summary>
-        /// Gets a new media id
+        /// Static id used to provide a unique id for new items
         /// </summary>
-        /// <returns>A new media id</returns>
-        protected static int GetNewMediaId()
-        {
-            lock (StaticIdLock)
-            {
-                --StaticId;
-            }
-
-            return StaticId;
-        }
+        private static volatile int StaticId = 0;
 
         /// <summary>
         /// Determines whether the media objects are the same
@@ -79,5 +65,19 @@
         /// <param name="person">The person to remove</param>
         /// <returns>A value indicating whether it was successfully found and removed from the collection</returns>
         public abstract bool RemovePerson(Person person);
+
+        /// <summary>
+        /// Gets a new media id
+        /// </summary>
+        /// <returns>A new media id</returns>
+        protected static int GetNewMediaId()
+        {
+            lock (StaticIdLock)
+            {
+                --StaticId;
+            }
+
+            return StaticId;
+        }
     }
 }

@@ -122,7 +122,9 @@ using log4net;
         }
 
         /// <summary>
-        /// checks the response by looking for IsValud == "True"
+        /// checks the response by looking for IsValud == "True".
+        /// When True, verify the errors object is null or empty and the number of
+        /// TotalResults is greater than 0
         /// </summary>
         /// <param name="response"> the response from the webservice</param>
         /// <returns>triue if IsValid  equals "True"</returns>
@@ -136,7 +138,12 @@ using log4net;
                 if (null != isvalid &&
                     "True".Equals(isvalid, StringComparison.OrdinalIgnoreCase))
                 {
-                    goodresponse = true;
+                    if ((null == response.Items[0].Request.Errors
+                        || 0 == response.Items[0].Request.Errors.Length)
+                        && 0 < Convert.ToInt32(response.Items[0].TotalResults))
+                    {
+                        goodresponse = true;
+                    }
                 }
             }
 

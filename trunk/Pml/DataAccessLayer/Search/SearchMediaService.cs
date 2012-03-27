@@ -50,7 +50,6 @@
             try
             {
                 return this.GetMatchingTitles(crudservice, lowerCasePartial);
-
             }
             catch (Exception e)
             {
