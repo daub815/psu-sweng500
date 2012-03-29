@@ -311,7 +311,7 @@
             Video searchvideo = new Video();
             searchvideo.Title = itemresponse.Title;
             searchvideo.Comment = string.Empty;
-            searchvideo.Description = string.Empty;
+            searchvideo.Description = itemresponse.Description;
             searchvideo.IsBorrowable = false;
             searchvideo.ImageUrl = itemresponse.Imageurl;
             searchvideo.Publisher = itemresponse.Publisher;
