@@ -1,7 +1,7 @@
 ﻿namespace Sweng500.Pml.Client.Views
 {
-
     using System.Windows.Controls;
+
     /// <summary>
     /// Interaction logic for SearchWorkspaceView.xaml
     /// </summary>

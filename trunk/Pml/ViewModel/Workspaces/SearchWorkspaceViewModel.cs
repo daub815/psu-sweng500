@@ -50,6 +50,7 @@
         /// Initializes a new instance of the SearchWorkspaceViewModel class
         /// </summary>
         /// <param name="title">The title to search for</param>
+        /// <param name="inventory">A value indicating whether to search the inventory</param>
         public SearchWorkspaceViewModel(string title, bool inventory)
             : base("Search by title of \"" + title + "\"")
         {
@@ -74,7 +75,7 @@
                     {
                         var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
 
-                        //Return the results
+                        // Return the results
                         return mediaSearch.SearchRemote(title, string.Empty).ToList();
                     });
             }
@@ -118,7 +119,7 @@
         /// <summary>
         /// Performs the search and populates the results datagrid
         /// </summary>
-        /// <param name="search"></param>
+        /// <param name="search">The func that performs the actual search</param>
         private void PerformSearch(Func<IList<Media>> search)
         {
             // Kick off a search that is performed asynchronously
@@ -127,6 +128,18 @@
                     return search();
                 }).ContinueWith((task) =>
                     {
+                        if (null != task.Exception)
+                        {
+                            this.ErrorMessage = task.Exception.Message;
+                            return;
+                        }
+                        else if (null == task.Result ||
+                            false == task.Result.Any())
+                        {
+                            this.ErrorMessage = "No Search Results";
+                            return;
+                        }
+
                         // Add all the search results
                         foreach (var media in task.Result)
                         {

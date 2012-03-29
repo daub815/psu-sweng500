@@ -32,6 +32,16 @@
         /// </summary>
         public const string SelectedItemPropertyName = "SelectedItem";
 
+        /// <summary>
+        /// The property name of the ErrorMessage property
+        /// </summary>
+        public const string ErrorMessagePropertyName = "ErrorMessage";
+
+        /// <summary>
+        /// The property name of the HasError property
+        /// </summary>
+        public const string HasErrorPropertyName = "Error";
+
         #endregion Statics
 
         #region Fields
@@ -50,6 +60,11 @@
         /// The backing field of the IsOpen property
         /// </summary>
         private bool mIsOpen = false;
+
+        /// <summary>
+        /// The backing field of the ErrorMessage property
+        /// </summary>
+        private string mErrorMessage = string.Empty;
 
         #endregion Fields
 
@@ -152,6 +167,38 @@
                     this.mIsOpen = value;
                     this.RaisePropertyChanged(IsOpenPropertyName);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the error message
+        /// </summary>
+        public string ErrorMessage
+        {
+            get
+            {
+                return this.mErrorMessage;
+            }
+
+            set
+            {
+                if (false == string.Equals(value, this.ErrorMessage))
+                {
+                    this.mErrorMessage = value;
+                    this.RaisePropertyChanged(ErrorMessagePropertyName);
+                    this.RaisePropertyChanged(HasErrorPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether there is an error
+        /// </summary>
+        public bool HasError
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(this.ErrorMessage);
             }
         }
 
