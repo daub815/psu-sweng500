@@ -75,7 +75,7 @@
                         var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
 
                         //Return the results
-                        return mediaSearch.SearchRemote(MediaTypes.Book, title, string.Empty).ToList();
+                        return mediaSearch.SearchRemote(title, string.Empty).ToList();
                     });
             }
         }
