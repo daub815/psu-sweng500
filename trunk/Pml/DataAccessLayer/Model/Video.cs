@@ -118,6 +118,7 @@
                 if (person is Producer)
                 {
                     ProducerAssociation assoc = new ProducerAssociation();
+                    assoc.Producer = (Producer)person;
                     assoc.ProducerPersonId = person.PersonId;
                     assoc.VideoMediaId = this.MediaId;
 
@@ -127,6 +128,7 @@
                 else if (person is Director)
                 {
                     DirectorAssociation assoc = new DirectorAssociation();
+                    assoc.Director = (Director)person;
                     assoc.DirectorPersonId = person.PersonId;
                     assoc.VideoMediaId = this.MediaId;
 

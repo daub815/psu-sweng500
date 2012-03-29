@@ -82,6 +82,7 @@
                 && false == this.ContainsPerson(person))
             {
                 AuthorBookAssociation assoc = new AuthorBookAssociation();
+                assoc.Author = (Author)person;
                 assoc.AuthorPersonId = person.PersonId;
                 assoc.BookMediaId = this.MediaId;
                 this.AuthorBookAssociations.Add(assoc);
