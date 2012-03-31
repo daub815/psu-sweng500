@@ -17,6 +17,26 @@
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
+        /// the limit for most text fields
+        /// </summary>
+        private const int TEXTLIMIT = 4000;
+
+        /// <summary>
+        /// the limit for ISBN
+        /// </summary>
+        private const int ISBNLIMIT = 13;
+
+        /// <summary>
+        /// constant for searching books
+        /// </summary>
+        private const string BOOKSEARCHINDEX = "Books";
+
+        /// <summary>
+        /// constant for searching videos
+        /// </summary>
+        private const string DVDSEARCHINDEX = "DVD";
+
+        /// <summary>
         /// Gets or sets a mock ICrudService for testing only
         /// </summary>
         public ICrudService MockCrudService
@@ -84,12 +104,12 @@
             string keywordarg = string.Empty;
             if (MediaTypes.Book == mediatype)
             {
-                searchindex = "Books";
+                searchindex = BOOKSEARCHINDEX;
                 booksearch = true;
             }
             else if (MediaTypes.Video == mediatype)
             {
-                searchindex = "DVD";
+                searchindex = DVDSEARCHINDEX;
             }
 
             if (null != title)
@@ -141,6 +161,39 @@
             foreach (Media videoitem in videoresponses)
             {
                 values.Add(videoitem);
+            }
+
+            return values;
+        }
+
+        /// <summary>
+        /// does a search using an amazon web service. Search is done within Books
+        /// </summary>
+        /// <param name="authorname"> author name to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        public IEnumerable<Media> AuthorSearchRemote(string authorname, string keywords)
+        {
+            IList<Media> values = new List<Media>();
+            string authorarg = string.Empty;
+            string keywordarg = string.Empty;
+
+            if (null != authorname)
+            {
+                authorarg = authorname;
+            }
+
+            if (null != keywords)
+            {
+                keywordarg = keywords;
+            }
+
+            IList<ItemResponse> searchresponse = this.GetAuthorSearchResponses(authorarg, keywordarg);
+
+            foreach (ItemResponse itemresponse in searchresponse)
+            {
+                Book abookresponse = this.CreateBookFromSearch(itemresponse);
+                values.Add(abookresponse);
             }
 
             return values;
@@ -201,6 +254,19 @@
         /// <summary>
         /// method extracted to make testing easier
         /// </summary>
+        /// <param name="authorname">author name to search </param>
+        /// <param name="keywords"> keywords to search</param>
+        /// <returns> a list of item responses</returns>
+        protected IList<ItemResponse> GetAuthorSearchResponses(string authorname, string keywords)
+        {
+            IAWSECommerceService ecs = this.GetAWSECommerceService();
+            IList<ItemResponse> searchresponse = ecs.AuthorSearch(authorname, keywords);
+            return searchresponse;
+        }
+
+        /// <summary>
+        /// method extracted to make testing easier
+        /// </summary>
         /// <param name="searchindex"> search index</param>
         /// <param name="title"> portion of title to search </param>
         /// <param name="keywords"> keywords to search</param>
@@ -254,22 +320,22 @@
         {
             var crud = this.GetCrudService();
             Book searchbook = new Book();
-            searchbook.Title = itemresponse.Title;
+            searchbook.Title = this.TruncateToLimit(itemresponse.Title, TEXTLIMIT);
             searchbook.Comment = string.Empty;
-            searchbook.Description = itemresponse.Description;
+            searchbook.Description = this.TruncateToLimit(itemresponse.Description, TEXTLIMIT);
             searchbook.ImageUrl = itemresponse.Imageurl;
             searchbook.IsBorrowable = false;
 
             if (itemresponse.Isbn != null)
             {
-                searchbook.ISBN = itemresponse.Isbn;
+                searchbook.ISBN = this.TruncateToLimit(itemresponse.Isbn, ISBNLIMIT);
             }
             else
             {
                 string[] eisbn = itemresponse.Eisbn;
                 if (eisbn != null && eisbn.Length > 0)
                 {
-                    searchbook.ISBN = eisbn[0];
+                    searchbook.ISBN = this.TruncateToLimit(eisbn[0], ISBNLIMIT);
                 }
             }
 
@@ -309,9 +375,9 @@
             var crud = this.GetCrudService();
 
             Video searchvideo = new Video();
-            searchvideo.Title = itemresponse.Title;
+            searchvideo.Title = this.TruncateToLimit(itemresponse.Title, TEXTLIMIT);
             searchvideo.Comment = string.Empty;
-            searchvideo.Description = itemresponse.Description;
+            searchvideo.Description = this.TruncateToLimit(itemresponse.Description, TEXTLIMIT);
             searchvideo.IsBorrowable = false;
             searchvideo.ImageUrl = itemresponse.Imageurl;
             searchvideo.Publisher = itemresponse.Publisher;
@@ -360,6 +426,27 @@
             }
 
             return searchvideo;
+        }
+
+        /// <summary>
+        /// limit string to defined number of characters
+        /// </summary>
+        /// <param name="value"> the input value</param>
+        /// <param name="limit"> tbhe max number of characters</param>
+        /// <returns>a string which map have been truncated</returns>
+        private string TruncateToLimit(string value, int limit)
+        {
+            string returnVal = string.Empty;
+            if (null != value)
+            {
+                returnVal = value.Trim();
+                if (limit < returnVal.Length)
+                {
+                    returnVal = returnVal.Substring(0, limit);
+                }
+            }
+
+            return returnVal;
         }
     }
 }
