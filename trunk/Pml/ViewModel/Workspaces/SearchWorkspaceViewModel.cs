@@ -51,15 +51,28 @@
         /// </summary>
         /// <param name="title">The title to search for</param>
         /// <param name="inventory">A value indicating whether to search the inventory</param>
-        public SearchWorkspaceViewModel(string title, bool inventory)
-            : base("Search by title of \"" + title + "\"")
+        public SearchWorkspaceViewModel(string title, bool? inventory = null)
+            : base(string.Empty)
         {
             this.Results = new ListCollectionView(this.mSearchResults);
 
             // Kick off the search
-            if (false == string.IsNullOrWhiteSpace(title) && 
-                true == inventory)
+            if (false == string.IsNullOrWhiteSpace(title) &&
+                null == inventory)
             {
+                this.Name = "Searching Amazon By Author For " + "\"" + title + "\"";
+                this.PerformSearch(() =>
+                    {
+                        var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
+
+                        // Return the results to another task to fill
+                        return mediaSearch.AuthorSearchRemote(title, string.Empty).ToList();
+                    });
+            }
+            else if (false == string.IsNullOrWhiteSpace(title) &&
+                true == inventory.GetValueOrDefault())
+            {
+                this.Name = "Searching Inventory By Title For " + "\"" + title + "\"";
                 this.PerformSearch(() =>
                     {
                         var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
@@ -69,8 +82,9 @@
                     });
             }
             else if (false == string.IsNullOrWhiteSpace(title) &&
-              false == inventory)
+              false == inventory.GetValueOrDefault())
             {
+                this.Name = "Searching Amazon By Title For " + "\"" + title + "\"";
                 this.PerformSearch(() =>
                     {
                         var mediaSearch = Repository.Instance.ServiceLocator.GetInstance<ISearchMediaService>();
@@ -78,7 +92,7 @@
                         // Return the results
                         return mediaSearch.SearchRemote(title, string.Empty).ToList();
                     });
-            }
+            } 
         }
         
         #endregion Constructors
