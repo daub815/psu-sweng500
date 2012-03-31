@@ -209,6 +209,16 @@
                         GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
                     });
 
+            GlobalCommands.Instance.SearchRemoteUsingAuthorCommand = new GalaSoft.MvvmLight.Command.RelayCommand<string>(
+                author =>
+                    {
+                        var workspace = new SearchWorkspaceViewModel(author, null);
+                        workspace.IsOpen = true;
+                        this.mWorkspaces.Add(workspace);
+
+                        GlobalCommands.Instance.SelectWorkspaceCommand.Execute(workspace);
+                    });
+
             // Add the inventory workspace
             var inventoryWorkspace = new InventoryWorkspaceViewModel
             {

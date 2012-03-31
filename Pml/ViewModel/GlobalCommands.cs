@@ -53,6 +53,11 @@
         public const string SearchRemoteUsingKeywordsCommandPropertyName = "SearchRemoteUsingKeywordsCommand";
 
         /// <summary>
+        /// Property name for the SearchRemoteUsingAuthorCommand property
+        /// </summary>
+        public const string SearchRemoteUsingAuthorCommandPropertyName = "SearchRemoteUsingAuthorCommand";
+
+        /// <summary>
         /// The singleton instance
         /// </summary>
         private static readonly GlobalCommands StaticInstance = new GlobalCommands();
@@ -100,6 +105,11 @@
         /// Backing field for the SearchRemoteUsingKeywordsCommand property
         /// </summary>
         private RelayCommand<string> mSearchRemoteUsingKeywordsCommand;
+
+        /// <summary>
+        /// Backing field for the SearchRemoteUsingAuthorCommand property
+        /// </summary>
+        private RelayCommand<string> mSearchRemoteUsingAuthorCommand;
 
         #endregion Fields
 
@@ -299,6 +309,27 @@
                 {
                     this.mSearchRemoteUsingKeywordsCommand = value;
                     this.RaisePropertyChanged(SearchRemoteUsingKeywordsCommandPropertyName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the command to search remotely by author
+        /// </summary>
+        public RelayCommand<string> SearchRemoteUsingAuthorCommand
+        {
+            get
+            {
+                return this.mSearchRemoteUsingAuthorCommand;
+            }
+
+            set
+            {
+                if (null == this.mSearchRemoteUsingAuthorCommand &&
+                    null != value)
+                {
+                    this.mSearchRemoteUsingAuthorCommand = value;
+                    this.RaisePropertyChanged(SearchRemoteUsingAuthorCommandPropertyName);
                 }
             }
         }
