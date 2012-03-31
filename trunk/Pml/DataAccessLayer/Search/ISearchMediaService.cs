@@ -41,5 +41,13 @@
         /// <param name="keywords"> keywords to search for</param>
         /// <returns> a list of media items build from the search responses</returns>
         IEnumerable<Media> SearchRemote(string title, string keywords);
+
+        /// <summary>
+        /// does a search using an amazon web service. Search is done within Books
+        /// </summary>
+        /// <param name="authorname"> author name to search for</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of media items build from the search responses</returns>
+        IEnumerable<Media> AuthorSearchRemote(string authorname, string keywords);
     }
 }

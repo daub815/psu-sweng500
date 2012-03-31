@@ -85,6 +85,74 @@ using log4net;
         }
 
         /// <summary>
+        /// perform an item search
+        /// </summary>
+        /// <param name="author"> name of the author to search on</param>
+        /// <param name="keywords"> keywords to search for</param>
+        /// <returns> a list of ItemResponses</returns>
+        public IList<ItemResponse> AuthorSearch(string author, string keywords)
+        {
+            IList<ItemResponse> responses = new List<ItemResponse>();
+            var client = new AWSECommerceServicePortTypeClient(Properties.Settings.Default.EndpointConfigName);
+            client.ChannelFactory.Endpoint.Behaviors.Add(new AmazonSigningEndpointBehavior(Properties.Settings.Default.AwseAccessKey, Properties.Settings.Default.AwseSecretKey));
+            var search = new ItemSearch
+            {
+                Request = new ItemSearchRequest[] 
+                {
+                    new ItemSearchRequest
+                    {
+                        SearchIndex = "Books",
+                        Author = author,
+                        ResponseGroup = new string[]
+                        {
+                        "Medium"
+                        }
+                    }
+                },
+
+                // Required
+                AWSAccessKeyId = Properties.Settings.Default.AwseAccessKey,
+
+                // Required to be valid or string.Empty
+                AssociateTag = string.Empty
+            };
+            try
+            {
+                var response = client.ItemSearch(search);
+
+                bool goodresponse = this.CheckResponse(response);
+
+                if (goodresponse)
+                {
+                    for (int i = 0; i < response.Items.Length; i++)
+                    {
+                        Items info = response.Items[i];
+                        string totalpages = info.TotalPages;
+                        string totalresults = info.TotalResults;
+                        log.InfoFormat("AuthorSearch processes response.Items for author: {1}, item: {2} total pages: {3} total results: {4}", author, i, totalpages, totalresults);
+                        Item[] items = info.Item;
+                        for (int itemindex = 0; itemindex < items.Length; itemindex++)
+                        {
+                            Item item = items[itemindex];
+                            responses.Add(this.BuildItemResponse(items[itemindex]));
+                        }
+                    }
+                }
+                else
+                {
+                    log.WarnFormat("AuthorSearch did not get a good response.  Nothing returned");
+                }
+            }
+            catch (Exception e)
+            {
+                log.ErrorFormat("unable to perform AuthorSearch.  received exception: {0} ", e);
+                throw;
+            }
+
+            return responses;
+        }
+
+        /// <summary>
         /// convert the datestring into a DateTime
         /// if the input is null, a default time is returned.
         /// </summary>

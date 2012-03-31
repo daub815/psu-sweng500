@@ -15,6 +15,21 @@
         /// Class logger
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
+        /// <summary>
+        /// the limit for most text fields
+        /// </summary>
+        private const int TEXTLIMIT = 4000;
+
+        /// <summary>
+        /// the limit for ISBN
+        /// </summary>
+        private const int ISBNLIMIT = 13;
+
+        /// <summary>
+        /// the limit for UPC
+        /// </summary>
+        private const int UPCLIMIT = 15;
 
         /// <summary>
         /// context used when interfacing with MasterEntities
@@ -122,7 +137,7 @@
             }
 
             MasterEntities context = this.GetContext();
-
+            this.CheckTextFieldLimits(media);
             try
             {
                 if (System.Data.EntityState.Detached == media.EntityState
@@ -160,7 +175,7 @@
             }
 
             MasterEntities context = this.GetContext();
-
+            this.CheckTextFieldLimits(media);
             if (media is Video)
             {
                 Video videoItem = (Video)media;
@@ -405,6 +420,54 @@
             }
 
             return this.context;
+        }
+
+        /// <summary>
+        /// check the values whuch are text fields, against the data base limits/
+        /// If a value exceeds the limit, the value is truncated to the limit size.
+        /// </summary>
+        /// <param name="media">media item</param>
+        private void CheckTextFieldLimits(Media media)
+        {
+            media.Comment = this.TruncateToLimit(media.Comment, TEXTLIMIT);
+            media.Description = this.TruncateToLimit(media.Description, TEXTLIMIT);
+            media.ImageUrl = this.TruncateToLimit(media.ImageUrl, TEXTLIMIT);
+            media.Publisher = this.TruncateToLimit(media.Publisher, TEXTLIMIT);
+            media.Title = this.TruncateToLimit(media.Title, TEXTLIMIT);
+
+            if (media is Book)
+            {
+                Book book = (Book)media;
+                book.ISBN = this.TruncateToLimit(book.ISBN, ISBNLIMIT);
+                book.LibraryLocation = this.TruncateToLimit(book.LibraryLocation, TEXTLIMIT);
+            }
+
+            if (media is Video)
+            {
+                Video video = (Video)media;
+                video.UPC = this.TruncateToLimit(video.UPC, UPCLIMIT);
+            }
+        }
+
+        /// <summary>
+        /// limit string to defined number of characters
+        /// </summary>
+        /// <param name="value"> the input value</param>
+        /// <param name="limit"> tbhe max number of characters</param>
+        /// <returns>a string which map have been truncated</returns>
+        private string TruncateToLimit(string value, int limit)
+        {
+            string returnVal = null;
+            if (null != value)
+            {
+                returnVal = value.Trim();
+                if (limit < returnVal.Length)
+                {
+                    returnVal = returnVal.Substring(0, limit);
+                }
+            }
+
+            return returnVal;
         }
     }
 }
