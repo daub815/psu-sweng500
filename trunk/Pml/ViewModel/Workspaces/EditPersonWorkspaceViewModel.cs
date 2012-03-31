@@ -77,10 +77,13 @@
                         {
                             this.ItemToEdit = crudService.Update((Person)this.ItemToEdit);
                         }
+
+                        this.CloseWorkspaceCommand.Execute(null);
                     }
                     catch (Exception e)
                     {
-                        log.Error("Unable to save the media.", e);
+                        log.Error("Unable to save the person.", e);
+                        this.ErrorMessage = "Unable to save the person.";
                     }
                 });
 
