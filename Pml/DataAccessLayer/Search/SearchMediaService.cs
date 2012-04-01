@@ -279,19 +279,69 @@
         }
 
         /// <summary>
-        /// method to get a list of people who match the first name and last name
+        /// method to get an author that matches the first name and last name
         /// </summary>
         /// <param name="crudservice"> the service used to retrieve the people</param>
         /// <param name="firstname"> first name to match</param>
         /// <param name="lastname">last name to match</param>
-        /// <returns>a list of people whose first name and last name match the input values</returns>
-        protected List<Person> GetMatchedPeople(ICrudService crudservice, string firstname, string lastname)
+        /// <returns>an author whose first name and last name match the input values or null</returns>
+        protected Author GetMatchedAuthor(ICrudService crudservice, string firstname, string lastname)
         {
-            List<Person> matched = (from person in crudservice.GetPeople()
-                                    where person.FirstName == firstname &&
-                                        person.LastName == lastname
-                                  select person as Person).ToList();
-            return matched;
+            Author author = null;
+            List<Person> matched = this.GetMatchedPeople(crudservice, firstname, lastname);
+            foreach (Person person in matched)
+            {
+                if (person is Author)
+                {
+                    author = (Author)person;
+                }
+            }
+
+            return author;
+        }
+
+        /// <summary>
+        /// method to get a Director who matches the first name and last name
+        /// </summary>
+        /// <param name="crudservice"> the service used to retrieve the people</param>
+        /// <param name="firstname"> first name to match</param>
+        /// <param name="lastname">last name to match</param>
+        /// <returns>a Director whose first name and last name match the input values or null</returns>
+        protected Director GetMatchedDirector(ICrudService crudservice, string firstname, string lastname)
+        {
+            Director director = null;
+            List<Person> matched = this.GetMatchedPeople(crudservice, firstname, lastname);
+            foreach (Person person in matched)
+            {
+                if (person is Director)
+                {
+                    director = (Director)person;
+                }
+            }
+
+            return director;
+        }
+
+        /// <summary>
+        /// method to get a Producer who matches the first name and last name
+        /// </summary>
+        /// <param name="crudservice"> the service used to retrieve the people</param>
+        /// <param name="firstname"> first name to match</param>
+        /// <param name="lastname">last name to match</param>
+        /// <returns>a Producer whose first name and last name match the input values or null</returns>
+        protected Producer GetMatchedProducer(ICrudService crudservice, string firstname, string lastname)
+        {
+            Producer producer = null;
+            List<Person> matched = this.GetMatchedPeople(crudservice, firstname, lastname);
+            foreach (Person person in matched)
+            {
+                if (person is Producer)
+                {
+                    producer = (Producer)person;
+                }
+            }
+
+            return producer;
         }
 
         /// <summary>
@@ -312,6 +362,22 @@
         }
 
         /// <summary>
+        /// common routine to get a list of people that match the name
+        /// </summary>
+        /// <param name="crudservice"> an instance of the ICrudService interface</param>
+        /// <param name="firstname"> first name to match</param>
+        /// <param name="lastname">last name to match</param>
+        /// <returns>a List of people that match the name</returns>
+        private List<Person> GetMatchedPeople(ICrudService crudservice, string firstname, string lastname)
+        {
+            List<Person> matched = (from person in crudservice.GetPeople()
+                                    where person.FirstName == firstname &&
+                                        person.LastName == lastname
+                                    select person as Person).ToList();
+            return matched;
+        }
+
+        /// <summary>
         /// create a book from the search response
         /// </summary>
         /// <param name="itemresponse"> an item returned from the search</param>
@@ -323,7 +389,7 @@
             searchbook.Title = this.TruncateToLimit(itemresponse.Title, TEXTLIMIT);
             searchbook.Comment = string.Empty;
             searchbook.Description = this.TruncateToLimit(itemresponse.Description, TEXTLIMIT);
-            searchbook.ImageUrl = itemresponse.Imageurl;
+            searchbook.ImageUrl = this.TruncateToLimit(itemresponse.Imageurl, TEXTLIMIT);
             searchbook.IsBorrowable = false;
 
             if (itemresponse.Isbn != null)
@@ -340,25 +406,33 @@
             }
 
             searchbook.LibraryLocation = string.Empty;
-            searchbook.Published = itemresponse.Publicationdate;
-            searchbook.Publisher = itemresponse.Publisher;
+            if (null != itemresponse.Publicationdate
+                && itemresponse.Publicationdate > DateTime.MinValue)
+            {
+                searchbook.Published = itemresponse.Publicationdate;
+            }
+
+            searchbook.Publisher = this.TruncateToLimit(itemresponse.Publisher, TEXTLIMIT);
 
             if (itemresponse.Authorsname != null)
             {
                 foreach (ItemName name in itemresponse.Authorsname)
                 {
-                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                    Author matched = this.GetMatchedAuthor(crud, name.First, name.Last);
 
-                    if (0 == matched.Count)
+                    if (null == matched)
                     {
                         Person author = new Author();
                         author.FirstName = name.First;
                         author.LastName = name.Last;
                         author = this.AddPerson(crud, author);
-                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                        matched = this.GetMatchedAuthor(crud, name.First, name.Last);
                     }
 
-                    matched.ForEach(a => searchbook.AddPerson(a));
+                    if (null != matched)
+                    {
+                        searchbook.AddPerson(matched);
+                    }
                 }
             }
 
@@ -379,9 +453,14 @@
             searchvideo.Comment = string.Empty;
             searchvideo.Description = this.TruncateToLimit(itemresponse.Description, TEXTLIMIT);
             searchvideo.IsBorrowable = false;
-            searchvideo.ImageUrl = itemresponse.Imageurl;
-            searchvideo.Publisher = itemresponse.Publisher;
-            searchvideo.Released = itemresponse.Releasedate;
+            searchvideo.ImageUrl = this.TruncateToLimit(itemresponse.Imageurl, TEXTLIMIT);
+            searchvideo.Publisher = this.TruncateToLimit(itemresponse.Publisher, TEXTLIMIT);
+            if (null != itemresponse.Releasedate
+                && itemresponse.Releasedate > DateTime.MinValue)
+            {
+                searchvideo.Released = itemresponse.Releasedate;
+            }
+
             if (itemresponse.Upc != null) 
             {
                 searchvideo.UPC = itemresponse.Upc;
@@ -391,18 +470,21 @@
             {
                 foreach (ItemName name in itemresponse.Directorsname)
                 {
-                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                    Director matched = this.GetMatchedDirector(crud, name.First, name.Last);
 
-                    if (0 == matched.Count)
+                    if (null == matched)
                     {
                         Person director = new Director();
                         director.FirstName = name.First;
                         director.LastName = name.Last;
                         director = this.AddPerson(crud, director);
-                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                        matched = this.GetMatchedDirector(crud, name.First, name.Last);
                     }
 
-                    matched.ForEach(dir => searchvideo.AddPerson(dir));
+                    if (null != matched)
+                    {
+                        searchvideo.AddPerson(matched);
+                    }
                 }
             }
 
@@ -410,18 +492,21 @@
             {
                 foreach (ItemName name in itemresponse.Producersname)
                 {
-                    List<Person> matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                    Producer matched = this.GetMatchedProducer(crud, name.First, name.Last);
 
-                    if (0 == matched.Count)
+                    if (null == matched)
                     {
                         Person producer = new Producer();
                         producer.FirstName = name.First;
                         producer.LastName = name.Last;
                         producer = this.AddPerson(crud, producer);
-                        matched = this.GetMatchedPeople(crud, name.First, name.Last);
+                        matched = this.GetMatchedProducer(crud, name.First, name.Last);
                     }
 
-                    matched.ForEach(prod => searchvideo.AddPerson(prod));
+                    if (null != matched)
+                    {
+                        searchvideo.AddPerson(matched);
+                    }
                 }
             }
 
