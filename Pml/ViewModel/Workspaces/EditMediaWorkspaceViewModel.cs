@@ -65,7 +65,8 @@
 
                         try
                         {
-                            if (null == ((Media)this.ItemToEdit).EntityKey)
+                            if (null == ((Media)this.ItemToEdit).EntityKey ||
+                                ((Media)this.ItemToEdit).EntityState == System.Data.EntityState.Added)
                             {
                                 this.ItemToEdit = crudService.Add((Media)this.ItemToEdit);
                                 DataStore.Instance.MediaCollection.Add((Media)this.ItemToEdit);
