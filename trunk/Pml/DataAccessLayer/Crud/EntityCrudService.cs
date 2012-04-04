@@ -315,7 +315,9 @@
         public IEnumerable<Person> GetPeople()
         {
             MasterEntities context = this.GetContext();
-            var query = from c in context.People select c;
+            var query = from c in context.People 
+                        orderby c.LastName 
+                        select c;
             return query.ToList<Person>();
         }
 
@@ -326,7 +328,9 @@
         public IEnumerable<Person> GetAuthors()
         {
             MasterEntities context = this.GetContext();
-            var query = from p in context.People.OfType<Author>() select p;
+            var query = from p in context.People.OfType<Author>() 
+                        orderby p.LastName
+                        select p;
             return query.ToList<Person>();
         }
 
