@@ -32,8 +32,11 @@
                 {
                     new ItemSearchRequest
                     {
-                        SearchIndex = "DVD",
-                        Title = "Inglourious Basterds",
+                        SearchIndex = "Books",
+                        Author = "Erich Gamma",
+////                        SearchIndex = "DVD",
+////                        Title = "Inglourious Basterds",
+
                         Keywords = string.Empty,
                         ResponseGroup = new string[]
                         {
@@ -61,12 +64,9 @@
                 {
                     Item item = items[i];
                     string imageurl = string.Empty;
-                    Image mediumImage = null;
-                    Console.WriteLine("Medium Image: {0}", item.MediumImage.URL);
                     if (item.LargeImage != null)
                     {
                         imageurl = item.LargeImage.URL;
-                        mediumImage = item.LargeImage;
                     }
 
                     string title = item.ItemAttributes.Title;
