@@ -209,17 +209,6 @@
         #endregion ISearchMedia
 
         /// <summary>
-        /// method extracted to make it easier to test
-        /// </summary>
-        /// <param name="crud"> the crud service</param>
-        /// <param name="person"> the person to add</param>
-        /// <returns> the person added which should have a person id</returns>
-        protected Person AddPerson(ICrudService crud, Person person)
-        {
-            return crud.Add(person);
-        }
-
-        /// <summary>
         /// define a method to return the crud service
         /// Return the mock crude service if it is not null else
         /// use Repository to get an instance
@@ -422,11 +411,12 @@
 
                     if (null == matched)
                     {
-                        Person author = new Author();
+                        Author author = new Author();
                         author.FirstName = name.First;
                         author.LastName = name.Last;
-                        author = this.AddPerson(crud, author);
-                        matched = this.GetMatchedAuthor(crud, name.First, name.Last);
+                        searchbook.AddPerson(author);
+                        ////author = this.AddPerson(crud, author);
+                        ////matched = this.GetMatchedAuthor(crud, name.First, name.Last);
                     }
 
                     if (null != matched)
@@ -474,11 +464,12 @@
 
                     if (null == matched)
                     {
-                        Person director = new Director();
+                        Director director = new Director();
                         director.FirstName = name.First;
                         director.LastName = name.Last;
-                        director = this.AddPerson(crud, director);
-                        matched = this.GetMatchedDirector(crud, name.First, name.Last);
+                        searchvideo.AddPerson(director);
+                        ////director = this.AddPerson(crud, director);
+                        ////matched = this.GetMatchedDirector(crud, name.First, name.Last);
                     }
 
                     if (null != matched)
@@ -496,11 +487,12 @@
 
                     if (null == matched)
                     {
-                        Person producer = new Producer();
+                        Producer producer = new Producer();
                         producer.FirstName = name.First;
                         producer.LastName = name.Last;
-                        producer = this.AddPerson(crud, producer);
-                        matched = this.GetMatchedProducer(crud, name.First, name.Last);
+                        searchvideo.AddPerson(producer);
+                        ////producer = this.AddPerson(crud, producer);
+                        ////matched = this.GetMatchedProducer(crud, name.First, name.Last);
                     }
 
                     if (null != matched)
