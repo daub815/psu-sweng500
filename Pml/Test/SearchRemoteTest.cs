@@ -7,7 +7,7 @@
 
     /// <summary>
     /// This is a test class for SearchMediaServiceTest and is intended
-    /// to contain all SearchMediaServiceTest Unit Tests
+    /// to test web service calls
     /// </summary>
     [TestClass]
     public class SearchRemoteTest
@@ -18,7 +18,7 @@
         /// </summary>
         public TestContext TestContext
         {
-            get;
+           get;
            set;
         }
 
@@ -61,13 +61,33 @@
             SearchMediaService target = new SearchMediaService(); 
             MediaTypes mediatype = MediaTypes.Book; 
             string title = "Star Wars"; 
-            string keywords = string.Empty; 
+            string keywords = string.Empty;
+
+            Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
+            mockAWSE.AllowVideos = false;
+            mockAWSE.NumberOfVideos = 0;
+            mockAWSE.AllowBooks = true;
+            mockAWSE.NumberOfBooks = 2;
+            target.MockIAWSECommerceService = mockAWSE;
+            int bookcount = 0;
+            int videocount = 0;
             IEnumerable<Media> actual;
             actual = target.SearchRemote(mediatype, title, keywords);
             foreach (Media media in actual)
             {
-                Console.WriteLine("the media returned is: {0}", media.ToString());
+                if (media is Book)
+                {
+                    bookcount++;
+                }
+
+                if (media is Video)
+                {
+                    videocount++;
+                }
             }
+
+            Assert.IsTrue(bookcount == mockAWSE.NumberOfBooks, "Did not find correct books");
+            Assert.IsTrue(videocount == mockAWSE.NumberOfVideos, "Did not find correct videos");
         }
 
         /// <summary>
@@ -76,16 +96,36 @@
         [TestMethod]
         public void SearchRemoteVideoTest()
         {
-            SearchMediaService target = new SearchMediaService(); // TODO: Initialize to an appropriate value
-            MediaTypes mediatype = MediaTypes.Video; // TODO: Initialize to an appropriate value
-            string title = "Star Wars"; // TODO: Initialize to an appropriate value
-            string keywords = string.Empty; // TODO: Initialize to an appropriate value
+            SearchMediaService target = new SearchMediaService(); 
+            MediaTypes mediatype = MediaTypes.Video;
+            string title = "Star Wars"; 
+            string keywords = string.Empty; 
+
+            Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
+            mockAWSE.AllowVideos = true;
+            mockAWSE.NumberOfVideos = 3;
+            mockAWSE.AllowBooks = false;
+            mockAWSE.NumberOfBooks = 0;
+            target.MockIAWSECommerceService = mockAWSE;
+            int bookcount = 0;
+            int videocount = 0;
             IEnumerable<Media> actual;
             actual = target.SearchRemote(mediatype, title, keywords);
             foreach (Media media in actual)
             {
-                Console.WriteLine("the media returned is: {0}", media.ToString());
+                if (media is Book)
+                {
+                    bookcount++;
+                }
+
+                if (media is Video)
+                {
+                    videocount++;
+                }
             }
+
+            Assert.IsTrue(bookcount == mockAWSE.NumberOfBooks, "Did not find correct books");
+            Assert.IsTrue(videocount == mockAWSE.NumberOfVideos, "Did not find correct videos");
         }
 
         /// <summary>
@@ -94,11 +134,18 @@
         [TestMethod]
         public void SearchRemoteBothTest()
         {
-            SearchMediaService target = new SearchMediaService(); // TODO: Initialize to an appropriate value
-            string title = "Star Wars"; // TODO: Initialize to an appropriate value
-            string keywords = string.Empty; // TODO: Initialize to an appropriate value
-            bool bookfound = false;
-            bool videofound = false;
+            SearchMediaService target = new SearchMediaService(); 
+            string title = "Star Wars"; 
+            string keywords = string.Empty; 
+
+            Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
+            mockAWSE.AllowVideos = true;
+            mockAWSE.NumberOfVideos = 1;
+            mockAWSE.AllowBooks = true;
+            mockAWSE.NumberOfBooks = 2;
+            target.MockIAWSECommerceService = mockAWSE;
+            int bookcount = 0;
+            int videocount = 0;
 
             IEnumerable<Media> actual;
             actual = target.SearchRemote(title, keywords);
@@ -106,45 +153,43 @@
             {
                 if (media is Book)
                 {
-                    bookfound = true;
+                    bookcount++;
                 }
 
                 if (media is Video)
                 {
-                    videofound = true;
+                    videocount++;
                 }
-
-                Console.WriteLine("the media returned is: {0}", media.ToString());
             }
 
-            Assert.IsTrue(bookfound, "Did not find a book");
-            Assert.IsTrue(videofound, "Did not find a video");
+            Assert.IsTrue(bookcount == mockAWSE.NumberOfBooks, "Did not find correct books");
+            Assert.IsTrue(videocount == mockAWSE.NumberOfVideos, "Did not find correct videos");
         }
 
         /// <summary>
-        /// A test for SearchRemote that uses both book and video
+        /// A test for SearchRemote that uses book
         /// </summary>
         [TestMethod]
         public void AuthorSearchRemoteTest()
         {
-            SearchMediaService target = new SearchMediaService(); // TODO: Initialize to an appropriate value
+            SearchMediaService target = new SearchMediaService();
+            Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
+            mockAWSE.AllowVideos = false;
+            mockAWSE.AllowBooks = true;
+            mockAWSE.NumberOfBooks = 2;
+            target.MockIAWSECommerceService = mockAWSE;
             string author = "Jim Butcher";
             string keywords = string.Empty; 
-            bool bookfound = false;
 
             IEnumerable<Media> actual;
             actual = target.AuthorSearchRemote(author, keywords);
+            int count = 0;
             foreach (Media media in actual)
             {
-                if (media is Book)
-                {
-                    bookfound = true;
-                }
-
-                Console.WriteLine("the media returned is: {0}", media.ToString());
+                count++;
             }
 
-            Assert.IsTrue(bookfound, "Did not find a book");
+            Assert.IsTrue(count == mockAWSE.NumberOfBooks);
         }
     }
 }

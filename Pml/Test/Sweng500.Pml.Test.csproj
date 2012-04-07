@@ -82,6 +82,8 @@
     <Compile Include="InventoryWorkspaceViewModelTest.cs" />
     <Compile Include="ItemNameTest.cs" />
     <Compile Include="ItemResponseTest.cs" />
+    <Compile Include="Mock\MockAWSECommerce.cs" />
+    <Compile Include="Mock\MockCrudService.cs" />
     <Compile Include="SearchRemoteTest.cs" />
     <Compile Include="Unit\SearchMediaTest.cs" />
     <Compile Include="Unit\MainWorkspaceViewModelTest.cs" />

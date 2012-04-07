@@ -7,7 +7,7 @@
     
     /// <summary>
     /// This is a test class for SearchMediaTest and is intended
-    /// to contain all SearchMediaTest Unit Tests
+    /// to contain all SearchMediaTest Unit Tests that do not depend on web services
     /// </summary>
     [TestClass]
     public class SearchMediaServiceTest
@@ -30,7 +30,6 @@
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext = null)
         {
-            Utilities.CleanDatabase();
         }
 
         /// <summary>
@@ -39,7 +38,6 @@
         [TestCleanup]
         public void TestCleanup()
         {
-            Utilities.CleanDatabase();
         }
 
         /// <summary>
@@ -48,7 +46,6 @@
         [TestInitialize]
         public void MyTestInitialize()
         {
-            Utilities.CleanDatabase();
         }
         
        #endregion
@@ -87,18 +84,33 @@
         [TestMethod]
         public void GetMediaItemsContaining_EmptyTest()
         {
-            SearchMediaService target = new SearchMediaService(); // TODO: Initialize to an appropriate value
-            string partialTitle = string.Empty; // TODO: Initialize to an appropriate value
-//            IEnumerable<Media> expected = null; // TODO: Initialize to an appropriate value
-            IEnumerable<Media> actual;
-            actual = target.GetMediaItemsContaining(partialTitle);
-            int count = 0;
+            SearchMediaService searchmedia = new SearchMediaService(); // TODO: Initialize to an appropriate value
+            string partialTitle = string.Empty;
+            Mock.MockCrudService mockCrud = new Mock.MockCrudService();
+            mockCrud.AllowVideos = false;
+            mockCrud.NumberOfVideos = 0;
+            mockCrud.AllowBooks = false;
+            mockCrud.NumberOfBooks = 0;
+            mockCrud.MatchingTitle = partialTitle;
+            searchmedia.MockCrudService = mockCrud;
+            IEnumerable<Media> actual = searchmedia.GetMediaItemsContaining(partialTitle);
+            int bookcount = 0;
+            int videocount = 0;
             foreach (Media item in actual)
             {
-                count++;
+                if (item is Book)
+                {
+                    bookcount++;
+                }
+
+                if (item is Video)
+                {
+                    videocount++;
+                }
             }
 
-            Assert.IsTrue(0 == count);
+            Assert.IsTrue(bookcount == mockCrud.NumberOfBooks);
+            Assert.IsTrue(videocount == mockCrud.NumberOfVideos);
         }
 
         /// <summary>
@@ -107,33 +119,36 @@
         [TestMethod]
         public void GetMediaItemsContainingTest()
         {
-            var service = new EntityCrudService();
-
             SearchMediaService searchmedia = new SearchMediaService();
             string partialTitle = "tHe"; 
-            IList<Media> originalMedia = new List<Media>();
-            foreach (var media in Mock.MediaObjectMother.CreateNewBooks())
-            {
-                var bookAdded = service.Add(media);
-                originalMedia.Add(bookAdded);
-            }
-
-            foreach (var media in Mock.MediaObjectMother.CreateNewVideos())
-            {
-                var videoAdded = service.Add(media);
-                originalMedia.Add(videoAdded);
-            }
 
             IEnumerable<Media> actual;
+
+            Mock.MockCrudService mockCrud = new Mock.MockCrudService();
+            mockCrud.AllowVideos = true;
+            mockCrud.NumberOfVideos = 1;
+            mockCrud.AllowBooks = true;
+            mockCrud.NumberOfBooks = 2;
+            mockCrud.MatchingTitle = partialTitle;
+            searchmedia.MockCrudService = mockCrud;
             actual = searchmedia.GetMediaItemsContaining(partialTitle);
-            int count = 0;
+            int bookcount = 0;
+            int videocount = 0;
             foreach (Media item in actual)
             {
-                Assert.IsTrue(item.Title.ToLowerInvariant().Contains(partialTitle.ToLowerInvariant()));
-                count++;
+                if (item is Book)
+                {
+                    bookcount++;
+                }
+
+                if (item is Video)
+                {
+                    videocount++;
+                }
             }
 
-            Assert.IsTrue(1 == count);
+            Assert.IsTrue(bookcount == mockCrud.NumberOfBooks);
+            Assert.IsTrue(videocount == mockCrud.NumberOfVideos);
         }
     }
 }
