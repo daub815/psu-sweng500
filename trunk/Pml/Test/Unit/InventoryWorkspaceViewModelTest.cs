@@ -1,4 +1,4 @@
-﻿namespace Sweng500.Pml.Test
+﻿namespace Sweng500.Pml.Test.Unit
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Sweng500.Pml.ViewModel;
