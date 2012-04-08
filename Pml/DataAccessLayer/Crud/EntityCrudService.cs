@@ -236,12 +236,40 @@
                 
                 if (media is Book)
                 {
-                    var associations = context.AuthorBookAssociations;
                     Book book = (Book)media;
+                    var associations = context.AuthorBookAssociations;
+                    foreach (AuthorBookAssociation assoc in associations)
+                    {
+                        if (assoc.BookMediaId == media.MediaId)
+                        {
+                            context.AuthorBookAssociations.DeleteObject(assoc);
+                        }
+                    }  
                 }
 
+                if (media is Video)
+                {
+                    Video video = (Video)media;
+                    var directorassociations = context.DirectorAssociations;
+                    foreach (DirectorAssociation assoc in directorassociations)
+                    {
+                        if (assoc.VideoMediaId == media.MediaId)
+                        {
+                            context.DirectorAssociations.DeleteObject(assoc);
+                        }
+                    }
+
+                    var producerassociations = context.ProducerAssociations;
+                    foreach (ProducerAssociation assoc in producerassociations)
+                    {
+                        if (assoc.VideoMediaId == media.MediaId)
+                        {
+                            context.ProducerAssociations.DeleteObject(assoc);
+                        }
+                    }
+                }
                 context.Media.DeleteObject(media);
-                context.SaveChanges();
+                context.SaveChanges(); 
                 if (log.IsInfoEnabled) 
                 {
                     log.InfoFormat("Deleting media item: {0}", media);
@@ -351,7 +379,11 @@
 
             try
             {
-                context.Attach(person);
+                if (System.Data.EntityState.Detached == person.EntityState
+                    || System.Data.EntityState.Unchanged == person.EntityState)
+                {
+                    context.Attach(person);
+                }
 
                 // Update the state of the object to modified
                 context.ObjectStateManager.ChangeObjectState(person, System.Data.EntityState.Modified);
