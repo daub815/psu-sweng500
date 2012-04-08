@@ -268,6 +268,7 @@
                         }
                     }
                 }
+
                 context.Media.DeleteObject(media);
                 context.SaveChanges(); 
                 if (log.IsInfoEnabled) 

@@ -1,8 +1,8 @@
 ﻿namespace Sweng500.Pml.Test
 {
-    using System;
     using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Sweng500.Awse.CommerceService;
     using Sweng500.Pml.DataAccessLayer;
 
     /// <summary>
@@ -62,13 +62,26 @@
             MediaTypes mediatype = MediaTypes.Book; 
             string title = "Star Wars"; 
             string keywords = string.Empty;
-
+            ItemName itemname = new ItemName("George Lucas");
+ 
             Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
             mockAWSE.AllowVideos = false;
             mockAWSE.NumberOfVideos = 0;
             mockAWSE.AllowBooks = true;
             mockAWSE.NumberOfBooks = 2;
+            mockAWSE.MatchingAuthorName = itemname;
+
             target.MockIAWSECommerceService = mockAWSE;
+
+            Mock.MockCrudService mockCrud = new Mock.MockCrudService();
+            mockCrud.AllowVideos = false;
+            mockCrud.NumberOfVideos = 0;
+            mockCrud.AllowBooks = false;
+            mockCrud.NumberOfBooks = 0;
+            mockCrud.AllowAuthorMatch = true;
+            mockCrud.NumberOfAuthors = 1;
+            target.MockCrudService = mockCrud;
+
             int bookcount = 0;
             int videocount = 0;
             IEnumerable<Media> actual;
@@ -99,14 +112,26 @@
             SearchMediaService target = new SearchMediaService(); 
             MediaTypes mediatype = MediaTypes.Video;
             string title = "Star Wars"; 
-            string keywords = string.Empty; 
+            string keywords = string.Empty;
+            ItemName itemname = new ItemName("George Lucas");
 
             Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
             mockAWSE.AllowVideos = true;
             mockAWSE.NumberOfVideos = 3;
             mockAWSE.AllowBooks = false;
             mockAWSE.NumberOfBooks = 0;
+            mockAWSE.MatchingProducerName = itemname;
             target.MockIAWSECommerceService = mockAWSE;
+
+            Mock.MockCrudService mockCrud = new Mock.MockCrudService();
+            mockCrud.AllowVideos = false;
+            mockCrud.NumberOfVideos = 0;
+            mockCrud.AllowBooks = false;
+            mockCrud.NumberOfBooks = 0;
+            mockCrud.AllowProducerMatch = true;
+            mockCrud.NumberOfProducers = 1;
+            target.MockCrudService = mockCrud;
+
             int bookcount = 0;
             int videocount = 0;
             IEnumerable<Media> actual;
@@ -172,14 +197,25 @@
         [TestMethod]
         public void AuthorSearchRemoteTest()
         {
+            string author = "Jim Butcher";
+            string keywords = string.Empty; 
+
             SearchMediaService target = new SearchMediaService();
             Mock.MockAWSECommerce mockAWSE = new Mock.MockAWSECommerce();
             mockAWSE.AllowVideos = false;
             mockAWSE.AllowBooks = true;
             mockAWSE.NumberOfBooks = 2;
+
+            ItemName itemname = new ItemName(author);
+            mockAWSE.MatchingAuthorName = itemname;
             target.MockIAWSECommerceService = mockAWSE;
-            string author = "Jim Butcher";
-            string keywords = string.Empty; 
+
+            Mock.MockCrudService mockCrud = new Mock.MockCrudService();
+            mockCrud.AllowVideos = false;
+            mockCrud.NumberOfVideos = 0;
+            mockCrud.AllowBooks = false;
+            mockCrud.NumberOfBooks = 0;
+            target.MockCrudService = mockCrud;
 
             IEnumerable<Media> actual;
             actual = target.AuthorSearchRemote(author, keywords);
