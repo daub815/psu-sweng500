@@ -9,6 +9,26 @@
     public static class MediaObjectMother
     {
         /// <summary>
+        /// create a book with a specified title
+        /// </summary>
+        /// <param name="title"> the title the caller wants</param>
+        /// <returns> a book</returns>
+        public static Book CreateBook(string title)
+        {
+           Book book1 = new Book();
+           book1.Acquired = new System.DateTime(2004, 6, 5);
+           book1.Comment = "A sample thesaurus";
+           book1.ISBN = "1234567890123";
+           book1.NumberOfStars = 3.0;
+           book1.IsBorrowable = false;
+           book1.LibraryLocation = string.Empty;
+           book1.Description = "Authororitative and comprehensive, yet easy to use and portable";
+           book1.Publisher = "Random House Inc";
+           book1.Title = title;
+           return book1;
+        }
+
+        /// <summary>
         /// Returns a list of created books without an id
         /// </summary>
         /// <returns>A list of new books</returns>
@@ -124,6 +144,26 @@
             video1.Title = "Stargate SG.1 Season 1";
             videos.Add(video1);
             return videos;
+        }
+
+        /// <summary>
+        /// create a video with a specific title
+        /// </summary>
+        /// <param name="title"> the title</param>
+        /// <returns> a video with prefilled fields</returns>
+       public static Video CreateVideo(string title)
+        {
+            Video video1 = new Video();
+            video1.Acquired = new System.DateTime(2010, 12, 25);
+            video1.Comment = "Great Series";
+            video1.NumberOfStars = 3.0;
+            video1.IsBorrowable = false;
+            video1.Description = "The Complete First Season";
+            video1.Released = new System.DateTime(2006, 1, 1);
+            video1.Publisher = "Metro Goldwyn Meyers Studio";
+            video1.Title = title;
+            video1.UPC = "123456789012345";
+            return video1;
         }
     }
 }

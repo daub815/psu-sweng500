@@ -119,6 +119,7 @@
             {
                 title = string.Empty;
             }
+
             if (this.AllowBooks)
             {
                 for (int i = 0; i < this.NumberOfBooks; i++)
@@ -130,7 +131,6 @@
                 }
             }
 
-
             if (this.AllowVideos)
             {
                 for (int i = 0; i < this.NumberOfVideos; i++)
@@ -141,6 +141,7 @@
                     items.Add(videoItem);
                 }
             }
+
             return items;
         }
 
