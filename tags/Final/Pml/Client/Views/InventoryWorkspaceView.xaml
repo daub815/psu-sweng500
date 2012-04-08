@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Sweng500.Pml.Client.Views.InventoryWorkspaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:vm="clr-namespace:Sweng500.Pml.ViewModel;assembly=Sweng500.Pml.ViewModel"
+             xmlns:dal="clr-namespace:Sweng500.Pml.DataAccessLayer;assembly=Sweng500.Pml.DataAccessLayer"
+             Margin="5"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             d:DesignWidth="300">
+    <Grid>
+        <DataGrid x:Name="InventoryDataGrid"
+                  ItemsSource="{Binding Media, Mode=OneWay}"
+                  ClipboardCopyMode="IncludeHeader"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataTemplate.Resources>
+                                <DataTemplate DataType="{x:Type dal:Book}">
+                                    <Image Source="Images/book.png" 
+                                           Height="12" />
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type dal:Video}">
+                                    <Image Source="Images/dvd_unmount.png"
+                                           Height="12" />
+                                </DataTemplate>
+                            </DataTemplate.Resources>
+                            <ContentControl Content="{Binding Path=., Mode=OneWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding MediaId, Mode=OneWay}" />
+                <DataGridTextColumn Header="Title"
+                                    Binding="{Binding Title, Mode=OneWay}" />
+                <DataGridTextColumn Header="Description"
+                                    Binding="{Binding Description, Mode=OneWay}"
+                                    Width="250">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="WordEllipsis" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Comment"
+                                    Binding="{Binding Comment, Mode=OneWay}"
+                                    Width="250">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="WordEllipsis" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Acquired"
+                                    Binding="{Binding Acquired, Mode=OneWay}" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="_Edit"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditItemCommand, Mode=OneWay}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
+                    <MenuItem Header="_Delete"
+                              Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=DeleteItemCommand, Mode=OneWay}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem, Mode=OneWay}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding Source={StaticResource ResourceKey=GlobalCommands}, Path=EditItemCommand, Mode=OneWay}"
+                                           CommandParameter="{Binding ElementName=InventoryDataGrid, Path=SelectedItem, Mode=OneWay}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,913 @@
+﻿<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Runtime>
+<edmx:StorageModels>
+<Schema Namespace="Sweng500.Pml.DataAccessLayer.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="Sweng500PmlDataAccessLayerStoreContainer">
+    <EntitySet Name="People" EntityType="Sweng500.Pml.DataAccessLayer.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CodeTypes" EntityType="Sweng500.Pml.DataAccessLayer.Store.CodeTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Codes" EntityType="Sweng500.Pml.DataAccessLayer.Store.Codes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media" EntityType="Sweng500.Pml.DataAccessLayer.Store.Media" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BorrowedMedias" EntityType="Sweng500.Pml.DataAccessLayer.Store.BorrowedMedias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuthorBookAssociations" EntityType="Sweng500.Pml.DataAccessLayer.Store.AuthorBookAssociations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DirectorAssociations" EntityType="Sweng500.Pml.DataAccessLayer.Store.DirectorAssociations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProducerAssociations" EntityType="Sweng500.Pml.DataAccessLayer.Store.ProducerAssociations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Borrower" EntityType="Sweng500.Pml.DataAccessLayer.Store.People_Borrower" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media_Book" EntityType="Sweng500.Pml.DataAccessLayer.Store.Media_Book" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Author" EntityType="Sweng500.Pml.DataAccessLayer.Store.People_Author" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media_Video" EntityType="Sweng500.Pml.DataAccessLayer.Store.Media_Video" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Director" EntityType="Sweng500.Pml.DataAccessLayer.Store.People_Director" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Producer" EntityType="Sweng500.Pml.DataAccessLayer.Store.People_Producer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_User" EntityType="Sweng500.Pml.DataAccessLayer.Store.People_User" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CodeTypeCode" Association="Sweng500.Pml.DataAccessLayer.Store.CodeTypeCode">
+      <End Role="CodeType" EntitySet="CodeTypes" />
+      <End Role="Code" EntitySet="Codes" />
+    </AssociationSet>
+    <AssociationSet Name="BorrowerBorrowedMedia" Association="Sweng500.Pml.DataAccessLayer.Store.BorrowerBorrowedMedia">
+      <End Role="Borrower" EntitySet="People_Borrower" />
+      <End Role="BorrowedMedia" EntitySet="BorrowedMedias" />
+    </AssociationSet>
+    <AssociationSet Name="MediaBorrowedMedia" Association="Sweng500.Pml.DataAccessLayer.Store.MediaBorrowedMedia">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="BorrowedMedia" EntitySet="BorrowedMedias" />
+    </AssociationSet>
+    <AssociationSet Name="BookAuthorBookAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.BookAuthorBookAssociation">
+      <End Role="Book" EntitySet="Media_Book" />
+      <End Role="AuthorBookAssociation" EntitySet="AuthorBookAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="AuthorAuthorBookAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.AuthorAuthorBookAssociation">
+      <End Role="Author" EntitySet="People_Author" />
+      <End Role="AuthorBookAssociation" EntitySet="AuthorBookAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="VideoDirectorAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.VideoDirectorAssociation">
+      <End Role="Video" EntitySet="Media_Video" />
+      <End Role="DirectorAssociation" EntitySet="DirectorAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="DirectorDirectorAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.DirectorDirectorAssociation">
+      <End Role="Director" EntitySet="People_Director" />
+      <End Role="DirectorAssociation" EntitySet="DirectorAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="ProducerProducerAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.ProducerProducerAssociation">
+      <End Role="Producer" EntitySet="People_Producer" />
+      <End Role="ProducerAssociation" EntitySet="ProducerAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="VideoProducerAssociation" Association="Sweng500.Pml.DataAccessLayer.Store.VideoProducerAssociation">
+      <End Role="Video" EntitySet="Media_Video" />
+      <End Role="ProducerAssociation" EntitySet="ProducerAssociations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Borrower_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Borrower_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Borrower" EntitySet="People_Borrower" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_inherits_Media" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Book_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Book" EntitySet="Media_Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Author_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Author_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Author" EntitySet="People_Author" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_inherits_Media" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Video_inherits_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Video" EntitySet="Media_Video" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Director_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Director_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Director" EntitySet="People_Director" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producer_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.Store.FK_Producer_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Producer" EntitySet="People_Producer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_inherits_Person" Association="Sweng500.Pml.DataAccessLayer.Store.FK_User_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="User" EntitySet="People_User" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="true" />
+    <Property Name="Address" Type="nvarchar" Nullable="true" />
+    <Property Name="StateOrProvince" Type="nvarchar" Nullable="true" />
+    <Property Name="PostalCode" Type="nvarchar" Nullable="true" />
+    <Property Name="Country" Type="nvarchar" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CodeTypes">
+    <Key>
+      <PropertyRef Name="CodeTypeId" />
+    </Key>
+    <Property Name="CodeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Codes">
+    <Key>
+      <PropertyRef Name="CodeId" />
+    </Key>
+    <Property Name="CodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeDescription" Type="nvarchar" Nullable="false" />
+    <Property Name="CodeTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="MediaId" />
+    </Key>
+    <Property Name="MediaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" />
+    <Property Name="Publisher" Type="nvarchar" Nullable="true" />
+    <Property Name="Acquired" Type="datetime" Nullable="false" />
+    <Property Name="NumberOfStars" Type="float" Nullable="true" />
+    <Property Name="Comment" Type="nvarchar" Nullable="true" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" />
+    <Property Name="IsBorrowable" Type="bit" Nullable="false" />
+    <Property Name="ImageUrl" Type="nvarchar" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BorrowedMedias">
+    <Key>
+      <PropertyRef Name="BorrowedMediaId" />
+    </Key>
+    <Property Name="BorrowedOn" Type="datetime" Nullable="false" />
+    <Property Name="BorrowerPersonId" Type="int" Nullable="false" />
+    <Property Name="ReturnedOn" Type="datetime" Nullable="true" />
+    <Property Name="MediaMediaId" Type="int" Nullable="false" />
+    <Property Name="BorrowedMediaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuthorBookAssociations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookMediaId" Type="int" Nullable="false" />
+    <Property Name="AuthorPersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DirectorAssociations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VideoMediaId" Type="int" Nullable="false" />
+    <Property Name="DirectorPersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProducerAssociations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProducerPersonId" Type="int" Nullable="false" />
+    <Property Name="VideoMediaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Borrower">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="CanBorrow" Type="bit" Nullable="true" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media_Book">
+    <Key>
+      <PropertyRef Name="MediaId" />
+    </Key>
+    <Property Name="ISBN" Type="nvarchar" Nullable="true" MaxLength="13" />
+    <Property Name="LibraryLocation" Type="nvarchar" Nullable="true" />
+    <Property Name="Published" Type="datetime" Nullable="false" />
+    <Property Name="MediaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Author">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media_Video">
+    <Key>
+      <PropertyRef Name="MediaId" />
+    </Key>
+    <Property Name="UPC" Type="nvarchar" Nullable="true" MaxLength="15" />
+    <Property Name="Released" Type="datetime" Nullable="false" />
+    <Property Name="BoardRatingId" Type="int" Nullable="true" />
+    <Property Name="MediaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Director">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Producer">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_User">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="Code" Type="nvarchar" Nullable="false" />
+    <Property Name="Password" Type="varbinary" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CodeTypeCode">
+    <End Role="CodeType" Type="Sweng500.Pml.DataAccessLayer.Store.CodeTypes" Multiplicity="1" />
+    <End Role="Code" Type="Sweng500.Pml.DataAccessLayer.Store.Codes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CodeType">
+        <PropertyRef Name="CodeTypeId" />
+      </Principal>
+      <Dependent Role="Code">
+        <PropertyRef Name="CodeTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BorrowerBorrowedMedia">
+    <End Role="Borrower" Type="Sweng500.Pml.DataAccessLayer.Store.People_Borrower" Multiplicity="1" />
+    <End Role="BorrowedMedia" Type="Sweng500.Pml.DataAccessLayer.Store.BorrowedMedias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Borrower">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="BorrowedMedia">
+        <PropertyRef Name="BorrowerPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MediaBorrowedMedia">
+    <End Role="Media" Type="Sweng500.Pml.DataAccessLayer.Store.Media" Multiplicity="1" />
+    <End Role="BorrowedMedia" Type="Sweng500.Pml.DataAccessLayer.Store.BorrowedMedias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="BorrowedMedia">
+        <PropertyRef Name="MediaMediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookAuthorBookAssociation">
+    <End Role="Book" Type="Sweng500.Pml.DataAccessLayer.Store.Media_Book" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuthorBookAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.AuthorBookAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="AuthorBookAssociation">
+        <PropertyRef Name="BookMediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AuthorAuthorBookAssociation">
+    <End Role="Author" Type="Sweng500.Pml.DataAccessLayer.Store.People_Author" Multiplicity="1" />
+    <End Role="AuthorBookAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.AuthorBookAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="AuthorBookAssociation">
+        <PropertyRef Name="AuthorPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VideoDirectorAssociation">
+    <End Role="Video" Type="Sweng500.Pml.DataAccessLayer.Store.Media_Video" Multiplicity="1" />
+    <End Role="DirectorAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.DirectorAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="DirectorAssociation">
+        <PropertyRef Name="VideoMediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DirectorDirectorAssociation">
+    <End Role="Director" Type="Sweng500.Pml.DataAccessLayer.Store.People_Director" Multiplicity="1" />
+    <End Role="DirectorAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.DirectorAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Director">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="DirectorAssociation">
+        <PropertyRef Name="DirectorPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProducerProducerAssociation">
+    <End Role="Producer" Type="Sweng500.Pml.DataAccessLayer.Store.People_Producer" Multiplicity="1" />
+    <End Role="ProducerAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.ProducerAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="ProducerAssociation">
+        <PropertyRef Name="ProducerPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VideoProducerAssociation">
+    <End Role="Video" Type="Sweng500.Pml.DataAccessLayer.Store.Media_Video" Multiplicity="1" />
+    <End Role="ProducerAssociation" Type="Sweng500.Pml.DataAccessLayer.Store.ProducerAssociations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Video">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="ProducerAssociation">
+        <PropertyRef Name="VideoMediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Borrower_inherits_Person">
+    <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Store.People" Multiplicity="1" />
+    <End Role="Borrower" Type="Sweng500.Pml.DataAccessLayer.Store.People_Borrower" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Borrower">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_inherits_Media">
+    <End Role="Media" Type="Sweng500.Pml.DataAccessLayer.Store.Media" Multiplicity="1" />
+    <End Role="Book" Type="Sweng500.Pml.DataAccessLayer.Store.Media_Book" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="MediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Author_inherits_Person">
+    <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Store.People" Multiplicity="1" />
+    <End Role="Author" Type="Sweng500.Pml.DataAccessLayer.Store.People_Author" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Author">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_inherits_Media">
+    <End Role="Media" Type="Sweng500.Pml.DataAccessLayer.Store.Media" Multiplicity="1" />
+    <End Role="Video" Type="Sweng500.Pml.DataAccessLayer.Store.Media_Video" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="MediaId" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="MediaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Director_inherits_Person">
+    <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Store.People" Multiplicity="1" />
+    <End Role="Director" Type="Sweng500.Pml.DataAccessLayer.Store.People_Director" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Director">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producer_inherits_Person">
+    <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Store.People" Multiplicity="1" />
+    <End Role="Producer" Type="Sweng500.Pml.DataAccessLayer.Store.People_Producer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Producer">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_inherits_Person">
+    <End Role="Person" Type="Sweng500.Pml.DataAccessLayer.Store.People" Multiplicity="1" />
+    <End Role="User" Type="Sweng500.Pml.DataAccessLayer.Store.People_User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+<edmx:ConceptualModels>
+<Schema Namespace="Sweng500.Pml.DataAccessLayer" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MasterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="Sweng500.Pml.DataAccessLayer.Person" />
+          <EntitySet Name="CodeTypes" EntityType="Sweng500.Pml.DataAccessLayer.CodeType" />
+          <EntitySet Name="Codes" EntityType="Sweng500.Pml.DataAccessLayer.Code" />
+          <EntitySet Name="Media" EntityType="Sweng500.Pml.DataAccessLayer.Media" />
+          <EntitySet Name="BorrowedMedias" EntityType="Sweng500.Pml.DataAccessLayer.BorrowedMedia" />
+          <AssociationSet Name="CodeTypeCode" Association="Sweng500.Pml.DataAccessLayer.CodeTypeCode">
+            <End Role="CodeType" EntitySet="CodeTypes" />
+            <End Role="Code" EntitySet="Codes" />
+          </AssociationSet>
+          <AssociationSet Name="BorrowerBorrowedMedia" Association="Sweng500.Pml.DataAccessLayer.BorrowerBorrowedMedia">
+            <End Role="Borrower" EntitySet="People" />
+            <End Role="BorrowedMedia" EntitySet="BorrowedMedias" />
+          </AssociationSet>
+          <AssociationSet Name="MediaBorrowedMedia" Association="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="BorrowedMedia" EntitySet="BorrowedMedias" />
+          </AssociationSet>
+          <EntitySet Name="AuthorBookAssociations" EntityType="Sweng500.Pml.DataAccessLayer.AuthorBookAssociation" />
+          <AssociationSet Name="BookAuthorBookAssociation" Association="Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation">
+            <End Role="Book" EntitySet="Media" />
+            <End Role="AuthorBookAssociation" EntitySet="AuthorBookAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorAuthorBookAssociation" Association="Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation">
+            <End Role="Author" EntitySet="People" />
+            <End Role="AuthorBookAssociation" EntitySet="AuthorBookAssociations" />
+          </AssociationSet>
+          <EntitySet Name="DirectorAssociations" EntityType="Sweng500.Pml.DataAccessLayer.DirectorAssociation" />
+          <AssociationSet Name="VideoDirectorAssociation" Association="Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation">
+            <End Role="Video" EntitySet="Media" />
+            <End Role="DirectorAssociation" EntitySet="DirectorAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="DirectorDirectorAssociation" Association="Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation">
+            <End Role="Director" EntitySet="People" />
+            <End Role="DirectorAssociation" EntitySet="DirectorAssociations" />
+          </AssociationSet>
+          <EntitySet Name="ProducerAssociations" EntityType="Sweng500.Pml.DataAccessLayer.ProducerAssociation" />
+          <AssociationSet Name="ProducerProducerAssociation" Association="Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation">
+            <End Role="Producer" EntitySet="People" />
+            <End Role="ProducerAssociation" EntitySet="ProducerAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="VideoProducerAssociation" Association="Sweng500.Pml.DataAccessLayer.VideoProducerAssociation">
+            <End Role="Video" EntitySet="Media" />
+            <End Role="ProducerAssociation" EntitySet="ProducerAssociations" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Person" Abstract="true">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="StateOrProvince" Nullable="true" />
+          <Property Type="String" Name="PostalCode" Nullable="true" />
+          <Property Type="String" Name="Country" Nullable="true" />
+        </EntityType>
+        <EntityType Name="CodeType">
+          <Key>
+            <PropertyRef Name="CodeTypeId" />
+          </Key>
+          <Property Type="Int32" Name="CodeTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Type" Nullable="false" />
+          <NavigationProperty Name="Codes" Relationship="Sweng500.Pml.DataAccessLayer.CodeTypeCode" FromRole="CodeType" ToRole="Code" />
+        </EntityType>
+        <EntityType Name="User" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
+          <Property Type="String" Name="Code" Nullable="false" />
+          <Property Type="Binary" Name="Password" Nullable="false" />
+          <Property Type="DateTime" Name="LastLogin" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Director" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
+          <NavigationProperty Name="DirectorAssociations" Relationship="Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation" FromRole="Director" ToRole="DirectorAssociation" />
+        </EntityType>
+        <EntityType Name="Producer" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
+          <NavigationProperty Name="ProducerAssociations" Relationship="Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation" FromRole="Producer" ToRole="ProducerAssociation" />
+        </EntityType>
+        <EntityType Name="Code">
+          <Key>
+            <PropertyRef Name="CodeId" />
+          </Key>
+          <Property Type="Int32" Name="CodeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CodeDescription" Nullable="false" />
+          <NavigationProperty Name="CodeType" Relationship="Sweng500.Pml.DataAccessLayer.CodeTypeCode" FromRole="Code" ToRole="CodeType" />
+          <Property Type="Int32" Name="CodeTypeId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Borrower" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
+          <Property Type="Boolean" Name="CanBorrow" Nullable="true" />
+          <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.BorrowerBorrowedMedia" FromRole="Borrower" ToRole="BorrowedMedia" />
+        </EntityType>
+        <EntityType Name="Media" Abstract="true">
+          <Key>
+            <PropertyRef Name="MediaId" />
+          </Key>
+          <Property Type="Int32" Name="MediaId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <Property Type="String" Name="Publisher" Nullable="true" />
+          <Property Type="DateTime" Name="Acquired" Nullable="false" />
+          <Property Type="Double" Name="NumberOfStars" Nullable="true" />
+          <Property Type="String" Name="Comment" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsBorrowable" Nullable="false" />
+          <NavigationProperty Name="BorrowedMedias" Relationship="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" FromRole="Media" ToRole="BorrowedMedia" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+        </EntityType>
+        <EntityType Name="BorrowedMedia">
+          <Key>
+            <PropertyRef Name="BorrowedMediaId" />
+          </Key>
+          <Property Type="DateTime" Name="BorrowedOn" Nullable="false" />
+          <NavigationProperty Name="Borrower" Relationship="Sweng500.Pml.DataAccessLayer.BorrowerBorrowedMedia" FromRole="BorrowedMedia" ToRole="Borrower" />
+          <Property Name="BorrowerPersonId" Nullable="false" Type="Int32" />
+          <Property Type="DateTime" Name="ReturnedOn" Nullable="true" />
+          <NavigationProperty Name="Media" Relationship="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" FromRole="BorrowedMedia" ToRole="Media" />
+          <Property Type="Int32" Name="MediaMediaId" Nullable="false" />
+          <Property Type="Int32" Name="BorrowedMediaId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Video" BaseType="Sweng500.Pml.DataAccessLayer.Media" >
+          <Property Type="String" Name="UPC" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="Released" Nullable="false" />
+          <Property Type="Int32" Name="BoardRatingId" Nullable="true" />
+          <NavigationProperty Name="DirectorAssociations" Relationship="Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation" FromRole="Video" ToRole="DirectorAssociation" />
+          <NavigationProperty Name="ProducerAssociations" Relationship="Sweng500.Pml.DataAccessLayer.VideoProducerAssociation" FromRole="Video" ToRole="ProducerAssociation" />
+        </EntityType>
+        <EntityType Name="Book" BaseType="Sweng500.Pml.DataAccessLayer.Media" >
+          <Property Type="String" Name="ISBN" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="LibraryLocation" Nullable="true" />
+          <Property Type="DateTime" Name="Published" Nullable="false" />
+          <NavigationProperty Name="AuthorBookAssociations" Relationship="Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation" FromRole="Book" ToRole="AuthorBookAssociation" />
+        </EntityType>
+        <EntityType Name="Author" BaseType="Sweng500.Pml.DataAccessLayer.Person" >
+          <NavigationProperty Name="AuthorBookAssociations" Relationship="Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation" FromRole="Author" ToRole="AuthorBookAssociation" />
+        </EntityType>
+        <Association Name="CodeTypeCode">
+          <End Type="Sweng500.Pml.DataAccessLayer.CodeType" Role="CodeType" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.Code" Role="Code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeType">
+              <PropertyRef Name="CodeTypeId" />
+            </Principal>
+            <Dependent Role="Code">
+              <PropertyRef Name="CodeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BorrowerBorrowedMedia">
+          <End Type="Sweng500.Pml.DataAccessLayer.Borrower" Role="Borrower" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.BorrowedMedia" Role="BorrowedMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Borrower">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="BorrowedMedia">
+              <PropertyRef Name="BorrowerPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MediaBorrowedMedia">
+          <End Type="Sweng500.Pml.DataAccessLayer.Media" Role="Media" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.BorrowedMedia" Role="BorrowedMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="MediaId" />
+            </Principal>
+            <Dependent Role="BorrowedMedia">
+              <PropertyRef Name="MediaMediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AuthorBookAssociation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Book" Relationship="Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation" FromRole="AuthorBookAssociation" ToRole="Book" />
+          <Property Type="Int32" Name="BookMediaId" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation" FromRole="AuthorBookAssociation" ToRole="Author" />
+          <Property Type="Int32" Name="AuthorPersonId" Nullable="false" />
+        </EntityType>
+        <Association Name="BookAuthorBookAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Book" Role="Book" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Sweng500.Pml.DataAccessLayer.AuthorBookAssociation" Role="AuthorBookAssociation" Multiplicity="*" >
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="MediaId" />
+            </Principal>
+            <Dependent Role="AuthorBookAssociation">
+              <PropertyRef Name="BookMediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorAuthorBookAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Author" Role="Author" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.AuthorBookAssociation" Role="AuthorBookAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="AuthorBookAssociation">
+              <PropertyRef Name="AuthorPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DirectorAssociation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Video" Relationship="Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation" FromRole="DirectorAssociation" ToRole="Video" />
+          <Property Type="Int32" Name="VideoMediaId" Nullable="false" />
+          <NavigationProperty Name="Director" Relationship="Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation" FromRole="DirectorAssociation" ToRole="Director" />
+          <Property Type="Int32" Name="DirectorPersonId" Nullable="false" />
+        </EntityType>
+        <Association Name="VideoDirectorAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Video" Role="Video" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.DirectorAssociation" Role="DirectorAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="MediaId" />
+            </Principal>
+            <Dependent Role="DirectorAssociation">
+              <PropertyRef Name="VideoMediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DirectorDirectorAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Director" Role="Director" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.DirectorAssociation" Role="DirectorAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Director">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="DirectorAssociation">
+              <PropertyRef Name="DirectorPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProducerAssociation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Producer" Relationship="Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation" FromRole="ProducerAssociation" ToRole="Producer" />
+          <Property Type="Int32" Name="ProducerPersonId" Nullable="false" />
+          <NavigationProperty Name="Video" Relationship="Sweng500.Pml.DataAccessLayer.VideoProducerAssociation" FromRole="ProducerAssociation" ToRole="Video" />
+          <Property Type="Int32" Name="VideoMediaId" Nullable="false" />
+        </EntityType>
+        <Association Name="ProducerProducerAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Producer" Role="Producer" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.ProducerAssociation" Role="ProducerAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producer">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="ProducerAssociation">
+              <PropertyRef Name="ProducerPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VideoProducerAssociation">
+          <End Type="Sweng500.Pml.DataAccessLayer.Video" Role="Video" Multiplicity="1" />
+          <End Type="Sweng500.Pml.DataAccessLayer.ProducerAssociation" Role="ProducerAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Video">
+              <PropertyRef Name="MediaId" />
+            </Principal>
+            <Dependent Role="ProducerAssociation">
+              <PropertyRef Name="VideoMediaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+</Schema>
+</edmx:ConceptualModels>
+<edmx:Mappings>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Sweng500PmlDataAccessLayerStoreContainer" CdmEntityContainer="MasterEntities">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="StateOrProvince" ColumnName="StateOrProvince" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Borrower)">
+        <MappingFragment StoreEntitySet="People_Borrower">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="CanBorrow" ColumnName="CanBorrow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Author)">
+        <MappingFragment StoreEntitySet="People_Author">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Director)">
+        <MappingFragment StoreEntitySet="People_Director">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Producer)">
+        <MappingFragment StoreEntitySet="People_Producer">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.User)">
+        <MappingFragment StoreEntitySet="People_User">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CodeTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.CodeType)">
+        <MappingFragment StoreEntitySet="CodeTypes">
+          <ScalarProperty Name="CodeTypeId" ColumnName="CodeTypeId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Codes">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Code)">
+        <MappingFragment StoreEntitySet="Codes">
+          <ScalarProperty Name="CodeId" ColumnName="CodeId" />
+          <ScalarProperty Name="CodeDescription" ColumnName="CodeDescription" />
+          <ScalarProperty Name="CodeTypeId" ColumnName="CodeTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Media)">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="Acquired" ColumnName="Acquired" />
+          <ScalarProperty Name="NumberOfStars" ColumnName="NumberOfStars" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Book)">
+        <MappingFragment StoreEntitySet="Media_Book">
+          <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="LibraryLocation" ColumnName="LibraryLocation" />
+          <ScalarProperty Name="Published" ColumnName="Published" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.Video)">
+        <MappingFragment StoreEntitySet="Media_Video">
+          <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+          <ScalarProperty Name="UPC" ColumnName="UPC" />
+          <ScalarProperty Name="Released" ColumnName="Released" />
+          <ScalarProperty Name="BoardRatingId" ColumnName="BoardRatingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BorrowedMedias">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.BorrowedMedia)">
+        <MappingFragment StoreEntitySet="BorrowedMedias">
+          <ScalarProperty Name="BorrowedMediaId" ColumnName="BorrowedMediaId" />
+          <ScalarProperty Name="BorrowedOn" ColumnName="BorrowedOn" />
+          <ScalarProperty Name="BorrowerPersonId" ColumnName="BorrowerPersonId" />
+          <ScalarProperty Name="ReturnedOn" ColumnName="ReturnedOn" />
+          <ScalarProperty Name="MediaMediaId" ColumnName="MediaMediaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuthorBookAssociations">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.AuthorBookAssociation)">
+        <MappingFragment StoreEntitySet="AuthorBookAssociations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BookMediaId" ColumnName="BookMediaId" />
+          <ScalarProperty Name="AuthorPersonId" ColumnName="AuthorPersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DirectorAssociations">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.DirectorAssociation)">
+        <MappingFragment StoreEntitySet="DirectorAssociations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VideoMediaId" ColumnName="VideoMediaId" />
+          <ScalarProperty Name="DirectorPersonId" ColumnName="DirectorPersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProducerAssociations">
+      <EntityTypeMapping TypeName="IsTypeOf(Sweng500.Pml.DataAccessLayer.ProducerAssociation)">
+        <MappingFragment StoreEntitySet="ProducerAssociations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProducerPersonId" ColumnName="ProducerPersonId" />
+          <ScalarProperty Name="VideoMediaId" ColumnName="VideoMediaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+</edmx:Runtime>
+<edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+<Connection><DesignerInfoPropertySet><DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" /></DesignerInfoPropertySet></Connection>
+<edmx:Options><DesignerInfoPropertySet><DesignerProperty Name="ValidateOnBuild" Value="True" /><DesignerProperty Name="EnablePluralization" Value="True" /><DesignerProperty Name="IncludeForeignKeysInModel" Value="True" /><DesignerProperty Name="CodeGenerationStrategy" Value="Default" /></DesignerInfoPropertySet></edmx:Options>
+<edmx:Diagrams >
+      <Diagram Name="Master" ZoomLevel="85">
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Person" Width="1.5" PointX="2.5" PointY="0.5" Height="2.3648893229166665" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.CodeType" Width="1.5" PointX="8.5" PointY="3.5" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.User" Width="1.5" PointX="4.875" PointY="1.125" Height="1.59568359375" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Director" Width="1.5" PointX="2.5" PointY="3.25" Height="1.0187792968749996" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Director" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="2.8648893229166665" />
+          <ConnectorPoint PointX="3.25" PointY="3.25" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.User" ManuallyRouted="false" >
+          <ConnectorPoint PointX="4" PointY="1.922841796875" />
+          <ConnectorPoint PointX="4.875" PointY="1.922841796875" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Producer" Width="1.5" PointX="4.875" PointY="3.25" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Producer" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="2.8648893229166665" />
+          <ConnectorPoint PointX="3.25" PointY="3.058" />
+          <ConnectorPoint PointX="5.625" PointY="3.058" />
+          <ConnectorPoint PointX="5.625" PointY="3.25" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Code" Width="1.5" PointX="10.875" PointY="3.25" Height="1.7879850260416665" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Borrower" Width="1.5" PointX="6.75" PointY="0.5" Height="1.4033821614583339" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Borrower" ManuallyRouted="false" >
+          <ConnectorPoint PointX="4" PointY="0.78125" />
+          <ConnectorPoint PointX="6.75" PointY="0.78125" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Media" Width="1.5" PointX="0.625" PointY="11" Height="2.9417936197916656" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.BorrowedMedia" Width="1.5" PointX="7" PointY="5.125" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Video" Width="1.5" PointX="4" PointY="8.25" Height="1.9802864583333335" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Video" ManuallyRouted="false" >
+          <ConnectorPoint PointX="1.375" PointY="11" />
+          <ConnectorPoint PointX="1.375" PointY="10.605286458333332" />
+          <ConnectorPoint PointX="4.75" PointY="10.605286458333332" />
+          <ConnectorPoint PointX="4.75" PointY="10.230286458333334" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Book" Width="1.5" PointX="0.625" PointY="7.75" Height="1.7879850260416665" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Book" ManuallyRouted="false" >
+          <ConnectorPoint PointX="1.375" PointY="11" />
+          <ConnectorPoint PointX="1.375" PointY="9.5379850260416674" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.Author" Width="1.5" PointX="0.625" PointY="3.25" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="Sweng500.Pml.DataAccessLayer.Author" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="2.8648893229166665" />
+          <ConnectorPoint PointX="3.25" PointY="3.058" />
+          <ConnectorPoint PointX="1.375" PointY="3.058" />
+          <ConnectorPoint PointX="1.375" PointY="3.25" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.CodeTypeCode">
+          <ConnectorPoint PointX="10" PointY="4.2689925130208337" />
+          <ConnectorPoint PointX="10.875" PointY="4.2689925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.BorrowerBorrowedMedia">
+          <ConnectorPoint PointX="7.9375" PointY="1.9033821614583339" />
+          <ConnectorPoint PointX="7.9375" PointY="5.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.MediaBorrowedMedia" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.125" PointY="12.470896809895834" />
+          <ConnectorPoint PointX="7.75" PointY="12.470896809895834" />
+          <ConnectorPoint PointX="7.75" PointY="7.4898893229166656" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.AuthorBookAssociation" Width="1.5" PointX="0.5" PointY="5.125" Height="1.9802864583333326" />
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.BookAuthorBookAssociation">
+          <ConnectorPoint PointX="1.3125" PointY="7.75" />
+          <ConnectorPoint PointX="1.3125" PointY="7.1052864583333326" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.AuthorAuthorBookAssociation">
+          <ConnectorPoint PointX="1.3125" PointY="4.4610807291666665" />
+          <ConnectorPoint PointX="1.3125" PointY="5.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.DirectorAssociation" Width="1.5" PointX="2.875" PointY="5.125" Height="1.9802864583333326" />
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.VideoDirectorAssociation">
+          <ConnectorPoint PointX="4.1875" PointY="8.25" />
+          <ConnectorPoint PointX="4.1875" PointY="7.1052864583333326" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.DirectorDirectorAssociation">
+          <ConnectorPoint PointX="3.4375" PointY="4.4610807291666665" />
+          <ConnectorPoint PointX="3.4375" PointY="5.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Sweng500.Pml.DataAccessLayer.ProducerAssociation" Width="1.5" PointX="5" PointY="5.125" Height="1.9802864583333326" />
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.ProducerProducerAssociation">
+          <ConnectorPoint PointX="5.6875" PointY="4.4610807291666665" />
+          <ConnectorPoint PointX="5.6875" PointY="5.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Sweng500.Pml.DataAccessLayer.VideoProducerAssociation">
+          <ConnectorPoint PointX="5.25" PointY="8.25" />
+          <ConnectorPoint PointX="5.25" PointY="7.1052864583333326" />
+        </AssociationConnector>
+        </Diagram>
+    </edmx:Diagrams>
+</edmx:Designer></edmx:Edmx>
