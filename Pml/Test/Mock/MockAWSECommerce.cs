@@ -45,7 +45,34 @@
         }
 
         /// <summary>
-        /// A method to do an item search using the Amazon web service
+        /// Gets or sets the matching name for an Author
+        /// </summary>
+        public ItemName MatchingAuthorName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the matching name for a Director
+        /// </summary>
+        public ItemName MatchingDirectorName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the matching name for a Producer
+        /// </summary>
+        public ItemName MatchingProducerName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// A mock method to do an item search instead of using the weeb service
         /// </summary>
         /// <param name="searchIndex"> the group to do search such as "DVD","Books"</param>
         /// <param name="title">words in the title to search on</param>
@@ -107,6 +134,15 @@
             ir.Description = string.Format("Description_{0}", num);
             ir.Isbn = string.Format("ISBN_{0}", num);
             ir.Title = string.Format("BookTitle_{0}", num);
+            if (this.MatchingAuthorName != null)
+            {
+                ItemName[] authorNames = new ItemName[1];
+                authorNames[0] = this.MatchingAuthorName;
+                ir.Authorsname = authorNames;
+            }
+
+            ir.Publicationdate = new System.DateTime(2012, 2, 3);
+           
             return ir;
         }
 
@@ -121,6 +157,22 @@
             ir.Description = string.Format("Description_{0}", num);
             ir.Upc = string.Format("UPC_{0}", num);
             ir.Title = string.Format("VideoTitle_{0}", num);
+            ir.Releasedate = new System.DateTime(2012, 3, 4);
+
+            if (this.MatchingDirectorName != null)
+            {
+                ItemName[] directorNames = new ItemName[1];
+                directorNames[0] = this.MatchingDirectorName;
+                ir.Directorsname = directorNames;
+            }
+
+            if (this.MatchingProducerName != null)
+            {
+                ItemName[] producerNames = new ItemName[1];
+                producerNames[0] = this.MatchingProducerName;
+                ir.Producersname = producerNames;
+            }
+
             return ir;
         }
     }
